@@ -72,7 +72,7 @@ def show_analytics():
             margin: 0 0 32px 0;
             font-size: 2rem;
             font-weight: 700;
-            color: #0a4b4b;
+            color: #2B2B2B;
             letter-spacing: -0.01em;
             text-align: left;
         '>ALL TASKS</h2>
@@ -84,7 +84,7 @@ def show_analytics():
         <style>
         /* Checkbox label styling to match headers */
         div[data-testid="stCheckbox"] label p {
-            color: #0a4b4b !important;
+            color: #2B2B2B !important;
             font-size: 0.95rem !important;
             font-weight: 600 !important;
             letter-spacing: 0.02em !important;
@@ -98,8 +98,8 @@ def show_analytics():
         }
 
         div[data-testid="stCheckbox"] input[type="checkbox"]:checked ~ span div svg rect {
-            fill: #0a4b4b !important;
-            stroke: #0a4b4b !important;
+            fill: #2B2B2B !important;
+            stroke: #2B2B2B !important;
         }
 
         div[data-testid="stCheckbox"] input[type="checkbox"]:checked ~ span div svg path {
@@ -148,7 +148,7 @@ def show_analytics():
 
     # Add Tasks by User chart for Tea only
     if is_tea:
-        st.markdown("<h3 style='text-align: left; margin: 0 0 20px 0; color: #0a4b4b; font-weight: 600; font-size: 1.1rem; font-family: -apple-system, BlinkMacSystemFont, \"Segoe UI\", sans-serif;'>Tasks by User</h3>", unsafe_allow_html=True)
+        st.markdown("<h3 style='text-align: left; margin: 0 0 20px 0; color: #2B2B2B; font-weight: 600; font-size: 1.1rem; font-family: -apple-system, BlinkMacSystemFont, \"Segoe UI\", sans-serif;'>Tasks by User</h3>", unsafe_allow_html=True)
         tasks_by_user_fig = create_tasks_by_user_chart(df)
         if tasks_by_user_fig:
             st.plotly_chart(tasks_by_user_fig, use_container_width=True)

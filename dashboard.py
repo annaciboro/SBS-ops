@@ -55,24 +55,26 @@ if st.session_state.get("authentication_status") is None:
     with open(logo_path, "rb") as f:
         logo_data = base64.b64encode(f.read()).decode()
 
+    # Import Google Fonts
+    st.markdown("""
+        <link href="https://fonts.googleapis.com/css2?family=Marcellus&family=Questrial&display=swap" rel="stylesheet">
+    """, unsafe_allow_html=True)
+
     # SBS OPERATIONS header at top
     st.markdown(f"""
         <div style="text-align: center; padding-top: 3rem; margin-bottom: 3rem;">
             <div style="
                 font-size: 64px;
-                font-weight: 900;
-                font-family: 'Inter', -apple-system, BlinkMacSystemFont, sans-serif;
-                letter-spacing: -0.03em;
+                font-weight: 400;
+                font-family: 'Marcellus', serif;
+                letter-spacing: -0.01em;
                 display: flex;
                 align-items: baseline;
                 justify-content: center;
                 line-height: 1;
             ">
                 <span style="
-                    background: linear-gradient(135deg, #4d7a40 0%, #0a4b4b 100%);
-                    -webkit-background-clip: text;
-                    -webkit-text-fill-color: transparent;
-                    background-clip: text;
+                    color: #2B2B2B;
                 ">SBS</span><img
                     src="data:image/png;base64,{logo_data}"
                     style="
@@ -82,31 +84,31 @@ if st.session_state.get("authentication_status") is None:
                         display: inline-block;
                         vertical-align: middle;
                         transform: translateY(2px);
-                        filter: drop-shadow(0 4px 12px rgba(10, 75, 75, 0.3));
+                        filter: drop-shadow(0 4px 12px rgba(43, 43, 43, 0.2));
                         object-fit: contain;
                     "
                 /><span style="
                     margin-left: 8px;
-                    color: #0a4b4b;
+                    color: #474747;
                 ">OPERATIONS</span>
             </div>
             <div style="
                 font-size: 16px;
-                font-weight: 800;
-                font-family: 'Inter', -apple-system, BlinkMacSystemFont, sans-serif;
-                color: #4d7a40;
+                font-weight: 400;
+                font-family: 'Questrial', sans-serif;
+                color: #918C86;
                 letter-spacing: 0.15em;
                 text-transform: uppercase;
                 margin-top: 12px;
-            ">Custom Enterprise System</div>
+            ">Strategic Business Solutions</div>
         </div>
     """, unsafe_allow_html=True)
 
     st.markdown("""
         <style>
-        /* Login page background - Super soft grey */
+        /* Login page background - Soft white */
         .main, section.main, [data-testid="stAppViewContainer"] {
-            background: #f7f8f9 !important;
+            background: #FFFDFD !important;
             position: relative !important;
             min-height: 100vh !important;
         }
@@ -130,23 +132,17 @@ if st.session_state.get("authentication_status") is None:
             width: 100% !important;
         }
 
-        /* Login box with green gradient background and border - CENTERED */
+        /* Login box with minimalist border - CENTERED */
         section[data-testid="stForm"] {
-            background: linear-gradient(135deg,
-                #f8fdf5 0%,
-                #f0f9ec 25%,
-                #e5f3df 50%,
-                #d8ecce 75%,
-                #cce5bd 100%) !important;
+            background: #F4F4F4 !important;
             backdrop-filter: blur(20px) !important;
             -webkit-backdrop-filter: blur(20px) !important;
-            border-radius: 24px !important;
+            border-radius: 16px !important;
             padding: 48px 40px !important;
             box-shadow:
-                0 8px 32px rgba(10, 75, 75, 0.12),
-                0 4px 16px rgba(0, 0, 0, 0.08) !important;
-            border: 3px solid transparent !important;
-            border-image: linear-gradient(135deg, #4d7a40 0%, #0a4b4b 100%) 1 !important;
+                0 4px 16px rgba(43, 43, 43, 0.08),
+                0 2px 8px rgba(0, 0, 0, 0.04) !important;
+            border: 2px solid #E5E4E2 !important;
             position: relative !important;
             margin: 0 auto !important;
             width: 100% !important;
@@ -248,7 +244,7 @@ if st.session_state.get("authentication_status") is None:
             text-align: center !important;
         }
 
-        /* Login button - dark Strategic Business Solutions green gradient with white text - ULTRA AGGRESSIVE */
+        /* Login button - minimalist black with white text */
         button[kind="primary"],
         section[data-testid="stForm"] button[type="submit"],
         section[data-testid="stForm"] button,
@@ -258,17 +254,18 @@ if st.session_state.get("authentication_status") is None:
         [data-testid="stFormSubmitButton"] button,
         div[data-testid="stFormSubmitButton"] > button,
         [class*="stFormSubmitButton"] button {
-            background: linear-gradient(135deg, #4d7a40 0%, #0a4b4b 100%) !important;
-            background-color: #4d7a40 !important;
-            background-image: linear-gradient(135deg, #4d7a40 0%, #0a4b4b 100%) !important;
-            color: #ffffff !important;
+            background: #2B2B2B !important;
+            background-color: #2B2B2B !important;
+            background-image: none !important;
+            color: #FFFDFD !important;
             border: none !important;
             border-color: transparent !important;
             border-width: 0 !important;
             border-style: none !important;
-            border-radius: 14px !important;
+            border-radius: 8px !important;
             padding: 16px 32px !important;
-            font-weight: 700 !important;
+            font-family: 'Questrial', sans-serif !important;
+            font-weight: 600 !important;
             font-size: 15px !important;
             width: auto !important;
             min-width: 200px !important;
@@ -276,22 +273,23 @@ if st.session_state.get("authentication_status") is None:
             display: inline-block !important;
             margin: 0 !important;
             transition: all 0.2s ease !important;
-            box-shadow: 0 2px 8px rgba(10, 75, 75, 0.3) !important;
+            box-shadow: 0 2px 8px rgba(43, 43, 43, 0.2) !important;
             outline: none !important;
         }
 
-        /* Force white text on button and all nested elements - UPPERCASE */
+        /* Force white text on button and all nested elements */
         section[data-testid="stForm"] button,
         section[data-testid="stForm"] button *,
         section[data-testid="stForm"] button p,
         section[data-testid="stForm"] button div,
         [data-testid="stFormSubmitButton"] button,
         [data-testid="stFormSubmitButton"] button * {
-            color: #ffffff !important;
+            color: #FFFDFD !important;
             text-transform: uppercase !important;
             font-size: 13px !important;
             letter-spacing: 0.1em !important;
-            font-weight: 700 !important;
+            font-weight: 600 !important;
+            font-family: 'Questrial', sans-serif !important;
         }
 
         /* Hover state - slightly lighter */
@@ -299,8 +297,8 @@ if st.session_state.get("authentication_status") is None:
         section[data-testid="stForm"] button:hover,
         form button:hover,
         [data-testid="stFormSubmitButton"] button:hover {
-            background: linear-gradient(135deg, #5a8a4d 0%, #0d5757 100%) !important;
-            background-image: linear-gradient(135deg, #5a8a4d 0%, #0d5757 100%) !important;
+            background: #474747 !important;
+            background-image: none !important;
             transform: translateY(-1px) !important;
             box-shadow: 0 4px 12px rgba(10, 75, 75, 0.4) !important;
             border: none !important;
@@ -437,60 +435,71 @@ if st.session_state.get("authentication_status") is None:
 # ============================================
 st.markdown("""
     <style>
-    /* COMPREHENSIVE FONT & SIZE STANDARDIZATION - Strategic Business Solutions Design System */
+    /* COMPREHENSIVE FONT & SIZE STANDARDIZATION - Soft Minimalist Design */
+
+    /* Import Google Fonts */
+    @import url('https://fonts.googleapis.com/css2?family=Marcellus&family=Questrial&display=swap');
 
     /* Base font size for entire app */
     html, body, [class*="st-"] {
-        font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif !important;
+        font-family: 'Questrial', sans-serif !important;
         font-size: 16px !important;
     }
 
     /* Page headers (H1) - Welcome back, Téa */
     h1, .stMarkdown h1 {
+        font-family: 'Marcellus', serif !important;
         font-size: 2rem !important;
-        font-weight: 700 !important;
+        font-weight: 400 !important;
         line-height: 1.2 !important;
+        color: #2B2B2B !important;
     }
 
     /* Section headers (H2) - Executive Overview - Left aligned */
     h2, .stMarkdown h2 {
+        font-family: 'Marcellus', serif !important;
         font-size: 1.75rem !important;
-        font-weight: 700 !important;
+        font-weight: 400 !important;
         line-height: 1.2 !important;
-        color: #0a4b4b !important;
+        color: #2B2B2B !important;
         text-align: left !important;
         margin: 24px 0 16px 0 !important;
     }
 
     /* Subsection headers (H3) */
     h3, .stMarkdown h3 {
+        font-family: 'Marcellus', serif !important;
         font-size: 1.2rem !important;
-        font-weight: 600 !important;
+        font-weight: 400 !important;
         line-height: 1.4 !important;
+        color: #474747 !important;
     }
 
     /* Body text, paragraphs */
     p, .stMarkdown p, div, span {
+        font-family: 'Questrial', sans-serif !important;
         font-size: 0.95rem !important;
         line-height: 1.6 !important;
+        color: #474747 !important;
     }
 
     /* ALL BUTTONS - Consistent sizing */
     button, .stButton button {
+        font-family: 'Questrial', sans-serif !important;
         font-size: 0.9rem !important;
         font-weight: 500 !important;
         padding: 8px 16px !important;
     }
 
-    /* ALL PRIMARY BUTTONS - Subtle Strategic Business Solutions Teal */
+    /* ALL PRIMARY BUTTONS - Minimalist Black */
     button[kind="primary"],
     button[data-testid="baseButton-primary"],
     .stButton > button[kind="primary"],
     div[data-testid="stButton"] > button[type="submit"] {
-        background: #0a4b4b !important;
-        background-color: #0a4b4b !important;
+        background: #2B2B2B !important;
+        background-color: #2B2B2B !important;
         border: none !important;
-        color: #ffffff !important;
+        color: #FFFDFD !important;
         font-weight: 500 !important;
         padding: 10px 24px !important;
         border-radius: 8px !important;
@@ -813,22 +822,19 @@ with nav_container:
                             st.session_state.current_page = page_name
                             st.rerun()
 
-# Vibrant lime green accent bar under navigation - Strategic Business Solutions personality
+# Subtle minimalist accent bar under navigation - platinum gradient
 st.markdown("""
     <div style='
         width: 100%;
         max-width: 100vw;
         margin: 0;
         padding: 0;
-        height: 4px;
+        height: 2px;
         background: linear-gradient(90deg,
-            #d4ff00 0%,
-            #b8e600 20%,
-            #7fa830 40%,
-            #4d7a40 60%,
-            #0a4b4b 80%,
-            #0a4b4b 100%);
-        box-shadow: 0 2px 8px rgba(212, 255, 0, 0.3);
+            #E5E4E2 0%,
+            #918C86 50%,
+            #E5E4E2 100%);
+        box-shadow: none;
     '></div>
 """, unsafe_allow_html=True)
 

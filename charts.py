@@ -4,19 +4,24 @@ import streamlit as st
 import pandas as pd
 from datetime import datetime, timedelta
 
-# Strategic Business Solutions Premium Light Theme Palette - Subtle Version
-MF_LIGHT = {
-    'bg_white': '#ffffff',           # Pure white background
-    'bg_light': '#f9fafb',           # Very light gray surface
-    'border': '#e5e7eb',             # Subtle gray border
-    'accent_teal': '#0a4b4b',        # Teal for strategic accents (dark)
-    'accent_teal_light': '#4d8787',  # Lighter teal for subtle charts
-    'accent_teal_very_light': '#90b4b4',  # Very light teal for backgrounds
-    'accent_lime': '#7a9900',        # Olive lime for CTAs
-    'accent_lime_muted': '#a8c957',  # Muted lime for subtle highlights
-    'text_dark': '#2d3748',          # Dark gray text (primary)
-    'text_medium': '#374151',        # Medium gray text
-    'text_light': '#6b7280',         # Light gray text (secondary)
+# Soft Minimalist Color Palette
+SBS_COLORS = {
+    'bg_white': '#FFFDFD',           # Soft white background
+    'bg_light': '#F4F4F4',           # Light grey surface
+    'border': '#E5E4E2',             # Platinum border
+    'accent_primary': '#2B2B2B',     # Black for primary accents
+    'accent_dark': '#474747',        # Dark grey black
+    'accent_medium': '#918C86',      # Tan grey brown medium
+    'accent_platinum': '#E5E4E2',    # Platinum for subtle accents
+    'text_dark': '#2B2B2B',          # Black text (primary)
+    'text_medium': '#474747',        # Dark grey text
+    'text_light': '#918C86',         # Tan grey text (secondary)
+}
+
+# Font configuration
+FONTS = {
+    'heading': 'Marcellus, serif',   # Headings
+    'body': 'Questrial, sans-serif'  # Paragraphs and body text
 }
 
 def get_column(df, col_name):
@@ -173,42 +178,42 @@ def create_task_age_analysis(df):
     # Calculate max value for y-axis range
     max_value = max(values) if values else 10
 
-    # Strategic Business Solutions color palette
-    colors = ['#0a4b4b', '#4d7a40', '#7a9900', '#a8d900']
+    # Soft minimalist gradient: Black to Tan grey brown
+    colors = ['#2B2B2B', '#474747', '#918C86', '#E5E4E2']
 
     fig = go.Figure(data=[go.Bar(
         x=labels,
         y=values,
         marker=dict(
             color=colors,
-            line=dict(color='#ffffff', width=2)
+            line=dict(color=SBS_COLORS['bg_white'], width=2)
         ),
         text=values,
         textposition='outside',
-        textfont=dict(size=14, color='#0a4b4b', family='-apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif', weight='bold'),
+        textfont=dict(size=14, color=SBS_COLORS['text_dark'], family=FONTS['body'], weight='bold'),
         hovertemplate='<b>%{x}</b><br>Tasks: %{y}<extra></extra>',
-        showlegend=False,  # Explicitly hide from legend
-        name=None  # Remove name completely
+        showlegend=False,
+        name=None
     )])
 
     fig.update_layout(
-        title='',  # Empty string instead of None
-        height=420,  # Increased height slightly
-        margin=dict(t=50, b=40, l=50, r=40),  # Balanced margins
-        paper_bgcolor=MF_LIGHT['bg_white'],
-        plot_bgcolor=MF_LIGHT['bg_light'],
-        showlegend=False,  # Hide legend to remove "undefined"
-        hovermode='x unified',  # Unified hover mode
+        title='',
+        height=420,
+        margin=dict(t=50, b=40, l=50, r=40),
+        paper_bgcolor=SBS_COLORS['bg_white'],
+        plot_bgcolor=SBS_COLORS['bg_light'],
+        showlegend=False,
+        hovermode='x unified',
         xaxis=dict(
             title='',
-            tickfont=dict(size=13, color='#0a4b4b', family='-apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif')
+            tickfont=dict(size=13, color=SBS_COLORS['text_dark'], family=FONTS['body'])
         ),
         yaxis=dict(
             showgrid=True,
-            gridcolor='#f3f4f6',
+            gridcolor=SBS_COLORS['border'],
             title='',
-            tickfont=dict(size=12, color='#0a4b4b', family='-apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif'),
-            range=[0, max_value * 1.25],  # Add 25% extra space at top for labels
+            tickfont=dict(size=12, color=SBS_COLORS['text_dark'], family=FONTS['body']),
+            range=[0, max_value * 1.25],
             fixedrange=False
         )
     )
@@ -354,20 +359,20 @@ def create_team_completion_donut(open_tasks, working_tasks, done_tasks):
         st.info("No tasks to display in chart.")
         return None
 
-    # Sophisticated, subdued colors - muted and elegant
-    colors = ['#c9aea6', '#d4c5a9', '#a8b89f']  # Soft rose, warm beige, sage green
+    # Soft minimalist colors - black, dark grey, platinum gradient
+    colors = [SBS_COLORS['accent_platinum'], SBS_COLORS['accent_medium'], SBS_COLORS['accent_primary']]
 
     # Create donut chart with percentages on slices
     fig = go.Figure(data=[go.Pie(
         labels=['Not Started', 'In Progress', 'Completed'],
         values=[open_tasks, working_tasks, done_tasks],
-        hole=0.68,  # Slightly smaller hole for taller chart
+        hole=0.68,
         marker=dict(
             colors=colors,
-            line=dict(color='#ffffff', width=5)  # Thicker white lines for separation
+            line=dict(color=SBS_COLORS['bg_white'], width=5)
         ),
-        textinfo='percent',  # Show percentages on each slice
-        textfont=dict(size=14, color='#ffffff', family='-apple-system, sans-serif', weight=700),
+        textinfo='percent',
+        textfont=dict(size=14, color=SBS_COLORS['bg_white'], family=FONTS['body'], weight=700),
         textposition='inside',
         insidetextorientation='horizontal',
         hovertemplate='<b>%{label}</b><br>Tasks: %{value}<br>Percentage: %{percent}<extra></extra>',
@@ -378,11 +383,11 @@ def create_team_completion_donut(open_tasks, working_tasks, done_tasks):
     # Calculate overall progress
     overall_progress = int((working_tasks + done_tasks) / total_tasks * 100) if total_tasks > 0 else 0
 
-    # Add center text showing overall progress - refined and elegant
+    # Add center text showing overall progress - soft minimalist
     fig.add_annotation(
-        text=f'<b style="font-size: 40px; color: #1f2937; font-weight: 300;">{overall_progress}%</b><br><span style="font-size: 12px; color: #6b7280; font-weight: 500; letter-spacing: 0.1em;">OVERALL PROGRESS</span>',
+        text=f'<b style="font-size: 40px; color: {SBS_COLORS["text_dark"]}; font-weight: 300;">{overall_progress}%</b><br><span style="font-size: 12px; color: {SBS_COLORS["text_light"]}; font-weight: 500; letter-spacing: 0.1em;">OVERALL PROGRESS</span>',
         x=0.5, y=0.5,
-        font=dict(size=16, color='#1f2937', family='-apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif'),
+        font=dict(size=16, color=SBS_COLORS['text_dark'], family=FONTS['heading']),
         showarrow=False,
         align='center'
     )
@@ -396,14 +401,14 @@ def create_team_completion_donut(open_tasks, working_tasks, done_tasks):
             y=-0.12,
             xanchor="center",
             x=0.5,
-            font=dict(size=12, color='#0a4b4b', family='-apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif', weight=600),
+            font=dict(size=12, color=SBS_COLORS['text_dark'], family=FONTS['body'], weight=600),
             itemsizing='constant'
         ),
-        height=420,  # Match Task Age Analysis chart height
-        margin=dict(t=40, b=40, l=40, r=40),  # Balanced margins
-        paper_bgcolor='#ffffff',  # White background to match Task Age Analysis
-        plot_bgcolor='#ffffff',
-        font=dict(family='-apple-system, sans-serif')
+        height=420,
+        margin=dict(t=40, b=40, l=40, r=40),
+        paper_bgcolor=SBS_COLORS['bg_white'],
+        plot_bgcolor=SBS_COLORS['bg_white'],
+        font=dict(family=FONTS['body'])
     )
 
     return fig
@@ -523,14 +528,14 @@ def create_tasks_by_user_chart(df):
     users = user_counts.index.tolist()
     counts = user_counts.values
 
-    # Premium color palette - sophisticated teals and greens
+    # Soft minimalist color palette - grey gradient
     user_colors = [
-        '#4d8787',  # Darker teal
-        '#6d9f9f',  # Medium teal
-        '#90b4b4',  # Light teal
-        '#a8c957',  # Muted lime
-        '#7a9900',  # Olive lime
-        '#4d7a40',  # Dark green
+        SBS_COLORS['accent_primary'],    # Black
+        SBS_COLORS['accent_dark'],       # Dark grey
+        SBS_COLORS['accent_medium'],     # Tan grey brown
+        SBS_COLORS['accent_platinum'],   # Platinum
+        '#474747',  # Dark grey (repeat)
+        '#918C86',  # Tan grey (repeat)
     ]
 
     # Assign colors cycling through the palette
@@ -543,12 +548,12 @@ def create_tasks_by_user_chart(df):
         orientation='h',
         marker=dict(
             color=bar_colors,
-            line=dict(color=MF_LIGHT['border'], width=1),
+            line=dict(color=SBS_COLORS['border'], width=1),
             cornerradius=8
         ),
         text=[f'{count}' for count in counts],
         textposition='outside',
-        textfont=dict(size=13, color=MF_LIGHT['text_dark'], family='-apple-system, sans-serif', weight=500),
+        textfont=dict(size=13, color=SBS_COLORS['text_dark'], family=FONTS['body'], weight=500),
         hovertemplate='<b>%{y}</b><br>Tasks: %{x}<extra></extra>',
         width=0.6
     )])
@@ -558,22 +563,22 @@ def create_tasks_by_user_chart(df):
             text='<b>Tasks by User</b>',
             x=0.5,
             xanchor='center',
-            font=dict(size=18, color=MF_LIGHT['text_dark'], family='-apple-system, sans-serif')
+            font=dict(size=18, color=SBS_COLORS['text_dark'], family=FONTS['heading'])
         ),
         height=400,
         margin=dict(t=60, b=40, l=140, r=80),
-        paper_bgcolor=MF_LIGHT['bg_white'],
-        plot_bgcolor=MF_LIGHT['bg_light'],
+        paper_bgcolor=SBS_COLORS['bg_white'],
+        plot_bgcolor=SBS_COLORS['bg_light'],
         xaxis=dict(
             showgrid=True,
-            gridcolor='rgba(229, 231, 235, 0.6)',
-            title=dict(text='Number of Tasks', font=dict(size=12, color=MF_LIGHT['text_medium'])),
-            tickfont=dict(size=11, color=MF_LIGHT['text_medium']),
+            gridcolor=SBS_COLORS['border'],
+            title=dict(text='Number of Tasks', font=dict(size=12, color=SBS_COLORS['text_medium'])),
+            tickfont=dict(size=11, color=SBS_COLORS['text_medium']),
             range=[0, max(counts) * 1.2]
         ),
         yaxis=dict(
             title='',
-            tickfont=dict(size=12, color=MF_LIGHT['text_dark'])
+            tickfont=dict(size=12, color=SBS_COLORS['text_dark'])
         )
     )
 

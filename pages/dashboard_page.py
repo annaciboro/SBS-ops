@@ -40,7 +40,7 @@ def render_page_header(title, subtitle=None):
             margin: 0 0 {('8px' if subtitle else '24px')} 0;
             font-size: 2rem;
             font-weight: 700;
-            background: linear-gradient(135deg, #0a4b4b 0%, #0d6868 50%, #7a9900 100%);
+            background: linear-gradient(135deg, #2B2B2B 0%, #0d6868 50%, #7a9900 100%);
             -webkit-background-clip: text;
             -webkit-text-fill-color: transparent;
             background-clip: text;
@@ -414,7 +414,7 @@ def render_kpi_section(kpis, section_label=""):
                 background: linear-gradient(135deg, #fafbfc 0%, #f5f7f9 100%);
                 padding: 32px 48px;
                 border-radius: 12px;
-                border-left: 3px solid #0a4b4b;
+                border-left: 3px solid #2B2B2B;
                 box-shadow: 0 1px 3px rgba(0, 0, 0, 0.06);
                 transition: all 0.2s ease;
                 text-align: center;
@@ -444,7 +444,7 @@ def render_kpi_section(kpis, section_label=""):
                 background: linear-gradient(135deg, #fafbfc 0%, #f5f7f9 100%);
                 padding: 32px 48px;
                 border-radius: 12px;
-                border-left: 3px solid #0a4b4b;
+                border-left: 3px solid #2B2B2B;
                 box-shadow: 0 1px 3px rgba(0, 0, 0, 0.06);
                 transition: all 0.2s ease;
                 text-align: center;
@@ -511,7 +511,7 @@ def render_personal_kpi_section(kpis):
                 background: linear-gradient(135deg, #fafbfc 0%, #f5f7f9 100%);
                 padding: 32px 48px;
                 border-radius: 12px;
-                border-left: 3px solid #0a4b4b;
+                border-left: 3px solid #2B2B2B;
                 box-shadow: 0 1px 3px rgba(0, 0, 0, 0.06);
                 transition: all 0.2s ease;
                 text-align: center;
@@ -603,7 +603,7 @@ def render_charts_section(kpis, filtered_df, show_project_chart=True):
                     border: 1px solid rgba(10, 75, 75, 0.2) !important;
                 }
                 </style>
-                <h3 style="text-align: left; margin: 0 0 20px 0; color: #0a4b4b; font-weight: 500; font-size: 1.0rem; font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;">Task Completion Status</h3>
+                <h3 style="text-align: left; margin: 0 0 20px 0; color: #2B2B2B; font-weight: 500; font-size: 1.0rem; font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;">Task Completion Status</h3>
             """, unsafe_allow_html=True)
 
             # Create vertical bar chart for task completion
@@ -630,7 +630,7 @@ def render_charts_section(kpis, filtered_df, show_project_chart=True):
                     ),
                     text=text_labels,
                     textposition='outside',
-                    textfont=dict(size=14, color='#0a4b4b', family='-apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif', weight='bold'),
+                    textfont=dict(size=14, color='#2B2B2B', family='-apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif', weight='bold'),
                     hovertemplate='<b>%{x}</b><br>Count: %{y} (%{customdata:.0f}%)<extra></extra>',
                     customdata=percentages
                 )
@@ -645,13 +645,13 @@ def render_charts_section(kpis, filtered_df, show_project_chart=True):
                 xaxis=dict(
                     showgrid=False,
                     title=None,
-                    tickfont=dict(size=13, color='#0a4b4b', family='-apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif')
+                    tickfont=dict(size=13, color='#2B2B2B', family='-apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif')
                 ),
                 yaxis=dict(
                     showgrid=True,
                     gridcolor='#f3f4f6',
                     title=None,
-                    tickfont=dict(size=12, color='#0a4b4b', family='-apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif'),
+                    tickfont=dict(size=12, color='#2B2B2B', family='-apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif'),
                     range=[0, max(counts) * 1.2]  # Add 20% padding to prevent cutoff
                 )
             )
@@ -681,7 +681,7 @@ def render_charts_section(kpis, filtered_df, show_project_chart=True):
                         border: 1px solid rgba(10, 75, 75, 0.2) !important;
                     }
                     </style>
-                    <h3 style="text-align: left; margin: 0 0 20px 0; color: #0a4b4b; font-weight: 500; font-size: 1.0rem; font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;">Tasks by Project</h3>
+                    <h3 style="text-align: left; margin: 0 0 20px 0; color: #2B2B2B; font-weight: 500; font-size: 1.0rem; font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;">Tasks by Project</h3>
                 """, unsafe_allow_html=True)
 
                 project_fig = create_project_breakdown_chart(filtered_df)
@@ -851,7 +851,7 @@ def render_tasks_table(filtered_df, limit=10, hide_project_column=False, show_tr
 
             # Add 2px teal accent line above table
             st.markdown("""
-                <div style="height: 2px; background: linear-gradient(90deg, #0a4b4b 0%, #14b8a6 100%); border-radius: 2px; margin-bottom: 0;"></div>
+                <div style="height: 2px; background: linear-gradient(90deg, #2B2B2B 0%, #14b8a6 100%); border-radius: 2px; margin-bottom: 0;"></div>
             """, unsafe_allow_html=True)
 
             # Add Strategic Business Solutions premium light theme styling for tables (both dataframe and data_editor)
@@ -997,7 +997,7 @@ def render_tasks_table(filtered_df, limit=10, hide_project_column=False, show_tr
                 .stButton > button,
                 .stDownloadButton > button {
                     background: rgba(229, 231, 235, 0.7) !important;
-                    color: #0a4b4b !important;
+                    color: #2B2B2B !important;
                     border: 1px solid rgba(10, 75, 75, 0.2) !important;
                     border-radius: 12px !important;
                     font-weight: 500 !important;
@@ -1142,7 +1142,7 @@ def render_editable_task_grid(df, current_user, is_tea=False, key_prefix="", sho
 
         /* Priority column styling with green shades */
         .ag-header-cell.priority-header {
-            background-color: #0a4b4b !important;
+            background-color: #2B2B2B !important;
             color: white !important;
             font-weight: bold !important;
         }
@@ -1167,7 +1167,7 @@ def render_editable_task_grid(df, current_user, is_tea=False, key_prefix="", sho
 
         /* Low Priority - Dark Teal */
         .ag-cell[col-id="Priority"]:has-text("Low") {
-            background-color: #0a4b4b !important;
+            background-color: #2B2B2B !important;
             color: #ffffff !important;
         }
         </style>
@@ -1226,12 +1226,12 @@ def render_editable_task_grid(df, current_user, is_tea=False, key_prefix="", sho
             st.markdown(f"""
                 <div style='
                     background: linear-gradient(135deg, #e0f2f1 0%, #b2dfdb 100%);
-                    border-left: 4px solid #0a4b4b;
+                    border-left: 4px solid #2B2B2B;
                     padding: 12px 16px;
                     border-radius: 8px;
                     margin: 16px 0;
                     font-size: 0.9rem;
-                    color: #0a4b4b;
+                    color: #2B2B2B;
                     font-weight: 600;
                     box-shadow: 0 2px 4px rgba(10, 75, 75, 0.1);
                 '>
@@ -1367,7 +1367,7 @@ def render_editable_task_grid(df, current_user, is_tea=False, key_prefix="", sho
                 },
                 {
                     'condition': 'params.value === "Low"',
-                    'style': {'backgroundColor': '#0a4b4b', 'color': '#ffffff', 'fontWeight': '600'}
+                    'style': {'backgroundColor': '#2B2B2B', 'color': '#ffffff', 'fontWeight': '600'}
                 }
             ]
         }
@@ -1830,8 +1830,8 @@ def show_dashboard():
 
             /* Checked checkbox - calm dark teal */
             div[data-testid="stCheckbox"] input[type="checkbox"]:checked ~ span div svg rect {
-                fill: #0a4b4b !important;
-                stroke: #0a4b4b !important;
+                fill: #2B2B2B !important;
+                stroke: #2B2B2B !important;
             }
 
             /* Make checkmark white when checked */
@@ -1909,7 +1909,7 @@ def show_dashboard():
                             border-radius: 10px;
                             padding: 20px 16px;
                             border: 1px solid #e8eaed;
-                            border-left: 2px solid #0a4b4b;
+                            border-left: 2px solid #2B2B2B;
                             text-align: center;
                             box-shadow: 0 1px 3px rgba(0, 0, 0, 0.04);
                         '>
@@ -1923,7 +1923,7 @@ def show_dashboard():
                             border-radius: 10px;
                             padding: 20px 16px;
                             border: 1px solid #e8eaed;
-                            border-left: 2px solid #0a4b4b;
+                            border-left: 2px solid #2B2B2B;
                             text-align: center;
                             box-shadow: 0 1px 3px rgba(0, 0, 0, 0.04);
                         '>
@@ -1937,7 +1937,7 @@ def show_dashboard():
                             border-radius: 10px;
                             padding: 20px 16px;
                             border: 1px solid #e8eaed;
-                            border-left: 2px solid #0a4b4b;
+                            border-left: 2px solid #2B2B2B;
                             text-align: center;
                             box-shadow: 0 1px 3px rgba(0, 0, 0, 0.04);
                         '>

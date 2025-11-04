@@ -25,7 +25,7 @@ def show_archive():
             margin: 0 0 32px 0;
             font-size: 2rem;
             font-weight: 700;
-            color: #0a4b4b;
+            color: #2B2B2B;
             letter-spacing: -0.01em;
             text-align: left;
         '>ARCHIVE</h2>

@@ -31,7 +31,7 @@ def show_tasks():
             margin: 0 0 32px 0;
             font-size: 2rem;
             font-weight: 700;
-            color: #0a4b4b;
+            color: #2B2B2B;
             letter-spacing: -0.01em;
             text-align: left;
         '>MY TASKS</h2>
@@ -50,7 +50,7 @@ def show_tasks():
         <style>
         /* Checkbox label styling to match headers */
         div[data-testid="stCheckbox"] label p {
-            color: #0a4b4b !important;
+            color: #2B2B2B !important;
             font-size: 0.95rem !important;
             font-weight: 600 !important;
             letter-spacing: 0.02em !important;
@@ -64,8 +64,8 @@ def show_tasks():
         }
 
         div[data-testid="stCheckbox"] input[type="checkbox"]:checked ~ span div svg rect {
-            fill: #0a4b4b !important;
-            stroke: #0a4b4b !important;
+            fill: #2B2B2B !important;
+            stroke: #2B2B2B !important;
         }
 
         div[data-testid="stCheckbox"] input[type="checkbox"]:checked ~ span div svg path {
@@ -116,7 +116,7 @@ def show_tasks():
                     margin: 0 0 20px 0;
                     font-size: 1.1rem;
                     font-weight: 700;
-                    color: #0a4b4b;
+                    color: #2B2B2B;
                     letter-spacing: 0.05em;
                     text-align: left;
                     text-transform: uppercase;
@@ -151,7 +151,7 @@ def show_tasks():
                     margin: 0 0 20px 0;
                     font-size: 1.1rem;
                     font-weight: 700;
-                    color: #0a4b4b;
+                    color: #2B2B2B;
                     letter-spacing: 0.05em;
                     text-align: left;
                     text-transform: uppercase;
@@ -235,7 +235,7 @@ def show_tasks():
                 margin: 0 0 20px 0;
                 font-size: 1.1rem;
                 font-weight: 700;
-                color: #0a4b4b;
+                color: #2B2B2B;
                 letter-spacing: 0.05em;
                 text-align: left;
                 text-transform: uppercase;
@@ -263,9 +263,9 @@ def show_tasks():
     # Display all personal OPEN tasks - with no limit
     # For regular users (Megan, Justin, Jess), just show the count; for Tea, show "My Open Tasks"
     if is_tea:
-        st.markdown(f"<h2 style='text-align: left; font-size: 1.75rem; font-weight: 700; color: #0a4b4b; margin: 24px 0 16px 0;'>My Open Tasks ({len(personal_df)} total)</h2>", unsafe_allow_html=True)
+        st.markdown(f"<h2 style='text-align: left; font-size: 1.75rem; font-weight: 700; color: #2B2B2B; margin: 24px 0 16px 0;'>My Open Tasks ({len(personal_df)} total)</h2>", unsafe_allow_html=True)
     else:
-        st.markdown(f"<h2 style='text-align: left; font-size: 1.75rem; font-weight: 700; color: #0a4b4b; margin: 24px 0 16px 0;'>{len(personal_df)} Open Tasks</h2>", unsafe_allow_html=True)
+        st.markdown(f"<h2 style='text-align: left; font-size: 1.75rem; font-weight: 700; color: #2B2B2B; margin: 24px 0 16px 0;'>{len(personal_df)} Open Tasks</h2>", unsafe_allow_html=True)
     st.markdown("<br>", unsafe_allow_html=True)
 
     # Add "Add New Task" and "Save Changes" buttons with KPI card styling
@@ -276,7 +276,7 @@ def show_tasks():
             background: linear-gradient(135deg, #f5faf2 0%, #f8fbf8 100%) !important;
             color: #2d5016 !important;
             border: 1px solid #e8eced !important;
-            border-left: 4px solid #0a4b4b !important;
+            border-left: 4px solid #2B2B2B !important;
             font-weight: 700 !important;
             padding: 12px 24px !important;
             border-radius: 8px !important;
@@ -287,7 +287,7 @@ def show_tasks():
             background: linear-gradient(135deg, #f0f5ec 0%, #f5faf2 100%) !important;
             transform: translateY(-2px) !important;
             box-shadow: 0 4px 12px rgba(10, 75, 75, 0.15), 0 2px 4px rgba(0, 0, 0, 0.08) !important;
-            border-left-color: #0a4b4b !important;
+            border-left-color: #2B2B2B !important;
         }
         </style>
     """, unsafe_allow_html=True)
@@ -340,7 +340,7 @@ def show_tasks():
                         background: linear-gradient(135deg, #f5faf2 0%, #f8fbf8 100%) !important;
                         color: #2d5016 !important;
                         border: 1px solid #e8eced !important;
-                        border-left: 4px solid #0a4b4b !important;
+                        border-left: 4px solid #2B2B2B !important;
                         font-weight: 700 !important;
                         width: 100% !important;
                         border-radius: 8px !important;
@@ -352,7 +352,7 @@ def show_tasks():
                         background: linear-gradient(135deg, #f0f5ec 0%, #f5faf2 100%) !important;
                         transform: translateY(-2px) !important;
                         box-shadow: 0 4px 12px rgba(10, 75, 75, 0.15), 0 2px 4px rgba(0, 0, 0, 0.08) !important;
-                        border-left-color: #0a4b4b !important;
+                        border-left-color: #2B2B2B !important;
                     }
                     </style>
                 """, unsafe_allow_html=True)
