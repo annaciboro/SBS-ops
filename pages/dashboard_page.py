@@ -264,8 +264,8 @@ def update_google_sheet(updated_df):
         )
         gc = gspread.authorize(creds)
 
-        # Use Google Sheet ID: 1U_9CEbWHWMQVS2C20O0fpOG5gVxoYjB7BmppKlTHIzc
-        SHEET_ID = "1U_9CEbWHWMQVS2C20O0fpOG5gVxoYjB7BmppKlTHIzc"
+        # Use Google Sheet ID: 16BFuy3esz4CLfyl-w_i8QEXIWjBKVjf2VuanyxFCVlI
+        SHEET_ID = "16BFuy3esz4CLfyl-w_i8QEXIWjBKVjf2VuanyxFCVlI"
 
         # Try to open Otter_Tasks worksheet, fallback to first sheet
         try:
