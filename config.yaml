@@ -1,38 +1,16 @@
 credentials:
   usernames:
-    tea@metaflexglove.com:
-      email: tea@metaflexglove.com
+    sbs.anna.ciboro@gmail.com:
+      email: sbs.anna.ciboro@gmail.com
       name: Téa Phillips
       password: "$2b$12$/e117bp3xq3bi80h/4Y4w.X.pCmfBOaVMeQpxmonw08GaMF4yOwp6"  # met1
       admin: true
 
-    megan@metaflexglove.com:
-      email: megan@metaflexglove.com
-      name: Megan Cole
-      password: "$2b$12$cKFv8wez5.mWMo9H92ZRu.Tf1wb4.qm3lRykIvaDiFiLboSY0plbi"  # met2
-      admin: false
-
-    justin@metaflexglove.com:
-      email: justin@metaflexglove.com
-      name: Justin Stehr
-      password: "$2b$12$MfsFsZHvaQdtGq4IsJLc2.sx8HjUbrhHRN8Ubu.6pmv.oWkC.g2Pm"  # met3
-      admin: false
-
-    jess@metaflexglove.com:
-      email: jess@metaflexglove.com
-      name: Jess Lewis
-      password: "$2b$12$bOKQXzz/bSCPis6MNTZUt.JRHtF1vjBgkRK7aQDtuWaljG7lS3AQ6"  # met4
-      admin: false
-      view_all_tasks: true
-
 cookie:
   expiry_days: 0
   key: "7eb707cb9ec9120e9f9ef0edb40dbb3b"
-  name: "metaflex_auth"
+  name: "sbs_auth"
 
 preauthorized:
   emails:
-    - tea@metaflexglove.com
-    - megan@metaflexglove.com
-    - justin@metaflexglove.com
-    - jess@metaflexglove.com
+    - sbs.anna.ciboro@gmail.com
