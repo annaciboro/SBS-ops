@@ -1,7 +1,7 @@
 /**
- * MetaFlex Navigation Header - Dynamic JavaScript
+ * Strategic Business Solutions Navigation Header - Dynamic JavaScript
  * Automatically detects current page and applies active styling
- * Place this in your metaflex_nav folder and load via st.components.v1.html()
+ * Place this in your sbs_nav folder and load via st.components.v1.html()
  */
 
 (function() {

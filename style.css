@@ -4,20 +4,20 @@
 @import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=Marcellus&display=swap');
 
 /* ============================================
-   METAFLEX PREMIUM CSS VARIABLES
+   SBS PREMIUM CSS VARIABLES
    ============================================ */
 :root {
-    /* MetaFlex Brand Colors */
-    --metaflex-lime: #d4ff00;
-    --metaflex-lime-soft: #c8e66f;
-    --metaflex-lime-dark: #b8e600;
-    --metaflex-teal: #0a4b4b;
-    --metaflex-teal-light: #0a4b4b;
-    --metaflex-teal-lighter: #5f8c8c;
+    /* Strategic Business Solutions Brand Colors */
+    --sbs-lime: #d4ff00;
+    --sbs-lime-soft: #c8e66f;
+    --sbs-lime-dark: #b8e600;
+    --sbs-teal: #0a4b4b;
+    --sbs-teal-light: #0a4b4b;
+    --sbs-teal-lighter: #5f8c8c;
 
     /* Semantic Colors */
-    --color-primary: var(--metaflex-lime);
-    --color-secondary: var(--metaflex-teal);
+    --color-primary: var(--sbs-lime);
+    --color-secondary: var(--sbs-teal);
     --color-text: #1a2424;
     --color-text-muted: #6a7878;
     --color-bg: #ffffff;
@@ -102,7 +102,7 @@ header[data-testid="stHeader"] {
     display: none !important;
 }
 
-/* Dark MetaFlex green cursor */
+/* Dark Strategic Business Solutions green cursor */
 * {
     cursor: default;
     caret-color: #00a896 !important;
@@ -117,7 +117,7 @@ input, textarea {
 }
 
 /* ==============================================
-   CUSTOM SCROLLBAR - METAFLEX TRANSLUCENT DARK TEAL
+   CUSTOM SCROLLBAR - SBS TRANSLUCENT DARK TEAL
    ============================================== */
 
 /* Custom scrollbar for WebKit browsers (Chrome, Safari, Edge) - Translucent dark teal */
@@ -857,7 +857,7 @@ html body [data-testid="stVerticalBlock"] > [data-testid="stHorizontalBlock"]:fi
 // DISABLED: [data-testid="stMetricValue"] {
 // DISABLED:     font-size: 72px !important;
 // DISABLED:     font-weight: 700 !important;
-// DISABLED:     background: linear-gradient(135deg, var(--metaflex-teal) 0%, var(--metaflex-teal-light) 100%) !important;
+// DISABLED:     background: linear-gradient(135deg, var(--sbs-teal) 0%, var(--sbs-teal-light) 100%) !important;
 // DISABLED:     -webkit-background-clip: text !important;
 // DISABLED:     -webkit-text-fill-color: transparent !important;
 // DISABLED:     background-clip: text !important;
@@ -1060,7 +1060,7 @@ html body [data-testid="stVerticalBlock"] > [data-testid="stHorizontalBlock"]:fi
 // DISABLED:     box-shadow: 0 4px 12px rgba(15, 106, 106, 0.15) !important;
 // DISABLED: }
 // DISABLED: 
-// DISABLED: /* Primary button (active page) - MetaFlex teal with white text */
+// DISABLED: /* Primary button (active page) - Strategic Business Solutions teal with white text */
 // DISABLED: [data-testid="stVerticalBlock"] > [data-testid="stHorizontalBlock"]:first-child button[kind="primary"] {
 // DISABLED:     background: #0a4b4b !important;
 // DISABLED:     background-color: #0a4b4b !important;

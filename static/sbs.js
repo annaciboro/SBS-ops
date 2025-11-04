@@ -1,5 +1,5 @@
 /* ============================================
-   METAFLEX OPERATIONS SYSTEM - PREMIUM JS
+   SBS OPERATIONS SYSTEM - PREMIUM JS
    Version 5.0 - "GET A GRIP ON LIFE"
    Brand Personality: Bold, Empowering, Dynamic
    ============================================ */
@@ -8,14 +8,14 @@
     'use strict';
     
     // Wait for DOM to be fully loaded
-    function initMetaFlexSystem() {
-        console.log('🚀 MetaFlex Operations System Initializing...');
+    function initStrategic Business SolutionsSystem() {
+        console.log('🚀 Strategic Business Solutions Operations System Initializing...');
         
         // ============================================
         // 1. LOGO GRIP INTERACTION
         // ============================================
         function initLogoGrip() {
-            const logos = document.querySelectorAll('[data-testid="stImage"] img, .logo, [alt*="MetaFlex"], img[src*="logo"]');
+            const logos = document.querySelectorAll('[data-testid="stImage"] img, .logo, [alt*="Strategic Business Solutions"], img[src*="logo"]');
             
             logos.forEach(logo => {
                 if (!logo) return;
@@ -321,7 +321,7 @@
         function injectAnimations() {
             const style = document.createElement('style');
             style.textContent = `
-                /* MetaFlex Animations */
+                /* Strategic Business Solutions Animations */
                 @keyframes sparkleAnimation {
                     0% {
                         opacity: 0;
@@ -426,9 +426,9 @@
             // Observe DOM changes to reinitialize effects after Streamlit reruns
             const streamlitObserver = new MutationObserver(function(mutations) {
                 // Debounce to avoid too many reinitializations
-                clearTimeout(window.metaflexReinitTimer);
-                window.metaflexReinitTimer = setTimeout(() => {
-                    console.log('🔄 Reinitializing MetaFlex after Streamlit rerun...');
+                clearTimeout(window.sbsReinitTimer);
+                window.sbsReinitTimer = setTimeout(() => {
+                    console.log('🔄 Reinitializing Strategic Business Solutions after Streamlit rerun...');
                     initMetricSparkles();
                     initChartEnhancements();
                     initTableEffects();
@@ -452,7 +452,7 @@
             if (window.performance && window.performance.timing) {
                 const perfData = window.performance.timing;
                 const pageLoadTime = perfData.loadEventEnd - perfData.navigationStart;
-                console.log(`⚡ MetaFlex loaded in ${pageLoadTime}ms`);
+                console.log(`⚡ Strategic Business Solutions loaded in ${pageLoadTime}ms`);
             }
         }
         
@@ -461,7 +461,7 @@
         // ============================================
         function init() {
             console.log('═══════════════════════════════════════');
-            console.log('   METAFLEX OPERATIONS SYSTEM v5.0    ');
+            console.log('   SBS OPERATIONS SYSTEM v5.0    ');
             console.log('        "GET A GRIP ON LIFE"          ');
             console.log('═══════════════════════════════════════');
             
@@ -485,7 +485,7 @@
             logPerformanceMetrics();
             
             console.log('═══════════════════════════════════════');
-            console.log('✅ All MetaFlex systems operational!');
+            console.log('✅ All Strategic Business Solutions systems operational!');
             console.log('═══════════════════════════════════════');
         }
         
@@ -495,15 +495,15 @@
     
     // Wait for window load
     if (document.readyState === 'loading') {
-        document.addEventListener('DOMContentLoaded', initMetaFlexSystem);
+        document.addEventListener('DOMContentLoaded', initStrategic Business SolutionsSystem);
     } else {
-        initMetaFlexSystem();
+        initStrategic Business SolutionsSystem();
     }
     
 })();
 
 // Export for debugging
-window.MetaFlexSystem = {
+window.Strategic Business SolutionsSystem = {
     version: '5.0',
     brand: 'GET A GRIP ON LIFE',
     initialized: true

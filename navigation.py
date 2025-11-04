@@ -4,7 +4,7 @@ import pages as pg
 import time
 
 st.set_page_config(
-    page_title="MetaFlex Ops",
+    page_title="Strategic Business Solutions Ops",
     layout="wide",
     initial_sidebar_state="collapsed"
 )
@@ -145,7 +145,7 @@ if 'current_page' not in st.session_state:
     st.session_state.current_page = "Home"
 
 # Logo path
-logo_path = os.path.join(current_dir, "metaflexglove.svg")
+logo_path = os.path.join(current_dir, "sbsglove.svg")
 
 # NAVIGATION BAR
 pages_list = ["Home", "My Tasks", "Team Tasks", "Archive", "Sales Portal", "Investor Portal"]

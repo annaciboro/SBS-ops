@@ -1,5 +1,5 @@
 """
-MetaFlex Navigation Component
+Strategic Business Solutions Navigation Component
 """
 
 import streamlit as st
@@ -8,7 +8,7 @@ import streamlit.components.v1 as components
 
 def load_navigation(current_page: str = "Home", user_name: str = "Téa"):
     """
-    Load the MetaFlex navigation header with lime green active state.
+    Load the Strategic Business Solutions navigation header with lime green active state.
     
     Args:
         current_page: The current page name (e.g., "Home", "My Tasks")

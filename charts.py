@@ -4,7 +4,7 @@ import streamlit as st
 import pandas as pd
 from datetime import datetime, timedelta
 
-# MetaFlex Premium Light Theme Palette - Subtle Version
+# Strategic Business Solutions Premium Light Theme Palette - Subtle Version
 MF_LIGHT = {
     'bg_white': '#ffffff',           # Pure white background
     'bg_light': '#f9fafb',           # Very light gray surface
@@ -173,7 +173,7 @@ def create_task_age_analysis(df):
     # Calculate max value for y-axis range
     max_value = max(values) if values else 10
 
-    # MetaFlex color palette
+    # Strategic Business Solutions color palette
     colors = ['#0a4b4b', '#4d7a40', '#7a9900', '#a8d900']
 
     fig = go.Figure(data=[go.Bar(

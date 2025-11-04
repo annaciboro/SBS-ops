@@ -72,7 +72,7 @@ def get_scope_description(user_name, scope):
     Generate a friendly description of the user's access scope
     """
     if scope == "all":
-        return "All MetaFlex projects"
+        return "All Strategic Business Solutions projects"
     elif isinstance(scope, dict) and "exclude" in scope:
         excluded = ", ".join(scope["exclude"])
         return f"All projects except {excluded}"
@@ -403,7 +403,7 @@ def calculate_kpis(df, user_name, is_personal=False):
 
 def render_kpi_section(kpis, section_label=""):
     """
-    Render KPI metrics in elegant, refined cards with subtle MetaFlex branding
+    Render KPI metrics in elegant, refined cards with subtle Strategic Business Solutions branding
     """
     # Add edge spacers for more breathing room
     edge_spacer_left, col1, spacer1, col2, spacer2, col3, edge_spacer_right = st.columns([0.2, 1, 0.1, 1, 0.1, 1, 0.2])
@@ -854,7 +854,7 @@ def render_tasks_table(filtered_df, limit=10, hide_project_column=False, show_tr
                 <div style="height: 2px; background: linear-gradient(90deg, #0a4b4b 0%, #14b8a6 100%); border-radius: 2px; margin-bottom: 0;"></div>
             """, unsafe_allow_html=True)
 
-            # Add MetaFlex premium light theme styling for tables (both dataframe and data_editor)
+            # Add Strategic Business Solutions premium light theme styling for tables (both dataframe and data_editor)
             st.markdown("""
                 <style>
                 /* Premium SaaS light theme styling for dataframes AND data_editor */
@@ -951,7 +951,7 @@ def render_tasks_table(filtered_df, limit=10, hide_project_column=False, show_tr
                 }
 
                 /* Scrollbar styling for light theme */
-                /* Translucent dark MetaFlex teal scrollbars for tables */
+                /* Translucent dark Strategic Business Solutions teal scrollbars for tables */
                 div[data-testid="stDataFrame"] ::-webkit-scrollbar,
                 div[data-testid="data-editor"] ::-webkit-scrollbar {
                     width: 8px !important;
@@ -1436,7 +1436,7 @@ def render_editable_task_grid(df, current_user, is_tea=False, key_prefix="", sho
     if has_changes:
         st.info("You have unsaved changes in the grid above.")
 
-    # No custom CSS needed - all styling handled by metaflex_premium.css
+    # No custom CSS needed - all styling handled by sbs_premium.css
 
     # Create single "Send to Google Sheets" button
     if st.button("Send to Google Sheets", type="primary", disabled=not has_changes, width='stretch', key=f"{key_prefix}_save_button"):
@@ -1971,12 +1971,12 @@ def show_dashboard():
                     if idx < len(unique_projects) - 1:  # Don't add extra space after last project
                         st.markdown("<div style='margin-bottom: 40px;'></div>", unsafe_allow_html=True)
 
-    # LOAD METAFLEX JAVASCRIPT AT END OF PAGE
+    # LOAD SBS JAVASCRIPT AT END OF PAGE
     import os
     import streamlit.components.v1 as components
 
     current_dir = os.path.dirname(os.path.abspath(__file__))
-    js_path = os.path.join(os.path.dirname(current_dir), "static", "metaflex.js")
+    js_path = os.path.join(os.path.dirname(current_dir), "static", "sbs.js")
 
     if os.path.exists(js_path):
         with open(js_path, 'r') as f:
@@ -1992,6 +1992,6 @@ def show_dashboard():
             height=0,
             width=0
         )
-        print(f"✅ MetaFlex JS loaded on Home page from: {js_path}")
+        print(f"✅ Strategic Business Solutions JS loaded on Home page from: {js_path}")
     else:
         print(f"❌ JS not found at: {js_path}")

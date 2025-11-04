@@ -1,5 +1,5 @@
 """
-MetaFlex Navigation Component
+Strategic Business Solutions Navigation Component
 Helper module to load the navigation header in Streamlit apps
 """
 
@@ -10,7 +10,7 @@ from pathlib import Path
 
 def load_navigation(current_page: str = "Home", user_name: str = "Téa"):
     """
-    Load the MetaFlex navigation header component.
+    Load the Strategic Business Solutions navigation header component.
 
     Args:
         current_page: The current page name (e.g., "Home", "My Tasks")
@@ -22,7 +22,7 @@ def load_navigation(current_page: str = "Home", user_name: str = "Téa"):
     
     # Paths
     base_dir = Path(__file__).parent
-    nav_js_path = base_dir / "metaflex_nav.js"
+    nav_js_path = base_dir / "sbs_nav.js"
     css_path = base_dir / "style.css"
 
     # Load JS

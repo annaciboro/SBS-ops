@@ -1,29 +1,29 @@
-# MetaFlex Dashboard - Authentication Guide
+# Strategic Business Solutions Dashboard - Authentication Guide
 
 ## Overview
-The MetaFlex Dashboard now has a fully functional login/logout system using `streamlit-authenticator`.
+The Strategic Business Solutions Dashboard now has a fully functional login/logout system using `streamlit-authenticator`.
 
 ## Login Credentials
 
 ### Pre-configured Users:
 
 1. **Téa Phillips (Admin)**
-   - Email: `tea@metaflexglove.com`
+   - Email: `tea@sbsglove.com`
    - Password: `met1`
    - Role: Administrator (full access)
 
 2. **Jess Lewis**
-   - Email: `jess@metaflexglove.com`
+   - Email: `jess@sbsglove.com`
    - Password: `met4`
    - Role: Team member with view-all-tasks permission
 
 3. **Megan Cole**
-   - Email: `megan@metaflexglove.com`
+   - Email: `megan@sbsglove.com`
    - Password: `met2`
    - Role: Marketing team member
 
 4. **Justin Stehr**
-   - Email: `justin@metaflexglove.com`
+   - Email: `justin@sbsglove.com`
    - Password: `met3`
    - Role: Team member
 
@@ -45,7 +45,7 @@ The MetaFlex Dashboard now has a fully functional login/logout system using `str
 ### Session Management
 - Sessions are stored securely using encrypted cookies
 - Cookie expiration: 30 days
-- Cookie name: `metaflex_auth`
+- Cookie name: `sbs_auth`
 - Cookie key (secret): `7eb707cb9ec9120e9f9ef0edb40dbb3b`
 
 ## Technical Details
@@ -83,8 +83,8 @@ print(hashed.decode())
 ```yaml
 credentials:
   usernames:
-    newemail@metaflexglove.com:
-      email: newemail@metaflexglove.com
+    newemail@sbsglove.com:
+      email: newemail@sbsglove.com
       name: New User Name
       password: "$2b$12$HASHED_PASSWORD_HERE"
       admin: false
@@ -94,7 +94,7 @@ credentials:
 ```yaml
 preauthorized:
   emails:
-    - newemail@metaflexglove.com
+    - newemail@sbsglove.com
 ```
 
 ## Security Notes
@@ -113,7 +113,7 @@ preauthorized:
 
 2. **Login:**
    - Use any of the credentials listed above
-   - Example: `tea@metaflexglove.com` / `met1`
+   - Example: `tea@sbsglove.com` / `met1`
 
 3. **Test logout:**
    - Click the coral-colored "LOGOUT" button in the top-right

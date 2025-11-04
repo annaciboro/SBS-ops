@@ -1,9 +1,9 @@
 // ============================================
-// MetaFlex Dashboard - Interactions v1.0
+// Strategic Business Solutions Dashboard - Interactions v1.0
 // ============================================
 
 document.addEventListener("DOMContentLoaded", () => {
-  console.log("✅ MetaFlex Interactions JS Loaded");
+  console.log("✅ Strategic Business Solutions Interactions JS Loaded");
 
   // Fade nav shadow on scroll
   const nav = document.querySelector(

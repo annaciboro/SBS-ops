@@ -9,7 +9,7 @@ import streamlit_authenticator as stauth
 from yaml.loader import SafeLoader
 
 st.set_page_config(
-    page_title="MetaFlex Ops",
+    page_title="SBS Ops",
     page_icon="favicon.png",
     layout="wide",
     initial_sidebar_state="collapsed"
@@ -48,14 +48,14 @@ authenticator = stauth.Authenticate(
     config["cookie"]["expiry_days"]
 )
 
-# MetaFlex styled login page
+# SBS styled login page
 if st.session_state.get("authentication_status") is None:
     # Load logo for the X
     logo_path = os.path.join(os.path.dirname(os.path.abspath(__file__)), "logo.png")
     with open(logo_path, "rb") as f:
         logo_data = base64.b64encode(f.read()).decode()
 
-    # Massive METAFLE[X] OPERATIONS header at top
+    # SBS OPERATIONS header at top
     st.markdown(f"""
         <div style="text-align: center; padding-top: 3rem; margin-bottom: 3rem;">
             <div style="
@@ -73,7 +73,7 @@ if st.session_state.get("authentication_status") is None:
                     -webkit-background-clip: text;
                     -webkit-text-fill-color: transparent;
                     background-clip: text;
-                ">METAFLE</span><img
+                ">SBS</span><img
                     src="data:image/png;base64,{logo_data}"
                     style="
                         height: 48px;
@@ -248,7 +248,7 @@ if st.session_state.get("authentication_status") is None:
             text-align: center !important;
         }
 
-        /* Login button - dark MetaFlex green gradient with white text - ULTRA AGGRESSIVE */
+        /* Login button - dark Strategic Business Solutions green gradient with white text - ULTRA AGGRESSIVE */
         button[kind="primary"],
         section[data-testid="stForm"] button[type="submit"],
         section[data-testid="stForm"] button,
@@ -437,7 +437,7 @@ if st.session_state.get("authentication_status") is None:
 # ============================================
 st.markdown("""
     <style>
-    /* COMPREHENSIVE FONT & SIZE STANDARDIZATION - MetaFlex Design System */
+    /* COMPREHENSIVE FONT & SIZE STANDARDIZATION - Strategic Business Solutions Design System */
 
     /* Base font size for entire app */
     html, body, [class*="st-"] {
@@ -482,7 +482,7 @@ st.markdown("""
         padding: 8px 16px !important;
     }
 
-    /* ALL PRIMARY BUTTONS - Subtle MetaFlex Teal */
+    /* ALL PRIMARY BUTTONS - Subtle Strategic Business Solutions Teal */
     button[kind="primary"],
     button[data-testid="baseButton-primary"],
     .stButton > button[kind="primary"],
@@ -602,7 +602,7 @@ logo_path = os.path.join(os.path.dirname(os.path.abspath(__file__)), "logo.png")
 user_name = st.session_state.get("name", "")
 user_email = st.session_state.get("username", "")
 is_tea = "tea" in user_name.lower() or "téa" in user_name.lower()
-is_jess = user_email.lower() == "jess@metaflexglove.com"
+is_jess = user_email.lower() == "jess@sbsglove.com"
 
 # Different navigation based on user type
 if is_tea:
@@ -813,7 +813,7 @@ with nav_container:
                             st.session_state.current_page = page_name
                             st.rerun()
 
-# Vibrant lime green accent bar under navigation - MetaFlex personality
+# Vibrant lime green accent bar under navigation - Strategic Business Solutions personality
 st.markdown("""
     <div style='
         width: 100%;
@@ -985,12 +985,12 @@ observer.observe(document.body, { childList: true, subtree: true });
 console.log('Button styling observer initialized!');
 
 // Expose applyAll globally for manual debugging
-window.applyMetaFlexStyling = applyAll;
-console.log('✅ Run window.applyMetaFlexStyling() in console to manually apply styling');
+window.applyStrategic Business SolutionsStyling = applyAll;
+console.log('✅ Run window.applyStrategic Business SolutionsStyling() in console to manually apply styling');
 </script>
 """, unsafe_allow_html=True)
 
-# Remove spacing - MetaFlex Operations sits right against gradient bar
+# Remove spacing - Strategic Business Solutions Operations sits right against gradient bar
 st.markdown("<div style='margin-bottom: 20px;'></div>", unsafe_allow_html=True)
 
 # ULTRA AGGRESSIVE NAVIGATION BUTTON OVERRIDE - LOAD LAST
@@ -1083,7 +1083,7 @@ html body [data-testid="stVerticalBlock"] > [data-testid="stHorizontalBlock"]:fi
 current_dir = os.path.dirname(os.path.abspath(__file__))
 
 # ============================================
-# LOAD METAFLEX BRAND DNA (CSS + JS)
+# LOAD SBS BRAND DNA (CSS + JS)
 # ============================================
 
 def inject_css(path):
@@ -1093,10 +1093,10 @@ def inject_css(path):
             css = f.read()
             # Add timestamp for cache busting
             cache_buster = int(time.time() * 1000)  # Millisecond precision
-            st.markdown(f'<style id="metaflex-css-{cache_buster}">{css}</style>', unsafe_allow_html=True)
+            st.markdown(f'<style id="sbs-css-{cache_buster}">{css}</style>', unsafe_allow_html=True)
             # VISIBLE indicator that CSS loaded
             st.markdown(f'<div style="position: fixed; bottom: 10px; right: 10px; background: #d4ff00; color: #000; padding: 5px 10px; border-radius: 5px; font-size: 10px; z-index: 999999;">CSS v{cache_buster}</div>', unsafe_allow_html=True)
-            print(f"✅ MetaFlex CSS loaded with cache buster v{cache_buster}")
+            print(f"✅ Strategic Business Solutions CSS loaded with cache buster v{cache_buster}")
     else:
         st.error(f"⚠️ CSS file not found: {path}")
 
@@ -1106,13 +1106,13 @@ def inject_js(path):
         with open(path) as f:
             js = f.read()
             st.markdown(f"<script>{js}</script>", unsafe_allow_html=True)
-            print(f"✅ MetaFlex JS injected")
+            print(f"✅ Strategic Business Solutions JS injected")
     else:
         st.warning(f"⚠️ JS file not found: {path}")
 
 # --- Apply brand files ---
 css_path = os.path.join(current_dir, "style.css")
-js_path = os.path.join(current_dir, "static", "metaflex.js")
+js_path = os.path.join(current_dir, "static", "sbs.js")
 
 inject_css(css_path)
 inject_js(js_path)
