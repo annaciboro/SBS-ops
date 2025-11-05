@@ -50,48 +50,22 @@ authenticator = stauth.Authenticate(
 
 # SBS styled login page
 if st.session_state.get("authentication_status") is None:
-    # Load logo for the X
-    logo_path = os.path.join(os.path.dirname(os.path.abspath(__file__)), "logo.png")
-    with open(logo_path, "rb") as f:
-        logo_data = base64.b64encode(f.read()).decode()
-
     # Import Google Fonts
     st.markdown("""
         <link href="https://fonts.googleapis.com/css2?family=Marcellus&family=Questrial&display=swap" rel="stylesheet">
     """, unsafe_allow_html=True)
 
     # SBS OPERATIONS header at top
-    st.markdown(f"""
+    st.markdown("""
         <div style="text-align: center; padding-top: 3rem; margin-bottom: 3rem;">
             <div style="
                 font-size: 64px;
                 font-weight: 400;
                 font-family: 'Marcellus', serif;
                 letter-spacing: -0.01em;
-                display: flex;
-                align-items: baseline;
-                justify-content: center;
+                color: #2B2B2B;
                 line-height: 1;
-            ">
-                <span style="
-                    color: #2B2B2B;
-                ">SBS</span><img
-                    src="data:image/png;base64,{logo_data}"
-                    style="
-                        height: 48px;
-                        width: 48px;
-                        margin: 0 8px;
-                        display: inline-block;
-                        vertical-align: middle;
-                        transform: translateY(2px);
-                        filter: drop-shadow(0 4px 12px rgba(43, 43, 43, 0.2));
-                        object-fit: contain;
-                    "
-                /><span style="
-                    margin-left: 8px;
-                    color: #474747;
-                ">OPERATIONS</span>
-            </div>
+            ">SBS OPERATIONS</div>
             <div style="
                 font-size: 16px;
                 font-weight: 400;
@@ -605,7 +579,6 @@ if 'current_page' not in st.session_state:
 # ============================================
 # NAVIGATION BAR
 # ============================================
-logo_path = os.path.join(os.path.dirname(os.path.abspath(__file__)), "logo.png")
 
 # Get the logged-in user's name
 user_name = st.session_state.get("name", "")
@@ -624,11 +597,6 @@ else:
     # Regular users only see Overview, My Tasks, Archive, and Logout
     pages_list = ["Overview", "My Tasks", "Archive", "Logout"]
 
-# Load logo for branding
-logo_path = os.path.join(os.path.dirname(os.path.abspath(__file__)), "logo.png")
-with open(logo_path, "rb") as f:
-    logo_data = base64.b64encode(f.read()).decode()
-
 nav_container = st.container()
 
 with nav_container:
@@ -638,25 +606,18 @@ with nav_container:
     # Get first name for greeting
     first_name = user_name.split()[0] if user_name else "User"
 
-    # Logo + Welcome message combined - center aligned and close together
+    # Welcome message - minimalist
     with cols[0]:
         st.markdown(f"""
             <div style="
                 display: flex;
                 align-items: center;
-                gap: 8px;
             ">
-                <img src="data:image/png;base64,{logo_data}" style="
-                    width: 48px;
-                    height: 48px;
-                    image-rendering: -webkit-optimize-contrast;
-                    image-rendering: crisp-edges;
-                    flex-shrink: 0;
-                " />
                 <h2 style="
                     font-size: 1.1rem;
                     font-weight: 600;
-                    color: #0a4b4b;
+                    font-family: 'Marcellus', serif;
+                    color: #2B2B2B;
                     margin: 0;
                     padding: 0;
                     line-height: 1.2;
