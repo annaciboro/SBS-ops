@@ -2,7 +2,7 @@ credentials:
   usernames:
     sbs.anna.ciboro@gmail.com:
       email: sbs.anna.ciboro@gmail.com
-      name: Téa Phillips
+      name: Anna Ciboro
       password: "$2b$12$/e117bp3xq3bi80h/4Y4w.X.pCmfBOaVMeQpxmonw08GaMF4yOwp6"  # met1
       admin: true
 
