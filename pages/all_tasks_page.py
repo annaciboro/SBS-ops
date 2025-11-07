@@ -22,15 +22,16 @@ def show_analytics():
         return
 
     # Get current user
-    user_name = st.session_state.get("name", "Téa Phillips")
-    is_tea = user_name.lower() == "tea" or user_name.lower() == "tēa" or "tea" in user_name.lower()
+    user_name = st.session_state.get("name", "User")
+    user_lower = user_name.lower()
+    is_admin = ("anna" in user_lower and "ciboro" in user_lower) or "tea" in user_lower or "téa" in user_lower or "tēa" in user_lower
     is_jess = "jess" in user_name.lower()
 
     # DEBUG: Show current user and permission level
-    st.info(f"DEBUG: Logged in as '{user_name}', is_tea={is_tea}, is_jess={is_jess}, Total tasks in sheet: {len(df)}")
+    st.info(f"DEBUG: Logged in as '{user_name}', is_admin={is_admin}, is_jess={is_jess}, Total tasks in sheet: {len(df)}")
 
     # Filter data based on user - ONLY Tea sees all tasks
-    if is_tea:
+    if is_admin:
         # Tea sees everyone's tasks - no filtering needed
         filtered_df = df.copy()
         st.success(f"DEBUG: Tea mode - showing all {len(filtered_df)} tasks")
@@ -147,7 +148,7 @@ def show_analytics():
     st.markdown("<div style='margin-bottom: 32px;'></div>", unsafe_allow_html=True)
 
     # Add Tasks by User chart for Tea only
-    if is_tea:
+    if is_admin:
         st.markdown("<h3 style='text-align: left; margin: 0 0 20px 0; color: #2B2B2B; font-weight: 600; font-size: 1.1rem; font-family: -apple-system, BlinkMacSystemFont, \"Segoe UI\", sans-serif;'>Tasks by User</h3>", unsafe_allow_html=True)
         tasks_by_user_fig = create_tasks_by_user_chart(df)
         if tasks_by_user_fig:
@@ -155,4 +156,4 @@ def show_analytics():
         st.markdown("<div style='margin-bottom: 32px;'></div>", unsafe_allow_html=True)
 
     # Render editable task grid for all tasks (with show_title=False to avoid duplicate header)
-    render_editable_task_grid(df, user_name, is_tea=is_tea, show_title=False, show_transcript_id=show_transcript_id)
+    render_editable_task_grid(df, user_name, is_admin=is_admin, show_title=False, show_transcript_id=show_transcript_id)

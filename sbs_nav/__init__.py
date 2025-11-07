@@ -47,7 +47,7 @@ def load_navigation(current_page: str = "Home", user_name: str = "Téa"):
                 left: 0;
                 right: 0;
                 height: 4px;
-                background: linear-gradient(90deg, #d4ff00 0%, #b8e600 25%, #7fa830 50%, #4d7a40 75%, #0a4b4b 100%);
+                background: linear-gradient(90deg, #F4F4F4 0%, #E5E4E2 25%, #918C86 50%, #E5E4E2 75%, #474747 100%);
             }}
             
             .logo-section {{
@@ -98,7 +98,7 @@ def load_navigation(current_page: str = "Home", user_name: str = "Téa"):
             }}
             
             .nav-button.active {{
-                background: #d4ff00;
+                background: #F4F4F4;
                 color: #1a1a1a;
                 font-weight: 700;
                 box-shadow: 0 2px 8px rgba(212, 255, 0, 0.3);

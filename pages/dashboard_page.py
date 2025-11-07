@@ -40,7 +40,7 @@ def render_page_header(title, subtitle=None):
             margin: 0 0 {('8px' if subtitle else '24px')} 0;
             font-size: 2rem;
             font-weight: 700;
-            background: linear-gradient(135deg, #2B2B2B 0%, #0d6868 50%, #7a9900 100%);
+            background: linear-gradient(135deg, #2B2B2B 0%, #918C86 50%, #918C86 100%);
             -webkit-background-clip: text;
             -webkit-text-fill-color: transparent;
             background-clip: text;
@@ -158,8 +158,8 @@ def load_google_sheet():
         # Authorize and open the sheet
         client = gspread.authorize(creds)
         
-        # Use Google Sheet ID: 1U_9CEbWHWMQVS2C20O0fpOG5gVxoYjB7BmppKlTHIzc
-        sheet_id = "1U_9CEbWHWMQVS2C20O0fpOG5gVxoYjB7BmppKlTHIzc"
+        # Use Google Sheet ID: 1xENgMtZL5DSEHKFvYr34UZsJIDCxlTw-BbS3giYrHvw
+        sheet_id = "1xENgMtZL5DSEHKFvYr34UZsJIDCxlTw-BbS3giYrHvw"
 
         # Try to open Otter_Tasks worksheet, fallback to first sheet
         try:
@@ -264,8 +264,8 @@ def update_google_sheet(updated_df):
         )
         gc = gspread.authorize(creds)
 
-        # Use Google Sheet ID: 16BFuy3esz4CLfyl-w_i8QEXIWjBKVjf2VuanyxFCVlI
-        SHEET_ID = "16BFuy3esz4CLfyl-w_i8QEXIWjBKVjf2VuanyxFCVlI"
+        # Use Google Sheet ID: 1xENgMtZL5DSEHKFvYr34UZsJIDCxlTw-BbS3giYrHvw
+        SHEET_ID = "1xENgMtZL5DSEHKFvYr34UZsJIDCxlTw-BbS3giYrHvw"
 
         # Try to open Otter_Tasks worksheet, fallback to first sheet
         try:
@@ -405,17 +405,17 @@ def render_kpi_section(kpis, section_label=""):
     """
     Render KPI metrics in elegant, refined cards with subtle Strategic Business Solutions branding
     """
-    # Add edge spacers for more breathing room
-    edge_spacer_left, col1, spacer1, col2, spacer2, col3, edge_spacer_right = st.columns([0.2, 1, 0.1, 1, 0.1, 1, 0.2])
+    # Add edge spacers for more breathing room - 4 columns
+    edge_spacer_left, col1, spacer1, col2, spacer2, col3, spacer3, col4, edge_spacer_right = st.columns([0.1, 1, 0.08, 1, 0.08, 1, 0.08, 1, 0.1])
 
     with col1:
         st.markdown(f"""
             <div class='kpi-card' style='
-                background: linear-gradient(135deg, #fafbfc 0%, #f5f7f9 100%);
+                background: #FFFDFD;
                 padding: 32px 48px;
-                border-radius: 12px;
-                border-left: 3px solid #2B2B2B;
-                box-shadow: 0 1px 3px rgba(0, 0, 0, 0.06);
+                border-radius: 8px;
+                border: 1px solid #E5E4E2;
+                box-shadow: 0 1px 2px rgba(0, 0, 0, 0.03);
                 transition: all 0.2s ease;
                 text-align: center;
             '>
@@ -425,57 +425,27 @@ def render_kpi_section(kpis, section_label=""):
                     font-weight: 500;
                     text-transform: uppercase;
                     letter-spacing: 0.1em;
-                    color: #6b7280;
-                '>MY OPEN TASKS</p>
+                    color: #918C86;
+                '>OPEN TASKS</p>
                 <h2 style='
                     margin: 0;
                     font-size: 2.75rem;
                     font-weight: 300;
-                    color: #1f2937;
-                    line-height: 1;
-                    letter-spacing: -0.02em;
-                '>{kpis["my_open_tasks"]}</h2>
-            </div>
-        """, unsafe_allow_html=True)
-
-    with col2:
-        st.markdown(f"""
-            <div class='kpi-card' style='
-                background: linear-gradient(135deg, #fafbfc 0%, #f5f7f9 100%);
-                padding: 32px 48px;
-                border-radius: 12px;
-                border-left: 3px solid #2B2B2B;
-                box-shadow: 0 1px 3px rgba(0, 0, 0, 0.06);
-                transition: all 0.2s ease;
-                text-align: center;
-            '>
-                <p style='
-                    margin: 0 0 16px 0;
-                    font-size: 0.7rem;
-                    font-weight: 500;
-                    text-transform: uppercase;
-                    letter-spacing: 0.1em;
-                    color: #6b7280;
-                '>TEAM OPEN TASKS</p>
-                <h2 style='
-                    margin: 0;
-                    font-size: 2.75rem;
-                    font-weight: 300;
-                    color: #1f2937;
+                    color: #2B2B2B;
                     line-height: 1;
                     letter-spacing: -0.02em;
                 '>{kpis["team_open_tasks"]}</h2>
             </div>
         """, unsafe_allow_html=True)
 
-    with col3:
+    with col2:
         st.markdown(f"""
             <div class='kpi-card' style='
-                background: linear-gradient(135deg, #fafbfc 0%, #f5f7f9 100%);
+                background: #FFFDFD;
                 padding: 32px 48px;
-                border-radius: 12px;
-                border-left: 3px solid #7a9900;
-                box-shadow: 0 1px 3px rgba(0, 0, 0, 0.06);
+                border-radius: 8px;
+                border: 1px solid #E5E4E2;
+                box-shadow: 0 1px 2px rgba(0, 0, 0, 0.03);
                 transition: all 0.2s ease;
                 text-align: center;
             '>
@@ -485,8 +455,8 @@ def render_kpi_section(kpis, section_label=""):
                     font-weight: 500;
                     text-transform: uppercase;
                     letter-spacing: 0.1em;
-                    color: #6b7280;
-                '>ACTIVE PROJECTS</p>
+                    color: #918C86;
+                '>IN PROGRESS</p>
                 <h2 style='
                     margin: 0;
                     font-size: 2.75rem;
@@ -494,7 +464,71 @@ def render_kpi_section(kpis, section_label=""):
                     color: #1f2937;
                     line-height: 1;
                     letter-spacing: -0.02em;
-                '>{kpis["active_projects"]}</h2>
+                '>{kpis["working_tasks"]}</h2>
+            </div>
+        """, unsafe_allow_html=True)
+
+    with col3:
+        st.markdown(f"""
+            <div class='kpi-card' style='
+                background: #FFFDFD;
+                padding: 32px 48px;
+                border-radius: 8px;
+                border: 1px solid #E5E4E2;
+                box-shadow: 0 1px 2px rgba(0, 0, 0, 0.03);
+                transition: all 0.2s ease;
+                text-align: center;
+            '>
+                <p style='
+                    margin: 0 0 16px 0;
+                    font-size: 0.7rem;
+                    font-weight: 500;
+                    text-transform: uppercase;
+                    letter-spacing: 0.1em;
+                    color: #918C86;
+                '>COMPLETE</p>
+                <h2 style='
+                    margin: 0;
+                    font-size: 2.75rem;
+                    font-weight: 300;
+                    color: #2B2B2B;
+                    line-height: 1;
+                    letter-spacing: -0.02em;
+                '>{kpis["done_tasks"]}</h2>
+            </div>
+        """, unsafe_allow_html=True)
+
+    # Calculate completion rate
+    total_tasks = kpis["team_open_tasks"] + kpis["working_tasks"] + kpis["done_tasks"]
+    completion_rate = (kpis["done_tasks"] / total_tasks * 100) if total_tasks > 0 else 0
+
+    with col4:
+        st.markdown(f"""
+            <div class='kpi-card' style='
+                background: #FFFDFD;
+                padding: 32px 48px;
+                border-radius: 8px;
+                border: 1px solid #E5E4E2;
+                box-shadow: 0 1px 2px rgba(0, 0, 0, 0.03);
+                transition: all 0.2s ease;
+                text-align: center;
+            '>
+                <p style='
+                    margin: 0 0 16px 0;
+                    font-size: 0.7rem;
+                    font-weight: 500;
+                    text-transform: uppercase;
+                    letter-spacing: 0.1em;
+                    color: #918C86;
+                '>COMPLETION RATE</p>
+                <h2 style='
+                    margin: 0;
+                    font-size: 2.75rem;
+                    font-weight: 300;
+                    color: #2B2B2B;
+                    line-height: 1;
+                    letter-spacing: -0.02em;
+                '>{completion_rate:.1f}%</h2>
             </div>
         """, unsafe_allow_html=True)
 
@@ -523,7 +557,7 @@ def render_personal_kpi_section(kpis):
                     text-transform: uppercase;
                     letter-spacing: 0.1em;
                     color: #6b7280;
-                '>MY OPEN TASKS</p>
+                '>ALL OPEN TASKS</p>
                 <h2 style='
                     margin: 0;
                     font-size: 2.75rem;
@@ -531,7 +565,7 @@ def render_personal_kpi_section(kpis):
                     color: #1f2937;
                     line-height: 1;
                     letter-spacing: -0.02em;
-                '>{kpis["my_open_tasks"]}</h2>
+                '>{kpis["team_open_tasks"]}</h2>
             </div>
         """, unsafe_allow_html=True)
 
@@ -541,7 +575,7 @@ def render_personal_kpi_section(kpis):
                 background: linear-gradient(135deg, #fafbfc 0%, #f5f7f9 100%);
                 padding: 32px 48px;
                 border-radius: 12px;
-                border-left: 3px solid #7a9900;
+                border-left: 3px solid #918C86;
                 box-shadow: 0 1px 3px rgba(0, 0, 0, 0.06);
                 transition: all 0.2s ease;
                 text-align: center;
@@ -590,10 +624,10 @@ def render_charts_section(kpis, filtered_df, show_project_chart=True):
                 <style>
                 /* Target this specific column */
                 div[data-testid="column"]:nth-child(1) div[data-testid="stVerticalBlock"] {
-                    background: linear-gradient(135deg, #f5faf2 0%, #f8fbf8 100%) !important;
+                    background: linear-gradient(135deg, #FFFDFD 0%, #F4F4F4 100%) !important;
                     border-radius: 12px !important;
                     padding: 24px !important;
-                    border: 1px solid rgba(10, 75, 75, 0.1) !important;
+                    border: 1px solid #E5E4E2 !important;
                     box-shadow: 0 2px 8px rgba(0, 0, 0, 0.04), 0 1px 3px rgba(0, 0, 0, 0.02) !important;
                     transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1) !important;
                 }
@@ -611,7 +645,7 @@ def render_charts_section(kpis, filtered_df, show_project_chart=True):
 
             statuses = ['Open', 'In Progress', 'Complete']
             counts = [kpis["open_tasks"], kpis["working_tasks"], kpis["done_tasks"]]
-            colors = ['#d17a6f', '#e8b968', '#4d7a40']
+            colors = ['#d17a6f', '#e8b968', '#E5E4E2']
 
             # Calculate percentages
             total = sum(counts)
@@ -668,10 +702,10 @@ def render_charts_section(kpis, filtered_df, show_project_chart=True):
                     <style>
                     /* Target this specific column */
                     div[data-testid="column"]:nth-child(2) div[data-testid="stVerticalBlock"] {
-                        background: linear-gradient(135deg, #f5faf2 0%, #f8fbf8 100%) !important;
+                        background: linear-gradient(135deg, #FFFDFD 0%, #F4F4F4 100%) !important;
                         border-radius: 12px !important;
                         padding: 24px !important;
-                        border: 1px solid rgba(10, 75, 75, 0.1) !important;
+                        border: 1px solid #E5E4E2 !important;
                         box-shadow: 0 2px 8px rgba(0, 0, 0, 0.04), 0 1px 3px rgba(0, 0, 0, 0.02) !important;
                         transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1) !important;
                     }
@@ -851,7 +885,7 @@ def render_tasks_table(filtered_df, limit=10, hide_project_column=False, show_tr
 
             # Add 2px teal accent line above table
             st.markdown("""
-                <div style="height: 2px; background: linear-gradient(90deg, #2B2B2B 0%, #14b8a6 100%); border-radius: 2px; margin-bottom: 0;"></div>
+                <div style="height: 2px; background: linear-gradient(90deg, #2B2B2B 0%, #474747 100%); border-radius: 2px; margin-bottom: 0;"></div>
             """, unsafe_allow_html=True)
 
             # Add Strategic Business Solutions premium light theme styling for tables (both dataframe and data_editor)
@@ -1078,7 +1112,7 @@ def render_tasks_table(filtered_df, limit=10, hide_project_column=False, show_tr
     else:
         st.info("No tasks to display.")
 
-def render_editable_task_grid(df, current_user, is_tea=False, key_prefix="", show_title=True, show_transcript_id=False):
+def render_editable_task_grid(df, current_user, is_admin=False, key_prefix="", show_title=True, show_transcript_id=False):
     """
     Render editable AgGrid for task management
 
@@ -1225,7 +1259,7 @@ def render_editable_task_grid(df, current_user, is_tea=False, key_prefix="", sho
             filter_text = " • ".join(active_filters)
             st.markdown(f"""
                 <div style='
-                    background: linear-gradient(135deg, #e0f2f1 0%, #b2dfdb 100%);
+                    background: linear-gradient(135deg, #FFFDFD 0%, #F4F4F4 100%);
                     border-left: 4px solid #2B2B2B;
                     padding: 12px 16px;
                     border-radius: 8px;
@@ -1233,7 +1267,7 @@ def render_editable_task_grid(df, current_user, is_tea=False, key_prefix="", sho
                     font-size: 0.9rem;
                     color: #2B2B2B;
                     font-weight: 600;
-                    box-shadow: 0 2px 4px rgba(10, 75, 75, 0.1);
+                    box-shadow: 0 2px 4px #E5E4E2;
                 '>
                     🔍 Active Filters: {filter_text} • Showing {len(filtered_df)} of {len(visible_df)} tasks
                 </div>
@@ -1723,16 +1757,15 @@ def show_dashboard():
         st.warning("No data available. Please check your Google Sheet connection.")
         return
 
-    # Determine if user is Tea (admin), Jess (view_all_tasks), or regular user
-    # Handle various spellings: Tea, Téa, Tēa, tea phillips, etc.
+    # Determine if user is admin (Anna or Tea), Jess (view_all_tasks), or regular user
     user_lower = user_name.lower()
-    is_tea = "tea" in user_lower or "téa" in user_lower or "tēa" in user_lower
+    is_admin = ("anna" in user_lower and "ciboro" in user_lower) or "tea" in user_lower or "téa" in user_lower or "tēa" in user_lower
     is_jess = "jess" in user_lower
 
 
     # Filter data based on user type
-    if is_tea:
-        # Tea sees all data with team KPIs
+    if is_admin:
+        # Admin sees all data with team KPIs
         filtered_df = df
         kpis = calculate_kpis(filtered_df, user_name, is_personal=False)
         exec_metrics = calculate_executive_metrics(df)
@@ -1773,8 +1806,8 @@ def show_dashboard():
         kpis = calculate_kpis(filtered_df, user_name, is_personal=True)
 
     # Render KPIs based on user type
-    if is_tea:
-        # Tea sees enhanced executive dashboard only (no duplicate basic KPIs)
+    if is_admin:
+        # Admin sees enhanced executive dashboard only (no duplicate basic KPIs)
         render_executive_dashboard(exec_metrics, df)
     elif is_jess:
         # Jess sees all 3 KPI cards
@@ -1788,10 +1821,10 @@ def show_dashboard():
 
     # Charts (filtered based on user)
     # Only Tea and Jess see the "Tasks by Project" chart; regular users only see Task Completion Status
-    render_charts_section(kpis, filtered_df, show_project_chart=(is_tea or is_jess))
+    render_charts_section(kpis, filtered_df, show_project_chart=(is_admin or is_jess))
 
     # === PROJECT BREAKDOWN === (Only show for Tea and Jess)
-    if is_tea or is_jess:
+    if is_admin or is_jess:
         st.markdown("<div style='margin-top: 64px;'></div>", unsafe_allow_html=True)
 
         st.markdown("""
@@ -1951,12 +1984,12 @@ def show_dashboard():
                             border-radius: 10px;
                             padding: 20px 16px;
                             border: 1px solid #e8eaed;
-                            border-left: 2px solid #4d7a40;
+                            border-left: 2px solid #E5E4E2;
                             text-align: center;
                             box-shadow: 0 1px 3px rgba(0, 0, 0, 0.04);
                         '>
                             <p style='margin: 0 0 8px 0; font-size: 0.65rem; font-weight: 500; text-transform: uppercase; letter-spacing: 0.08em; color: #9ca3af;'>COMPLETE</p>
-                            <h3 style='margin: 0; font-size: 1.6rem; font-weight: 400; color: #4d7a40;'>{completion_rate}%</h3>
+                            <h3 style='margin: 0; font-size: 1.6rem; font-weight: 400; color: #E5E4E2;'>{completion_rate}%</h3>
                         </div>""", unsafe_allow_html=True)
 
                     # Spacing after KPI cards

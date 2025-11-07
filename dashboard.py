@@ -286,7 +286,7 @@ if st.session_state.get("authentication_status") is None:
         [data-testid="stFormSubmitButton"] button:active {
             background: linear-gradient(135deg, #d4ff00 0%, #c8ff00 100%) !important;
             background-image: linear-gradient(135deg, #d4ff00 0%, #c8ff00 100%) !important;
-            color: #0a4b4b !important;
+            color: #474747 !important;
             transform: translateY(0) !important;
             box-shadow: 0 0 0 4px rgba(212, 255, 0, 0.3) !important;
             border: none !important;
@@ -297,7 +297,7 @@ if st.session_state.get("authentication_status") is None:
         section[data-testid="stForm"] button:active *,
         [data-testid="stFormSubmitButton"] button:active,
         [data-testid="stFormSubmitButton"] button:active * {
-            color: #0a4b4b !important;
+            color: #474747 !important;
         }
 
         /* Password field container - needs relative positioning */
@@ -327,7 +327,7 @@ if st.session_state.get("authentication_status") is None:
             justify-content: center !important;
             margin: 0 !important;
             box-shadow: none !important;
-            color: #4d7a40 !important;
+            color: #E5E4E2 !important;
             position: absolute !important;
             right: 8px !important;
             top: 50% !important;
@@ -339,7 +339,7 @@ if st.session_state.get("authentication_status") is None:
         button[kind="iconButton"]:hover,
         section[data-testid="stForm"] button[kind="icon"]:hover {
             background: rgba(77, 122, 64, 0.1) !important;
-            color: #0a4b4b !important;
+            color: #474747 !important;
             transform: translateY(-50%) scale(1.1) !important;
         }
 
@@ -353,7 +353,7 @@ if st.session_state.get("authentication_status") is None:
         section[data-testid="stForm"] label,
         .stTextInput label,
         div[class*="stText"] label {
-            color: #0a4b4b !important;
+            color: #474747 !important;
             font-weight: 600 !important;
             font-size: 14px !important;
             margin-bottom: 8px !important;
@@ -364,7 +364,7 @@ if st.session_state.get("authentication_status") is None:
         section[data-testid="stForm"] h2,
         .stForm h1,
         form h1 {
-            color: #0a4b4b !important;
+            color: #474747 !important;
             font-weight: 700 !important;
             font-size: 32px !important;
             text-align: center !important;
@@ -485,7 +485,7 @@ st.markdown("""
     button[data-testid="baseButton-primary"]:hover,
     .stButton > button[kind="primary"]:hover,
     div[data-testid="stButton"] > button[type="submit"]:hover {
-        background: #0d6868 !important;
+        background: #918C86 !important;
         box-shadow: 0 2px 6px rgba(10, 75, 75, 0.2) !important;
         transform: translateY(-1px) !important;
     }
@@ -493,15 +493,15 @@ st.markdown("""
     /* Fix hamburger menu - remove baby blue, make it teal */
     button[data-testid*="baseButton-header"] {
         background: white !important;
-        border: 1.5px solid #0a4b4b !important;
-        color: #0a4b4b !important;
+        border: 1.5px solid #474747 !important;
+        color: #474747 !important;
         font-size: 0.9rem !important;
         padding: 8px 16px !important;
     }
 
     button[data-testid*="baseButton-header"]:hover {
         background: #f0f9f9 !important;
-        border-color: #0a4b4b !important;
+        border-color: #474747 !important;
     }
 
     /* Navigation buttons inside popover - FORCE consistent styling */
@@ -583,12 +583,12 @@ if 'current_page' not in st.session_state:
 # Get the logged-in user's name
 user_name = st.session_state.get("name", "")
 user_email = st.session_state.get("username", "")
-is_tea = "tea" in user_name.lower() or "téa" in user_name.lower()
+is_admin = ("anna" in user_name.lower() and "ciboro" in user_name.lower()) or user_email.lower() == "sbs.anna.ciboro@gmail.com"
 is_jess = user_email.lower() == "jess@sbsglove.com"
 
 # Different navigation based on user type
-if is_tea:
-    # Tea (admin) sees all pages
+if is_admin:
+    # Admin (Anna) sees all pages
     pages_list = ["Overview", "My Tasks", "All Tasks", "Archive", "Sales Portal", "Investor Portal", "Logout"]
 elif is_jess:
     # Jess sees team-related pages but not Sales/Investor portals
@@ -636,7 +636,7 @@ with nav_container:
             button[data-testid*="baseButton-header"]:active,
             button[data-testid*="baseButton-header"]:focus-visible {{
                 background: transparent !important;
-                border: 2px solid #0a4b4b !important;
+                border: 2px solid #474747 !important;
                 border-radius: 8px !important;
                 outline: none !important;
                 outline-width: 0 !important;
@@ -649,7 +649,7 @@ with nav_container:
                 transition: all 0.3s ease !important;
                 cursor: pointer !important;
                 font-size: 1.75rem !important;
-                color: #7a9900 !important;
+                color: #918C86 !important;
                 display: flex !important;
                 align-items: center !important;
                 justify-content: center !important;
@@ -658,7 +658,7 @@ with nav_container:
             button[data-testid*="baseButton-header"]:hover {{
                 background: rgba(122, 153, 0, 0.08) !important;
                 color: #a8d900 !important;
-                border: 2px solid #7a9900 !important;
+                border: 2px solid #918C86 !important;
                 outline: none !important;
                 box-shadow: 0 2px 8px rgba(122, 153, 0, 0.25) !important;
                 transform: translateY(-2px) !important;
@@ -668,7 +668,7 @@ with nav_container:
             div[data-testid="stPopover"],
             div[data-testid="stPopover"] > button {{
                 outline: none !important;
-                border: 2px solid #0a4b4b !important;
+                border: 2px solid #474747 !important;
                 border-radius: 8px !important;
                 width: 56px !important;
                 min-width: 56px !important;
@@ -688,12 +688,12 @@ with nav_container:
 
             div[data-testid="stPopover"] > button:focus {{
                 outline: none !important;
-                border: 2px solid #0a4b4b !important;
+                border: 2px solid #474747 !important;
                 box-shadow: none !important;
             }}
 
             div[data-testid="stPopover"] > button:hover {{
-                border: 2px solid #0d6868 !important;
+                border: 2px solid #918C86 !important;
                 box-shadow: 0 2px 8px rgba(10, 75, 75, 0.2) !important;
                 transform: translateY(-2px) !important;
             }}
@@ -709,9 +709,9 @@ with nav_container:
             div[data-testid="stPopover"] button[type="submit"],
             .stPopover button[kind="primary"],
             .stPopover button[type="submit"] {{
-                background: linear-gradient(135deg, #0a4b4b 0%, #0d6868 100%) !important;
-                background-color: #0a4b4b !important;
-                background-image: linear-gradient(135deg, #0a4b4b 0%, #0d6868 100%) !important;
+                background: linear-gradient(135deg, #474747 0%, #918C86 100%) !important;
+                background-color: #474747 !important;
+                background-image: linear-gradient(135deg, #474747 0%, #918C86 100%) !important;
                 color: white !important;
                 border: none !important;
                 border-color: transparent !important;
@@ -725,9 +725,9 @@ with nav_container:
             div[data-testid="stPopover"] button[type="submit"]:hover,
             .stPopover button[kind="primary"]:hover,
             .stPopover button[type="submit"]:hover {{
-                background: linear-gradient(135deg, #0d6868 0%, #106a6a 100%) !important;
-                background-color: #0d6868 !important;
-                background-image: linear-gradient(135deg, #0d6868 0%, #106a6a 100%) !important;
+                background: linear-gradient(135deg, #918C86 0%, #106a6a 100%) !important;
+                background-color: #918C86 !important;
+                background-image: linear-gradient(135deg, #918C86 0%, #106a6a 100%) !important;
                 transform: translateY(-1px) !important;
                 box-shadow: 0 2px 8px rgba(10, 75, 75, 0.2) !important;
             }}
@@ -740,9 +740,9 @@ with nav_container:
                 background: #f5f7f8 !important;
                 background-color: #f5f7f8 !important;
                 background-image: none !important;
-                color: #0a4b4b !important;
-                border: 1.5px solid #0a4b4b !important;
-                border-color: #0a4b4b !important;
+                color: #474747 !important;
+                border: 1.5px solid #474747 !important;
+                border-color: #474747 !important;
                 font-weight: 500 !important;
                 padding: 12px 20px !important;
                 border-radius: 10px !important;
@@ -756,9 +756,9 @@ with nav_container:
             .stPopover button:not([kind="primary"]):not([type="submit"]):hover {{
                 background: #ffffff !important;
                 background-color: #ffffff !important;
-                border-color: #0a4b4b !important;
+                border-color: #474747 !important;
                 border-width: 1.5px !important;
-                color: #0a4b4b !important;
+                color: #474747 !important;
                 transform: translateY(-2px) !important;
                 box-shadow: 0 3px 10px rgba(10, 75, 75, 0.15) !important;
             }}
@@ -967,7 +967,7 @@ st.markdown("""
 html body [data-testid="stVerticalBlock"] > [data-testid="stHorizontalBlock"]:first-child {
     background: #ffffff !important;
     box-shadow: 0 1px 3px rgba(0, 0, 0, 0.1), 0 1px 2px rgba(0, 0, 0, 0.06) !important;
-    border-bottom: 3px solid #0a4b4b !important;
+    border-bottom: 3px solid #474747 !important;
     padding: 16px 48px !important;
     position: sticky !important;
     top: 0 !important;
@@ -981,7 +981,7 @@ html body [data-testid="stVerticalBlock"] > [data-testid="stHorizontalBlock"]:fi
     left: 0 !important;
     right: 0 !important;
     height: 3px !important;
-    background: linear-gradient(90deg, #0a4b4b 0%, #4d7a40 50%, #7a9900 100%) !important;
+    background: linear-gradient(90deg, #474747 0%, #E5E4E2 50%, #918C86 100%) !important;
 }
 
 /* FINAL NUCLEAR OVERRIDE FOR NAVIGATION BUTTONS */

@@ -16,7 +16,8 @@ def show_archive():
     # Get current user from session state
     user_name = st.session_state.get("name", "User")
     first_name = user_name.split()[0] if user_name else "User"
-    is_tea = user_name.lower() == "tea" or user_name.lower() == "tēa" or "tea" in user_name.lower()
+    user_lower = user_name.lower()
+    is_admin = ("anna" in user_lower and "ciboro" in user_lower) or "tea" in user_lower or "téa" in user_lower or "tēa" in user_lower
     is_jess = "jess" in user_name.lower()
 
     # Page header matching MY TASKS / ALL TASKS style
@@ -40,7 +41,7 @@ def show_archive():
         return
 
     # Filter by user if not Tea (Tea sees ALL archived tasks)
-    if not is_tea:
+    if not is_admin:
         # Everyone else sees only their own archived tasks
         assignee_col = None
         if has_column(df, "Assigned To"):

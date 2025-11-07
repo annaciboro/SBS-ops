@@ -67,9 +67,9 @@ def create_project_tasks_overview_chart(exec_metrics):
 
     project_df = pd.DataFrame(project_data).sort_values("Total Tasks", ascending=True)
 
-    # Create bar colors - subtle light teal for all, muted lime for top performer
-    total_colors = [MF_LIGHT['accent_teal_very_light'] if i < len(project_df) - 1 else MF_LIGHT['accent_lime_muted'] for i in range(len(project_df))]
-    open_colors = [MF_LIGHT['accent_teal_light'] for _ in range(len(project_df))]
+    # Create bar colors - subtle grey for all, platinum for top performer
+    total_colors = [SBS_COLORS['bg_light'] if i < len(project_df) - 1 else SBS_COLORS['accent_platinum'] for i in range(len(project_df))]
+    open_colors = [SBS_COLORS['accent_medium'] for _ in range(len(project_df))]
 
     # Create grouped bar chart
     fig = go.Figure()
@@ -82,11 +82,11 @@ def create_project_tasks_overview_chart(exec_metrics):
         orientation='h',
         marker=dict(
             color=total_colors,
-            line=dict(color=MF_LIGHT['border'], width=1)
+            line=dict(color=SBS_COLORS['border'], width=1)
         ),
         text=project_df["Total Tasks"],
         textposition='outside',
-        textfont=dict(size=13, color=MF_LIGHT['text_dark'], family='-apple-system, sans-serif'),
+        textfont=dict(size=13, color=SBS_COLORS['text_dark'], family='-apple-system, sans-serif'),
         hovertemplate='<b>%{y}</b><br>Total Tasks: %{x}<extra></extra>'
     ))
 
@@ -98,11 +98,11 @@ def create_project_tasks_overview_chart(exec_metrics):
         orientation='h',
         marker=dict(
             color=open_colors,
-            line=dict(color=MF_LIGHT['border'], width=1)
+            line=dict(color=SBS_COLORS['border'], width=1)
         ),
         text=project_df["Open Tasks"],
         textposition='outside',
-        textfont=dict(size=13, color=MF_LIGHT['text_dark'], family='-apple-system, sans-serif'),
+        textfont=dict(size=13, color=SBS_COLORS['text_dark'], family='-apple-system, sans-serif'),
         hovertemplate='<b>%{y}</b><br>Open Tasks: %{x}<extra></extra>'
     ))
 
@@ -113,25 +113,25 @@ def create_project_tasks_overview_chart(exec_metrics):
             text='<b>Project Tasks Overview</b>',
             x=0.5,
             xanchor='center',
-            font=dict(size=18, color=MF_LIGHT['text_dark'], family='-apple-system, sans-serif')
+            font=dict(size=18, color=SBS_COLORS['text_dark'], family='-apple-system, sans-serif')
         ),
         height=400,
         margin=dict(t=60, b=40, l=140, r=80),
-        paper_bgcolor=MF_LIGHT['bg_white'],
-        plot_bgcolor=MF_LIGHT['bg_light'],
+        paper_bgcolor=SBS_COLORS['bg_white'],
+        plot_bgcolor=SBS_COLORS['bg_light'],
         barmode='group',  # Group bars side by side
         bargap=0.15,
         bargroupgap=0.1,
         xaxis=dict(
             showgrid=True,
             gridcolor='rgba(229, 231, 235, 0.6)',
-            title=dict(text='Number of Tasks', font=dict(size=12, color=MF_LIGHT['text_medium'])),
-            tickfont=dict(size=11, color=MF_LIGHT['text_medium']),
+            title=dict(text='Number of Tasks', font=dict(size=12, color=SBS_COLORS['text_medium'])),
+            tickfont=dict(size=11, color=SBS_COLORS['text_medium']),
             range=[0, max_value * 1.2]
         ),
         yaxis=dict(
             title='',
-            tickfont=dict(size=12, color=MF_LIGHT['text_dark'])
+            tickfont=dict(size=12, color=SBS_COLORS['text_dark'])
         ),
         legend=dict(
             orientation="h",
@@ -139,7 +139,7 @@ def create_project_tasks_overview_chart(exec_metrics):
             y=-0.15,
             xanchor="center",
             x=0.5,
-            font=dict(size=12, color=MF_LIGHT['text_medium'], family='-apple-system, sans-serif'),
+            font=dict(size=12, color=SBS_COLORS['text_medium'], family='-apple-system, sans-serif'),
             bgcolor='rgba(0,0,0,0)'
         )
     )
@@ -234,11 +234,11 @@ def create_task_completion_velocity(exec_metrics):
         x=days,
         y=completed_counts,
         mode='lines+markers',
-        line=dict(color=MF_LIGHT['accent_lime'], width=3),
+        line=dict(color=SBS_COLORS['accent_primary'], width=3),
         marker=dict(
             size=10,
-            color=MF_LIGHT['accent_lime'],
-            line=dict(color=MF_LIGHT['border'], width=2)
+            color=SBS_COLORS['accent_primary'],
+            line=dict(color=SBS_COLORS['border'], width=2)
         ),
         fill='tozeroy',
         fillcolor='rgba(10, 75, 75, 0.1)',
@@ -250,22 +250,22 @@ def create_task_completion_velocity(exec_metrics):
             text='<b>Task Completion Velocity</b>',
             x=0.5,
             xanchor='center',
-            font=dict(size=18, color=MF_LIGHT['text_light'], family='-apple-system, sans-serif')
+            font=dict(size=18, color=SBS_COLORS['text_light'], family='-apple-system, sans-serif')
         ),
         height=400,
         margin=dict(t=60, b=40, l=60, r=60),
-        paper_bgcolor=MF_LIGHT['bg_white'],
-        plot_bgcolor=MF_LIGHT['bg_light'],
+        paper_bgcolor=SBS_COLORS['bg_white'],
+        plot_bgcolor=SBS_COLORS['bg_light'],
         xaxis=dict(
             title='',
-            tickfont=dict(size=12, color=MF_LIGHT['text_light']),
+            tickfont=dict(size=12, color=SBS_COLORS['text_light']),
             showgrid=False
         ),
         yaxis=dict(
             showgrid=True,
             gridcolor='rgba(229, 231, 235, 0.6)',
-            title=dict(text='Tasks Completed', font=dict(size=12, color=MF_LIGHT['text_light'])),
-            tickfont=dict(size=11, color=MF_LIGHT['text_light'])
+            title=dict(text='Tasks Completed', font=dict(size=12, color=SBS_COLORS['text_light'])),
+            tickfont=dict(size=11, color=SBS_COLORS['text_light'])
         )
     )
 
@@ -313,11 +313,11 @@ def create_project_health_dashboard(exec_metrics):
         orientation='h',
         marker=dict(
             color=colors,
-            line=dict(color=MF_LIGHT['border'], width=2)
+            line=dict(color=SBS_COLORS['border'], width=2)
         ),
         text=[f"{score}%" for score in project_df["Health Score"]],
         textposition='outside',
-        textfont=dict(size=14, color=MF_LIGHT['text_light'], family='-apple-system, sans-serif'),
+        textfont=dict(size=14, color=SBS_COLORS['text_light'], family='-apple-system, sans-serif'),
         hovertemplate='<b>%{y}</b><br>Health: %{x}%<br>Total Tasks: %{customdata}<extra></extra>',
         customdata=project_df["Total"]
     )])
@@ -327,22 +327,22 @@ def create_project_health_dashboard(exec_metrics):
             text='<b>Project Health Dashboard</b>',
             x=0.5,
             xanchor='center',
-            font=dict(size=18, color=MF_LIGHT['text_light'], family='-apple-system, sans-serif')
+            font=dict(size=18, color=SBS_COLORS['text_light'], family='-apple-system, sans-serif')
         ),
         height=400,
         margin=dict(t=60, b=40, l=140, r=60),
-        paper_bgcolor=MF_LIGHT['bg_white'],
-        plot_bgcolor=MF_LIGHT['bg_light'],
+        paper_bgcolor=SBS_COLORS['bg_white'],
+        plot_bgcolor=SBS_COLORS['bg_light'],
         xaxis=dict(
             showgrid=True,
             gridcolor='rgba(229, 231, 235, 0.6)',
-            title=dict(text='Health Score (%)', font=dict(size=12, color=MF_LIGHT['text_light'])),
-            tickfont=dict(size=11, color=MF_LIGHT['text_light']),
+            title=dict(text='Health Score (%)', font=dict(size=12, color=SBS_COLORS['text_light'])),
+            tickfont=dict(size=11, color=SBS_COLORS['text_light']),
             range=[0, 110]
         ),
         yaxis=dict(
             title='',
-            tickfont=dict(size=12, color=MF_LIGHT['text_light'])
+            tickfont=dict(size=12, color=SBS_COLORS['text_light'])
         )
     )
 
@@ -456,7 +456,7 @@ def create_project_breakdown_chart(df):
         orientation='h',
         marker=dict(
             color=bar_colors,  # Different subtle teal for each bar
-            line=dict(color=MF_LIGHT['border'], width=1),  # Subtle border
+            line=dict(color=SBS_COLORS['border'], width=1),  # Subtle border
             cornerradius=8  # Rounded corners for modern look
         ),
         text=[f'{count}' for count in counts],

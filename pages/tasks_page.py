@@ -21,8 +21,9 @@ def show_tasks():
     user_name = st.session_state.get("name", "User")
     first_name = user_name.split()[0] if user_name else "User"
 
-    # Determine if user is Tea (admin sees everything)
-    is_tea = user_name.lower() == "tea" or user_name.lower() == "tēa" or "tea" in user_name.lower()
+    # Determine if user is admin (admin sees everything)
+    user_lower = user_name.lower()
+    is_admin = ("anna" in user_lower and "ciboro" in user_lower) or "tea" in user_lower or "téa" in user_lower or "tēa" in user_lower
     is_jess = "jess" in user_name.lower()
 
     # Page header matching Executive Overview style
@@ -86,7 +87,7 @@ def show_tasks():
 
     if assignee_col:
         # For Tea, show all tasks; for everyone else (including Jess), filter by user name
-        if is_tea:
+        if is_admin:
             personal_df = df.copy()
         else:
             # All users (Jess, Megan, Justin) see only their own personal tasks on "My Tasks"
@@ -103,7 +104,7 @@ def show_tasks():
 
     # For regular users (Megan, Justin, Jess), show chart above everything
     # For Tea only, show all KPIs and charts below
-    if not is_tea:
+    if not is_admin:
         # Show Task Completion Status donut chart at the top for regular users
         from charts import create_team_completion_donut
 
@@ -262,7 +263,7 @@ def show_tasks():
 
     # Display all personal OPEN tasks - with no limit
     # For regular users (Megan, Justin, Jess), just show the count; for Tea, show "My Open Tasks"
-    if is_tea:
+    if is_admin:
         st.markdown(f"<h2 style='text-align: left; font-size: 1.75rem; font-weight: 700; color: #2B2B2B; margin: 24px 0 16px 0;'>My Open Tasks ({len(personal_df)} total)</h2>", unsafe_allow_html=True)
     else:
         st.markdown(f"<h2 style='text-align: left; font-size: 1.75rem; font-weight: 700; color: #2B2B2B; margin: 24px 0 16px 0;'>{len(personal_df)} Open Tasks</h2>", unsafe_allow_html=True)
@@ -372,7 +373,7 @@ def show_tasks():
                     creds = Credentials.from_service_account_info(creds_dict, scopes=scope)
                     import gspread
                     client = gspread.authorize(creds)
-                    sheet_id = "1U_9CEbWHWMQVS2C20O0fpOG5gVxoYjB7BmppKlTHIzc"
+                    sheet_id = "1xENgMtZL5DSEHKFvYr34UZsJIDCxlTw-BbS3giYrHvw"
                     sheet = client.open_by_key(sheet_id).worksheet("Otter_Tasks")
 
                     # Append new row with all fields including Transcript ID, Date Added, and Priority
@@ -420,4 +421,4 @@ def show_tasks():
         personal_df = personal_df[~personal_df[status_col].str.lower().isin(['done', 'complete', 'completed', 'closed'])]
 
     # Render editable task grid (same as All Tasks but filtered for user)
-    render_editable_task_grid(personal_df, user_name, is_tea=is_tea, key_prefix="my_tasks_", show_title=False, show_transcript_id=show_transcript_id)
+    render_editable_task_grid(personal_df, user_name, is_admin=is_admin, key_prefix="my_tasks_", show_title=False, show_transcript_id=show_transcript_id)
