@@ -139,13 +139,13 @@ if st.session_state.get("authentication_status") is None:
         .st-ba.st-bb.st-bc.st-bd.st-be.st-bf.st-bg.st-bh.st-bi.st-bj input,
         div[data-baseweb="base-input"] input {
             border-radius: 14px !important;
-            border: 2px solid #4d7a40 !important;
-            border-color: #4d7a40 !important;
+            border: 2px solid #2B2B2B !important;
+            border-color: #2B2B2B !important;
             border-style: solid !important;
             padding: 18px 24px !important;
             font-size: 15px !important;
             background: #ffffff !important;
-            caret-color: #4d7a40 !important;
+            caret-color: #2B2B2B !important;
             outline: none !important;
             box-shadow: none !important;
         }
@@ -161,26 +161,26 @@ if st.session_state.get("authentication_status") is None:
         input[aria-invalid="true"]:focus,
         .st-ba.st-bb.st-bc.st-bd.st-be.st-bf.st-bg.st-bh.st-bi.st-bj input:focus,
         div[data-baseweb="base-input"] input:focus {
-            border: 2px solid #d4ff00 !important;
-            border-color: #d4ff00 !important;
+            border: 2px solid #E5E4E2 !important;
+            border-color: #E5E4E2 !important;
             border-style: solid !important;
-            box-shadow: 0 0 0 4px rgba(212, 255, 0, 0.2) !important;
+            box-shadow: 0 0 0 4px rgba(229, 228, 226, 0.3) !important;
             outline: none !important;
-            caret-color: #4d7a40 !important;
+            caret-color: #2B2B2B !important;
         }
 
         /* Remove any red error styling from Streamlit */
         input[aria-invalid="true"],
         input[aria-invalid="false"] {
-            border: 2px solid #4d7a40 !important;
-            border-color: #4d7a40 !important;
+            border: 2px solid #2B2B2B !important;
+            border-color: #2B2B2B !important;
         }
 
         input[aria-invalid="true"]:focus,
         input[aria-invalid="false"]:focus {
-            border: 2px solid #d4ff00 !important;
-            border-color: #d4ff00 !important;
-            box-shadow: 0 0 0 4px rgba(212, 255, 0, 0.2) !important;
+            border: 2px solid #E5E4E2 !important;
+            border-color: #E5E4E2 !important;
+            box-shadow: 0 0 0 4px rgba(229, 228, 226, 0.3) !important;
         }
 
         /* Target Streamlit's baseweb input wrapper */
@@ -193,15 +193,15 @@ if st.session_state.get("authentication_status") is None:
         /* Override any Streamlit emotion cache classes */
         [class*="st-emotion-cache"] input,
         [class*="st-ba"] input {
-            border: 2px solid #4d7a40 !important;
-            border-color: #4d7a40 !important;
+            border: 2px solid #2B2B2B !important;
+            border-color: #2B2B2B !important;
         }
 
         [class*="st-emotion-cache"] input:focus,
         [class*="st-ba"] input:focus {
-            border: 2px solid #d4ff00 !important;
-            border-color: #d4ff00 !important;
-            box-shadow: 0 0 0 4px rgba(212, 255, 0, 0.2) !important;
+            border: 2px solid #E5E4E2 !important;
+            border-color: #E5E4E2 !important;
+            box-shadow: 0 0 0 4px rgba(229, 228, 226, 0.3) !important;
         }
 
         /* Center the submit button container - ULTRA AGGRESSIVE */
