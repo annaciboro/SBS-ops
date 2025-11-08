@@ -7,26 +7,26 @@
    SBS PREMIUM CSS VARIABLES
    ============================================ */
 :root {
-    /* Strategic Business Solutions Brand Colors */
-    --sbs-lime: #d4ff00;
-    --sbs-lime-soft: #c8e66f;
-    --sbs-lime-dark: #b8e600;
-    --sbs-teal: #0a4b4b;
-    --sbs-teal-light: #0a4b4b;
-    --sbs-teal-lighter: #5f8c8c;
+    /* Soft Minimalist Color Palette */
+    --sbs-cream: #FFFDFD;
+    --sbs-light-grey: #F4F4F4;
+    --sbs-black: #2B2B2B;
+    --sbs-dark-grey: #474747;
+    --sbs-tan-grey: #918C86;
+    --sbs-platinum: #E5E4E2;
 
     /* Semantic Colors */
-    --color-primary: var(--sbs-lime);
-    --color-secondary: var(--sbs-teal);
-    --color-text: #1a2424;
-    --color-text-muted: #6a7878;
-    --color-bg: #ffffff;
-    --color-card: #ffffff;
+    --color-primary: var(--sbs-black);
+    --color-secondary: var(--sbs-dark-grey);
+    --color-text: #2B2B2B;
+    --color-text-muted: #918C86;
+    --color-bg: #FFFDFD;
+    --color-card: #FFFDFD;
 
-    /* Elevation */
-    --shadow-sm: 0 2px 8px rgba(0, 0, 0, 0.08), 0 1px 3px rgba(0, 0, 0, 0.04);
-    --shadow-md: 0 4px 16px rgba(0, 0, 0, 0.12), 0 2px 8px rgba(0, 0, 0, 0.06);
-    --shadow-lg: 0 12px 24px rgba(0, 0, 0, 0.12), 0 4px 8px rgba(0, 0, 0, 0.06);
+    /* Elevation - Enhanced for more depth */
+    --shadow-sm: 0 2px 12px rgba(43, 43, 43, 0.08), 0 1px 4px rgba(43, 43, 43, 0.06);
+    --shadow-md: 0 6px 20px rgba(43, 43, 43, 0.10), 0 2px 8px rgba(43, 43, 43, 0.08);
+    --shadow-lg: 0 12px 32px rgba(43, 43, 43, 0.12), 0 4px 12px rgba(43, 43, 43, 0.08);
 
     /* Spacing */
     --spacing-xs: 8px;
@@ -45,17 +45,44 @@
    STREAMLIT CONTAINER CLEANUP
    ============================================ */
 
-/* Soft white gradient app background */
+/* Soft cream gradient app background with depth */
 .st-emotion-cache-1r4qj8v,
 [data-testid="stAppViewContainer"],
 .main,
 .block-container {
-    background: linear-gradient(135deg, #ffffff 0%, #f9fafa 100%) !important;
+    background: linear-gradient(180deg, #FFFDFD 0%, #F9F8F6 50%, #F4F4F4 100%) !important;
 }
 
-/* Ensure main content area has soft white gradient background */
+/* Ensure main content area has soft cream gradient background */
 section.main > div {
-    background: linear-gradient(135deg, #ffffff 0%, #f9fafa 100%) !important;
+    background: linear-gradient(180deg, #FFFDFD 0%, #F9F8F6 50%, #F4F4F4 100%) !important;
+}
+
+/* Platinum Scrollbars - Elegant and minimalist */
+* {
+    scrollbar-width: thin !important;
+    scrollbar-color: #E5E4E2 #F4F4F4 !important;
+}
+
+/* Webkit browsers (Chrome, Safari, Edge) */
+*::-webkit-scrollbar {
+    width: 10px !important;
+    height: 10px !important;
+}
+
+*::-webkit-scrollbar-track {
+    background: #F4F4F4 !important;
+    border-radius: 10px !important;
+}
+
+*::-webkit-scrollbar-thumb {
+    background: #E5E4E2 !important;
+    border-radius: 10px !important;
+    border: 2px solid #F4F4F4 !important;
+}
+
+*::-webkit-scrollbar-thumb:hover {
+    background: #D3D3D3 !important;
 }
 
 /* Make all Streamlit blocks transparent so green gradient shows through */

@@ -6,6 +6,7 @@ from google.oauth2 import service_account
 from google.oauth2.service_account import Credentials
 from st_aggrid import AgGrid, GridOptionsBuilder, GridUpdateMode
 from charts import create_team_completion_donut, create_project_breakdown_chart
+from demo_data_transformer import transform_to_demo_data
 
 def get_column(df, col_name):
     """
@@ -243,7 +244,11 @@ def load_google_sheet():
             if orig_name not in st.session_state.column_mapping:
                 st.session_state.column_mapping[orig_name] = unique_cols[i]
 
-        return df
+        # Apply demo data transformation PERMANENTLY
+        # Transform sensitive data before returning
+        df_demo = transform_to_demo_data(df)
+
+        return df_demo
 
     except Exception as e:
         st.error(f"Error loading Google Sheet: {str(e)}")
@@ -392,48 +397,60 @@ def calculate_kpis(df, user_name, is_personal=False):
     # Done tasks: contains "done" or "complete" or green circle emoji
     done_tasks = len(df_copy[status_lower.str.contains("done|complete|🟢", case=False, na=False)])
 
+    # Archived tasks: contains "archived" or "archive"
+    archived_tasks = len(df_copy[status_lower.str.contains("archived|archive", case=False, na=False)])
+
     return {
         "my_open_tasks": my_open_tasks,
         "team_open_tasks": team_open_tasks,
         "active_projects": active_projects,
         "open_tasks": open_tasks,
         "working_tasks": working_tasks,
-        "done_tasks": done_tasks
+        "done_tasks": done_tasks,
+        "archived_tasks": archived_tasks
     }
 
 def render_kpi_section(kpis, section_label=""):
     """
     Render KPI metrics in elegant, refined cards with subtle Strategic Business Solutions branding
     """
+    # Import Google Fonts
+    st.markdown("""
+        <link href="https://fonts.googleapis.com/css2?family=Marcellus&family=Questrial&display=swap" rel="stylesheet">
+    """, unsafe_allow_html=True)
+
     # Add edge spacers for more breathing room - 4 columns
     edge_spacer_left, col1, spacer1, col2, spacer2, col3, spacer3, col4, edge_spacer_right = st.columns([0.1, 1, 0.08, 1, 0.08, 1, 0.08, 1, 0.1])
 
     with col1:
         st.markdown(f"""
             <div class='kpi-card' style='
-                background: #FFFDFD;
-                padding: 32px 48px;
-                border-radius: 8px;
-                border: 1px solid #E5E4E2;
-                box-shadow: 0 1px 2px rgba(0, 0, 0, 0.03);
-                transition: all 0.2s ease;
+                background: linear-gradient(135deg, #FFFDFD 0%, #F4F4F4 100%);
+                padding: 40px 32px;
+                border-radius: 16px;
+                border: 2px solid #E5E4E2;
+                box-shadow: 0 6px 20px rgba(43, 43, 43, 0.05), 0 2px 6px rgba(43, 43, 43, 0.03);
+                transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
                 text-align: center;
+                position: relative;
             '>
                 <p style='
-                    margin: 0 0 16px 0;
-                    font-size: 0.7rem;
-                    font-weight: 500;
+                    margin: 0 0 20px 0;
+                    font-size: 0.75rem;
+                    font-weight: 400;
+                    font-family: "Questrial", sans-serif;
                     text-transform: uppercase;
-                    letter-spacing: 0.1em;
+                    letter-spacing: 0.15em;
                     color: #918C86;
                 '>OPEN TASKS</p>
                 <h2 style='
                     margin: 0;
-                    font-size: 2.75rem;
-                    font-weight: 300;
+                    font-size: 3rem;
+                    font-weight: 400;
+                    font-family: "Marcellus", serif;
                     color: #2B2B2B;
                     line-height: 1;
-                    letter-spacing: -0.02em;
+                    letter-spacing: -0.01em;
                 '>{kpis["team_open_tasks"]}</h2>
             </div>
         """, unsafe_allow_html=True)
@@ -441,29 +458,32 @@ def render_kpi_section(kpis, section_label=""):
     with col2:
         st.markdown(f"""
             <div class='kpi-card' style='
-                background: #FFFDFD;
-                padding: 32px 48px;
-                border-radius: 8px;
-                border: 1px solid #E5E4E2;
-                box-shadow: 0 1px 2px rgba(0, 0, 0, 0.03);
-                transition: all 0.2s ease;
+                background: linear-gradient(135deg, #FFFDFD 0%, #F4F4F4 100%);
+                padding: 40px 32px;
+                border-radius: 16px;
+                border: 2px solid #E5E4E2;
+                box-shadow: 0 6px 20px rgba(43, 43, 43, 0.05), 0 2px 6px rgba(43, 43, 43, 0.03);
+                transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
                 text-align: center;
+                position: relative;
             '>
                 <p style='
-                    margin: 0 0 16px 0;
-                    font-size: 0.7rem;
-                    font-weight: 500;
+                    margin: 0 0 20px 0;
+                    font-size: 0.75rem;
+                    font-weight: 400;
+                    font-family: "Questrial", sans-serif;
                     text-transform: uppercase;
-                    letter-spacing: 0.1em;
+                    letter-spacing: 0.15em;
                     color: #918C86;
                 '>IN PROGRESS</p>
                 <h2 style='
                     margin: 0;
-                    font-size: 2.75rem;
-                    font-weight: 300;
-                    color: #1f2937;
+                    font-size: 3rem;
+                    font-weight: 400;
+                    font-family: "Marcellus", serif;
+                    color: #2B2B2B;
                     line-height: 1;
-                    letter-spacing: -0.02em;
+                    letter-spacing: -0.01em;
                 '>{kpis["working_tasks"]}</h2>
             </div>
         """, unsafe_allow_html=True)
@@ -471,29 +491,32 @@ def render_kpi_section(kpis, section_label=""):
     with col3:
         st.markdown(f"""
             <div class='kpi-card' style='
-                background: #FFFDFD;
-                padding: 32px 48px;
-                border-radius: 8px;
-                border: 1px solid #E5E4E2;
-                box-shadow: 0 1px 2px rgba(0, 0, 0, 0.03);
-                transition: all 0.2s ease;
+                background: linear-gradient(135deg, #FFFDFD 0%, #F4F4F4 100%);
+                padding: 40px 32px;
+                border-radius: 16px;
+                border: 2px solid #E5E4E2;
+                box-shadow: 0 6px 20px rgba(43, 43, 43, 0.05), 0 2px 6px rgba(43, 43, 43, 0.03);
+                transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
                 text-align: center;
+                position: relative;
             '>
                 <p style='
-                    margin: 0 0 16px 0;
-                    font-size: 0.7rem;
-                    font-weight: 500;
+                    margin: 0 0 20px 0;
+                    font-size: 0.75rem;
+                    font-weight: 400;
+                    font-family: "Questrial", sans-serif;
                     text-transform: uppercase;
-                    letter-spacing: 0.1em;
+                    letter-spacing: 0.15em;
                     color: #918C86;
                 '>COMPLETE</p>
                 <h2 style='
                     margin: 0;
-                    font-size: 2.75rem;
-                    font-weight: 300;
+                    font-size: 3rem;
+                    font-weight: 400;
+                    font-family: "Marcellus", serif;
                     color: #2B2B2B;
                     line-height: 1;
-                    letter-spacing: -0.02em;
+                    letter-spacing: -0.01em;
                 '>{kpis["done_tasks"]}</h2>
             </div>
         """, unsafe_allow_html=True)
@@ -505,66 +528,77 @@ def render_kpi_section(kpis, section_label=""):
     with col4:
         st.markdown(f"""
             <div class='kpi-card' style='
-                background: #FFFDFD;
-                padding: 32px 48px;
-                border-radius: 8px;
-                border: 1px solid #E5E4E2;
-                box-shadow: 0 1px 2px rgba(0, 0, 0, 0.03);
-                transition: all 0.2s ease;
+                background: linear-gradient(135deg, #FFFDFD 0%, #F4F4F4 100%);
+                padding: 40px 32px;
+                border-radius: 16px;
+                border: 2px solid #E5E4E2;
+                box-shadow: 0 6px 20px rgba(43, 43, 43, 0.05), 0 2px 6px rgba(43, 43, 43, 0.03);
+                transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
                 text-align: center;
+                position: relative;
             '>
                 <p style='
-                    margin: 0 0 16px 0;
-                    font-size: 0.7rem;
-                    font-weight: 500;
+                    margin: 0 0 20px 0;
+                    font-size: 0.75rem;
+                    font-weight: 400;
+                    font-family: "Questrial", sans-serif;
                     text-transform: uppercase;
-                    letter-spacing: 0.1em;
+                    letter-spacing: 0.15em;
                     color: #918C86;
                 '>COMPLETION RATE</p>
                 <h2 style='
                     margin: 0;
-                    font-size: 2.75rem;
-                    font-weight: 300;
+                    font-size: 3rem;
+                    font-weight: 400;
+                    font-family: "Marcellus", serif;
                     color: #2B2B2B;
                     line-height: 1;
-                    letter-spacing: -0.02em;
+                    letter-spacing: -0.01em;
                 '>{completion_rate:.1f}%</h2>
             </div>
         """, unsafe_allow_html=True)
 
 def render_personal_kpi_section(kpis):
     """
-    Render KPI metrics for personal users with elegant light theme (only My Open Tasks and Active Projects)
+    Render KPI metrics for personal users with SBS refined elegant styling (only My Open Tasks and Active Projects)
     """
+    # Import Google Fonts
+    st.markdown("""
+        <link href="https://fonts.googleapis.com/css2?family=Marcellus&family=Questrial&display=swap" rel="stylesheet">
+    """, unsafe_allow_html=True)
+
     # Add edge spacers and only 2 columns
     edge_spacer_left, col1, spacer1, col2, edge_spacer_right = st.columns([0.5, 1, 0.2, 1, 0.5])
 
     with col1:
         st.markdown(f"""
             <div class='kpi-card' style='
-                background: linear-gradient(135deg, #fafbfc 0%, #f5f7f9 100%);
-                padding: 32px 48px;
-                border-radius: 12px;
-                border-left: 3px solid #2B2B2B;
-                box-shadow: 0 1px 3px rgba(0, 0, 0, 0.06);
-                transition: all 0.2s ease;
+                background: linear-gradient(135deg, #FFFDFD 0%, #F4F4F4 100%);
+                padding: 48px 40px;
+                border-radius: 16px;
+                border: 2px solid #E5E4E2;
+                box-shadow: 0 8px 24px rgba(43, 43, 43, 0.06), 0 2px 6px rgba(43, 43, 43, 0.04);
+                transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
                 text-align: center;
+                position: relative;
             '>
                 <p style='
-                    margin: 0 0 16px 0;
-                    font-size: 0.7rem;
-                    font-weight: 500;
+                    margin: 0 0 24px 0;
+                    font-size: 0.75rem;
+                    font-weight: 400;
+                    font-family: "Questrial", sans-serif;
                     text-transform: uppercase;
-                    letter-spacing: 0.1em;
-                    color: #6b7280;
+                    letter-spacing: 0.15em;
+                    color: #918C86;
                 '>ALL OPEN TASKS</p>
                 <h2 style='
                     margin: 0;
-                    font-size: 2.75rem;
-                    font-weight: 300;
-                    color: #1f2937;
+                    font-size: 3.25rem;
+                    font-weight: 400;
+                    font-family: "Marcellus", serif;
+                    color: #2B2B2B;
                     line-height: 1;
-                    letter-spacing: -0.02em;
+                    letter-spacing: -0.01em;
                 '>{kpis["team_open_tasks"]}</h2>
             </div>
         """, unsafe_allow_html=True)
@@ -572,29 +606,32 @@ def render_personal_kpi_section(kpis):
     with col2:
         st.markdown(f"""
             <div class='kpi-card' style='
-                background: linear-gradient(135deg, #fafbfc 0%, #f5f7f9 100%);
-                padding: 32px 48px;
-                border-radius: 12px;
-                border-left: 3px solid #918C86;
-                box-shadow: 0 1px 3px rgba(0, 0, 0, 0.06);
-                transition: all 0.2s ease;
+                background: linear-gradient(135deg, #FFFDFD 0%, #F4F4F4 100%);
+                padding: 48px 40px;
+                border-radius: 16px;
+                border: 2px solid #E5E4E2;
+                box-shadow: 0 8px 24px rgba(43, 43, 43, 0.06), 0 2px 6px rgba(43, 43, 43, 0.04);
+                transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
                 text-align: center;
+                position: relative;
             '>
                 <p style='
-                    margin: 0 0 16px 0;
-                    font-size: 0.7rem;
-                    font-weight: 500;
+                    margin: 0 0 24px 0;
+                    font-size: 0.75rem;
+                    font-weight: 400;
+                    font-family: "Questrial", sans-serif;
                     text-transform: uppercase;
-                    letter-spacing: 0.1em;
-                    color: #6b7280;
+                    letter-spacing: 0.15em;
+                    color: #918C86;
                 '>ACTIVE PROJECTS</p>
                 <h2 style='
                     margin: 0;
-                    font-size: 2.75rem;
-                    font-weight: 300;
-                    color: #1f2937;
+                    font-size: 3.25rem;
+                    font-weight: 400;
+                    font-family: "Marcellus", serif;
+                    color: #2B2B2B;
                     line-height: 1;
-                    letter-spacing: -0.02em;
+                    letter-spacing: -0.01em;
                 '>{kpis["active_projects"]}</h2>
             </div>
         """, unsafe_allow_html=True)
@@ -621,31 +658,32 @@ def render_charts_section(kpis, filtered_df, show_project_chart=True):
         container1 = st.container()
         with container1:
             st.markdown("""
+                <link href="https://fonts.googleapis.com/css2?family=Marcellus&family=Questrial&display=swap" rel="stylesheet">
                 <style>
                 /* Target this specific column */
                 div[data-testid="column"]:nth-child(1) div[data-testid="stVerticalBlock"] {
                     background: linear-gradient(135deg, #FFFDFD 0%, #F4F4F4 100%) !important;
-                    border-radius: 12px !important;
-                    padding: 24px !important;
-                    border: 1px solid #E5E4E2 !important;
-                    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.04), 0 1px 3px rgba(0, 0, 0, 0.02) !important;
-                    transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1) !important;
+                    border-radius: 16px !important;
+                    padding: 32px !important;
+                    border: 2px solid #E5E4E2 !important;
+                    box-shadow: 0 6px 20px rgba(43, 43, 43, 0.05), 0 2px 6px rgba(43, 43, 43, 0.03) !important;
+                    transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1) !important;
                 }
                 div[data-testid="column"]:nth-child(1) div[data-testid="stVerticalBlock"]:hover {
-                    transform: translateY(-4px) !important;
-                    box-shadow: 0 8px 16px rgba(0, 0, 0, 0.08), 0 2px 6px rgba(0, 0, 0, 0.04) !important;
-                    border: 1px solid rgba(10, 75, 75, 0.2) !important;
+                    transform: translateY(-6px) !important;
+                    box-shadow: 0 12px 32px rgba(43, 43, 43, 0.08), 0 4px 12px rgba(43, 43, 43, 0.06) !important;
+                    border-color: #918C86 !important;
                 }
                 </style>
-                <h3 style="text-align: left; margin: 0 0 20px 0; color: #2B2B2B; font-weight: 500; font-size: 1.0rem; font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;">Task Completion Status</h3>
+                <h3 style="text-align: left; margin: 0 0 24px 0; color: #2B2B2B; font-weight: 400; font-size: 1.15rem; font-family: 'Questrial', sans-serif; letter-spacing: 0.05em; text-transform: uppercase;">Task Completion Status</h3>
             """, unsafe_allow_html=True)
 
             # Create vertical bar chart for task completion
             import plotly.graph_objects as go
 
-            statuses = ['Open', 'In Progress', 'Complete']
-            counts = [kpis["open_tasks"], kpis["working_tasks"], kpis["done_tasks"]]
-            colors = ['#d17a6f', '#e8b968', '#E5E4E2']
+            statuses = ['Open', 'In Progress', 'Complete', 'Archived']
+            counts = [kpis["open_tasks"], kpis["working_tasks"], kpis["done_tasks"], kpis.get("archived_tasks", 0)]
+            colors = ['#E5E4E2', '#D3D3D3', '#918C86', '#474747']
 
             # Calculate percentages
             total = sum(counts)
@@ -699,23 +737,24 @@ def render_charts_section(kpis, filtered_df, show_project_chart=True):
             container2 = st.container()
             with container2:
                 st.markdown("""
+                    <link href="https://fonts.googleapis.com/css2?family=Marcellus&family=Questrial&display=swap" rel="stylesheet">
                     <style>
                     /* Target this specific column */
                     div[data-testid="column"]:nth-child(2) div[data-testid="stVerticalBlock"] {
                         background: linear-gradient(135deg, #FFFDFD 0%, #F4F4F4 100%) !important;
-                        border-radius: 12px !important;
-                        padding: 24px !important;
-                        border: 1px solid #E5E4E2 !important;
-                        box-shadow: 0 2px 8px rgba(0, 0, 0, 0.04), 0 1px 3px rgba(0, 0, 0, 0.02) !important;
-                        transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1) !important;
+                        border-radius: 16px !important;
+                        padding: 32px !important;
+                        border: 2px solid #E5E4E2 !important;
+                        box-shadow: 0 6px 20px rgba(43, 43, 43, 0.05), 0 2px 6px rgba(43, 43, 43, 0.03) !important;
+                        transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1) !important;
                     }
                     div[data-testid="column"]:nth-child(2) div[data-testid="stVerticalBlock"]:hover {
-                        transform: translateY(-4px) !important;
-                        box-shadow: 0 8px 16px rgba(0, 0, 0, 0.08), 0 2px 6px rgba(0, 0, 0, 0.04) !important;
-                        border: 1px solid rgba(10, 75, 75, 0.2) !important;
+                        transform: translateY(-6px) !important;
+                        box-shadow: 0 12px 32px rgba(43, 43, 43, 0.08), 0 4px 12px rgba(43, 43, 43, 0.06) !important;
+                        border-color: #918C86 !important;
                     }
                     </style>
-                    <h3 style="text-align: left; margin: 0 0 20px 0; color: #2B2B2B; font-weight: 500; font-size: 1.0rem; font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;">Tasks by Project</h3>
+                    <h3 style="text-align: left; margin: 0 0 24px 0; color: #2B2B2B; font-weight: 400; font-size: 1.15rem; font-family: 'Questrial', sans-serif; letter-spacing: 0.05em; text-transform: uppercase;">Tasks by Project</h3>
                 """, unsafe_allow_html=True)
 
                 project_fig = create_project_breakdown_chart(filtered_df)
@@ -1654,31 +1693,50 @@ def render_executive_dashboard(exec_metrics, df):
     """
     Render executive dashboard for Tea with enhanced metrics
     """
-    # Add KPI card hover effects
+    # Add KPI card hover effects with SBS refined styling
     st.markdown("""
+        <link href="https://fonts.googleapis.com/css2?family=Marcellus&family=Questrial&display=swap" rel="stylesheet">
         <style>
         .kpi-card {
-            background: #ffffff;
-            padding: 48px 32px;
-            border-radius: 12px;
-            border: 1px solid #e8eaed;
-            box-shadow: 0 1px 3px rgba(0, 0, 0, 0.05);
+            background: linear-gradient(135deg, #FFFDFD 0%, #F4F4F4 100%);
+            padding: 56px 40px;
+            border-radius: 16px;
+            border: 2px solid #E5E4E2;
+            box-shadow: 0 8px 24px rgba(43, 43, 43, 0.06), 0 2px 6px rgba(43, 43, 43, 0.04);
             text-align: center;
-            transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+            transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
             cursor: default;
+            position: relative;
+            overflow: hidden;
+        }
+        .kpi-card::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            height: 4px;
+            background: linear-gradient(90deg, #2B2B2B 0%, #918C86 50%, #E5E4E2 100%);
+            opacity: 0;
+            transition: opacity 0.4s cubic-bezier(0.4, 0, 0.2, 1);
         }
         .kpi-card:hover {
-            transform: translateY(-4px);
-            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.08);
-            border-color: #d1d5db;
+            transform: translateY(-6px);
+            box-shadow: 0 16px 48px rgba(43, 43, 43, 0.12), 0 4px 12px rgba(43, 43, 43, 0.08);
+            border-color: #918C86;
+        }
+        .kpi-card:hover::before {
+            opacity: 1;
         }
         </style>
         <h2 style='
-            margin: 0 0 48px 0;
-            font-size: 1.5rem;
+            margin: 0 0 56px 0;
+            font-size: 2rem;
             font-weight: 400;
-            color: #2d3748;
-            letter-spacing: 0.02em;
+            font-family: "Marcellus", serif;
+            color: #2B2B2B;
+            letter-spacing: -0.01em;
+            text-align: center;
         '>Executive Overview</h2>
     """, unsafe_allow_html=True)
 
@@ -1688,32 +1746,32 @@ def render_executive_dashboard(exec_metrics, df):
     with col1:
         st.markdown(f"""
             <div class='kpi-card'>
-                <p style='margin: 0 0 20px 0; font-size: 0.7rem; font-weight: 500; text-transform: uppercase; letter-spacing: 0.12em; color: #9ca3af;'>Open Tasks</p>
-                <h2 style='margin: 0; font-size: 2.75rem; font-weight: 300; color: #1f2937; line-height: 1; letter-spacing: -0.02em;'>{exec_metrics["total_open"]}</h2>
+                <p style='margin: 0 0 24px 0; font-size: 0.75rem; font-weight: 400; font-family: "Questrial", sans-serif; text-transform: uppercase; letter-spacing: 0.15em; color: #918C86;'>Open Tasks</p>
+                <h2 style='margin: 0; font-size: 3.5rem; font-weight: 400; font-family: "Marcellus", serif; color: #2B2B2B; line-height: 1; letter-spacing: -0.01em;'>{exec_metrics["total_open"]}</h2>
             </div>
         """, unsafe_allow_html=True)
 
     with col2:
         st.markdown(f"""
             <div class='kpi-card'>
-                <p style='margin: 0 0 20px 0; font-size: 0.7rem; font-weight: 500; text-transform: uppercase; letter-spacing: 0.12em; color: #9ca3af;'>In Progress</p>
-                <h2 style='margin: 0; font-size: 2.75rem; font-weight: 300; color: #1f2937; line-height: 1; letter-spacing: -0.02em;'>{exec_metrics["total_in_progress"]}</h2>
+                <p style='margin: 0 0 24px 0; font-size: 0.75rem; font-weight: 400; font-family: "Questrial", sans-serif; text-transform: uppercase; letter-spacing: 0.15em; color: #918C86;'>In Progress</p>
+                <h2 style='margin: 0; font-size: 3.5rem; font-weight: 400; font-family: "Marcellus", serif; color: #2B2B2B; line-height: 1; letter-spacing: -0.01em;'>{exec_metrics["total_in_progress"]}</h2>
             </div>
         """, unsafe_allow_html=True)
 
     with col3:
         st.markdown(f"""
             <div class='kpi-card'>
-                <p style='margin: 0 0 20px 0; font-size: 0.7rem; font-weight: 500; text-transform: uppercase; letter-spacing: 0.12em; color: #9ca3af;'>Complete</p>
-                <h2 style='margin: 0; font-size: 2.75rem; font-weight: 300; color: #1f2937; line-height: 1; letter-spacing: -0.02em;'>{exec_metrics["total_complete"]}</h2>
+                <p style='margin: 0 0 24px 0; font-size: 0.75rem; font-weight: 400; font-family: "Questrial", sans-serif; text-transform: uppercase; letter-spacing: 0.15em; color: #918C86;'>Complete</p>
+                <h2 style='margin: 0; font-size: 3.5rem; font-weight: 400; font-family: "Marcellus", serif; color: #2B2B2B; line-height: 1; letter-spacing: -0.01em;'>{exec_metrics["total_complete"]}</h2>
             </div>
         """, unsafe_allow_html=True)
 
     with col4:
         st.markdown(f"""
             <div class='kpi-card'>
-                <p style='margin: 0 0 20px 0; font-size: 0.7rem; font-weight: 500; text-transform: uppercase; letter-spacing: 0.12em; color: #9ca3af;'>Completion Rate</p>
-                <h2 style='margin: 0; font-size: 2.75rem; font-weight: 300; color: #1f2937; line-height: 1; letter-spacing: -0.02em;'>{exec_metrics["completion_rate"]}%</h2>
+                <p style='margin: 0 0 24px 0; font-size: 0.75rem; font-weight: 400; font-family: "Questrial", sans-serif; text-transform: uppercase; letter-spacing: 0.15em; color: #918C86;'>Completion Rate</p>
+                <h2 style='margin: 0; font-size: 3.5rem; font-weight: 400; font-family: "Marcellus", serif; color: #2B2B2B; line-height: 1; letter-spacing: -0.01em;'>{exec_metrics["completion_rate"]}%</h2>
             </div>
         """, unsafe_allow_html=True)
 
@@ -1756,6 +1814,12 @@ def show_dashboard():
     if df.empty:
         st.warning("No data available. Please check your Google Sheet connection.")
         return
+
+    # Always filter out archived tasks
+    if has_column(df, "Status"):
+        status_col = get_column(df, "Status")
+        status_lower = df[status_col].str.lower().str.strip()
+        df = df[~status_lower.str.contains("archived|archive", case=False, na=False)].copy()
 
     # Determine if user is admin (Anna or Tea), Jess (view_all_tasks), or regular user
     user_lower = user_name.lower()

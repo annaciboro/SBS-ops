@@ -228,8 +228,8 @@ if st.session_state.get("authentication_status") is None:
         [data-testid="stFormSubmitButton"] button,
         div[data-testid="stFormSubmitButton"] > button,
         [class*="stFormSubmitButton"] button {
-            background: #2B2B2B !important;
-            background-color: #2B2B2B !important;
+            background: #474747 !important;
+            background-color: #474747 !important;
             background-image: none !important;
             color: #FFFDFD !important;
             border: none !important;
@@ -251,13 +251,22 @@ if st.session_state.get("authentication_status") is None:
             outline: none !important;
         }
 
-        /* Force white text on button and all nested elements */
+        /* Force cream text on button and all nested elements */
         section[data-testid="stForm"] button,
         section[data-testid="stForm"] button *,
         section[data-testid="stForm"] button p,
         section[data-testid="stForm"] button div,
+        section[data-testid="stForm"] button span,
         [data-testid="stFormSubmitButton"] button,
-        [data-testid="stFormSubmitButton"] button * {
+        [data-testid="stFormSubmitButton"] button *,
+        [data-testid="stFormSubmitButton"] button p,
+        [data-testid="stFormSubmitButton"] button div,
+        [data-testid="stFormSubmitButton"] button span,
+        form button,
+        form button *,
+        form button p,
+        form button div,
+        form button span {
             color: #FFFDFD !important;
             text-transform: uppercase !important;
             font-size: 13px !important;
@@ -276,6 +285,15 @@ if st.session_state.get("authentication_status") is None:
             transform: translateY(-1px) !important;
             box-shadow: 0 4px 12px rgba(10, 75, 75, 0.4) !important;
             border: none !important;
+            color: #FFFDFD !important;
+        }
+
+        /* Hover state text color */
+        button[kind="primary"]:hover *,
+        section[data-testid="stForm"] button:hover *,
+        form button:hover *,
+        [data-testid="stFormSubmitButton"] button:hover * {
+            color: #FFFDFD !important;
         }
 
         /* Active/Clicked state - neon green with dark green text */
@@ -449,8 +467,11 @@ st.markdown("""
         color: #474747 !important;
     }
 
-    /* Body text, paragraphs */
-    p, .stMarkdown p, div, span {
+    /* Body text, paragraphs - BUT NOT BUTTONS */
+    p:not(button p):not(button *),
+    .stMarkdown p:not(button p):not(button *),
+    div:not(button):not(button div):not(button *),
+    span:not(button span):not(button *) {
         font-family: 'Questrial', sans-serif !important;
         font-size: 0.95rem !important;
         line-height: 1.6 !important;
@@ -465,13 +486,13 @@ st.markdown("""
         padding: 8px 16px !important;
     }
 
-    /* ALL PRIMARY BUTTONS - Minimalist Black */
+    /* ALL PRIMARY BUTTONS - Minimalist Dark Grey */
     button[kind="primary"],
     button[data-testid="baseButton-primary"],
     .stButton > button[kind="primary"],
     div[data-testid="stButton"] > button[type="submit"] {
-        background: #2B2B2B !important;
-        background-color: #2B2B2B !important;
+        background: #474747 !important;
+        background-color: #474747 !important;
         border: none !important;
         color: #FFFDFD !important;
         font-weight: 500 !important;
@@ -486,6 +507,7 @@ st.markdown("""
     .stButton > button[kind="primary"]:hover,
     div[data-testid="stButton"] > button[type="submit"]:hover {
         background: #918C86 !important;
+        color: #FFFDFD !important;
         box-shadow: 0 2px 6px rgba(10, 75, 75, 0.2) !important;
         transform: translateY(-1px) !important;
     }
@@ -583,12 +605,12 @@ if 'current_page' not in st.session_state:
 # Get the logged-in user's name
 user_name = st.session_state.get("name", "")
 user_email = st.session_state.get("username", "")
-is_admin = ("anna" in user_name.lower() and "ciboro" in user_name.lower()) or user_email.lower() == "sbs.anna.ciboro@gmail.com"
+is_anna = "anna" in user_name.lower() or user_email.lower() == "sbs.anna.ciboro@gmail.com"
 is_jess = user_email.lower() == "jess@sbsglove.com"
 
 # Different navigation based on user type
-if is_admin:
-    # Admin (Anna) sees all pages
+if is_anna:
+    # Anna (admin) sees all pages
     pages_list = ["Overview", "My Tasks", "All Tasks", "Archive", "Sales Portal", "Investor Portal", "Logout"]
 elif is_jess:
     # Jess sees team-related pages but not Sales/Investor portals
@@ -1083,6 +1105,54 @@ js_path = os.path.join(current_dir, "static", "sbs.js")
 
 inject_css(css_path)
 inject_js(js_path)
+
+# Force CSS variable override with MAXIMUM specificity to fix cached green colors
+st.markdown("""
+<style>
+/* Maximum specificity CSS variable override */
+html, html:root, :root, * {
+    /* FORCE OVERRIDE - Soft Minimalist Color Palette */
+    --sbs-cream: #FFFDFD !important;
+    --sbs-light-grey: #F4F4F4 !important;
+    --sbs-black: #2B2B2B !important;
+    --sbs-dark-grey: #474747 !important;
+    --sbs-tan-grey: #918C86 !important;
+    --sbs-platinum: #E5E4E2 !important;
+
+    /* FORCE OVERRIDE - Remove old colors */
+    --sbs-lime: #2B2B2B !important;
+    --sbs-lime-soft: #918C86 !important;
+    --sbs-lime-dark: #474747 !important;
+    --sbs-teal: #474747 !important;
+    --sbs-teal-light: #918C86 !important;
+    --sbs-teal-lighter: #E5E4E2 !important;
+
+    /* Semantic Colors */
+    --color-primary: #2B2B2B !important;
+    --color-secondary: #474747 !important;
+    --color-text: #2B2B2B !important;
+    --color-text-muted: #918C86 !important;
+    --color-bg: #FFFDFD !important;
+    --color-card: #FFFDFD !important;
+}
+
+/* Direct color replacement for any hardcoded teal/lime colors */
+[style*="#d4ff00"], [style*="#c8e66f"], [style*="#b8e600"],
+[style*="#0a4b4b"], [style*="#5f8c8c"] {
+    background: #FFFDFD !important;
+    border-color: #E5E4E2 !important;
+}
+
+/* Force KPI card styles to use soft minimalist colors */
+div[data-testid="stMetricValue"],
+div[data-testid="stMetric"],
+.kpi-card {
+    background: linear-gradient(135deg, #FFFDFD 0%, #F4F4F4 100%) !important;
+    border-left: 4px solid #E5E4E2 !important;
+    border: 2px solid #E5E4E2 !important;
+}
+</style>
+""", unsafe_allow_html=True)
 
 
 

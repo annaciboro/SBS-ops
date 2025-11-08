@@ -436,14 +436,14 @@ def create_project_breakdown_chart(df):
     projects = [p.title() for p in project_counts.index]
     counts = project_counts.values
 
-    # Sophisticated, subdued color palette - elegant and refined
+    # Platinum minimalist color palette - sophisticated gradients
     subdued_colors = [
-        '#8b9d9f',  # Muted teal-grey
-        '#a8b89f',  # Sage green
-        '#9ba8a3',  # Soft green-grey
-        '#b5b8a8',  # Warm beige-grey
-        '#98a89b',  # Muted moss
-        '#a5b0a6',  # Light grey-green
+        '#E5E4E2',  # Platinum
+        '#D3D3D3',  # Light grey
+        '#C0C0C0',  # Silver
+        '#B8B8B8',  # Medium grey
+        '#A8A8A8',  # Darker grey
+        '#918C86',  # Tan grey
     ]
 
     # Assign colors cycling through the subdued palette
@@ -461,7 +461,7 @@ def create_project_breakdown_chart(df):
         ),
         text=[f'{count}' for count in counts],
         textposition='outside',
-        textfont=dict(size=13, color='#1f2937', family='-apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif', weight=500),
+        textfont=dict(size=13, color='#2B2B2B', family='-apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif', weight=500),
         hovertemplate='<b>%{y}</b><br>Tasks: %{x}<extra></extra>',
         width=0.6  # Slimmer bars for premium look
     )])
@@ -478,7 +478,7 @@ def create_project_breakdown_chart(df):
             gridwidth=1,
             zeroline=False,
             title='',
-            tickfont=dict(size=12, color='#0a4b4b', family='-apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif', weight=600),
+            tickfont=dict(size=12, color='#2B2B2B', family='-apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif', weight=600),
             range=[0, max(counts) * 1.15]  # Extra space for text labels
         ),
         yaxis=dict(
