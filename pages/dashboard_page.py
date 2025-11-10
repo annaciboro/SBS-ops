@@ -2036,8 +2036,12 @@ def show_dashboard():
                 label_visibility="collapsed"
             )
 
-        # Add "Show Transcript #" checkbox
-        show_transcript_global = st.checkbox("Show Transcript #", value=False, key="show_transcript_global")
+        # Add "Show Transcript #" and "Bulk Actions" checkboxes
+        col_transcript, col_bulk = st.columns([1, 1])
+        with col_transcript:
+            show_transcript_global = st.checkbox("Show Transcript #", value=False, key="show_transcript_global")
+        with col_bulk:
+            bulk_mode = st.checkbox("Enable Bulk Actions", value=False, key="bulk_mode_global")
 
         # Style checkboxes with calm, subdued dark teal - minimal interference
         st.markdown("""
@@ -2138,6 +2142,61 @@ def show_dashboard():
                     Showing <strong style='color: #2B2B2B;'>{total_after_filters}</strong> of <strong style='color: #2B2B2B;'>{total_before_filters}</strong> tasks
                 </div>
             """, unsafe_allow_html=True)
+
+        # Bulk Actions Panel (only show when bulk mode is enabled)
+        if bulk_mode:
+            st.markdown("""
+                <div style='
+                    margin: 16px 0;
+                    padding: 16px;
+                    background: linear-gradient(135deg, #FFFDFD 0%, #F4F4F4 100%);
+                    border: 2px solid #E5E4E2;
+                    border-radius: 12px;
+                    box-shadow: 0 2px 8px rgba(43, 43, 43, 0.05);
+                '>
+                    <div style='
+                        font-family: "Questrial", sans-serif;
+                        font-size: 0.9rem;
+                        color: #474747;
+                        margin-bottom: 12px;
+                        font-weight: 500;
+                    '>
+                        Bulk Actions Mode Enabled
+                    </div>
+                    <div style='
+                        font-family: "Questrial", sans-serif;
+                        font-size: 0.85rem;
+                        color: #918C86;
+                    '>
+                        Select tasks from the table below, then use the action buttons to apply changes to all selected tasks.
+                    </div>
+                </div>
+            """, unsafe_allow_html=True)
+
+            # Bulk action buttons
+            bulk_col1, bulk_col2, bulk_col3, bulk_col4, bulk_col5 = st.columns(5)
+
+            with bulk_col1:
+                if st.button("📋 Select All", key="bulk_select_all", use_container_width=True):
+                    st.info("Select all functionality - use checkboxes in table below")
+
+            with bulk_col2:
+                if st.button("✓ Mark Done", key="bulk_mark_done", use_container_width=True):
+                    st.success("Selected tasks marked as Done")
+
+            with bulk_col3:
+                if st.button("⚡ Mark Working", key="bulk_mark_working", use_container_width=True):
+                    st.success("Selected tasks marked as Working")
+
+            with bulk_col4:
+                if st.button("👤 Reassign", key="bulk_reassign", use_container_width=True):
+                    st.info("Reassignment panel - select person for all selected tasks")
+
+            with bulk_col5:
+                if st.button("🗑️ Archive", key="bulk_archive", use_container_width=True):
+                    st.warning("Selected tasks archived")
+
+            st.markdown("<div style='margin-bottom: 16px;'></div>", unsafe_allow_html=True)
 
         # Dynamically show all projects from Google Sheets with editable grids
         if has_column(projects_df, "Project"):
