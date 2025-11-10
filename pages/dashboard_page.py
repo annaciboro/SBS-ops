@@ -1902,10 +1902,7 @@ def show_dashboard():
             '>BREAKDOWN OF TASKS BY PROJECT</h2>
         """, unsafe_allow_html=True)
 
-        # Add archive filter with calm styling
-        show_archived_projects = st.checkbox("Include archived", value=False, key="show_archived_projects")
-
-        # Add "Show Transcript #" checkbox right below
+        # Add "Show Transcript #" checkbox
         show_transcript_global = st.checkbox("Show Transcript #", value=False, key="show_transcript_global")
 
         # Style checkboxes with calm, subdued dark teal - minimal interference
@@ -1953,8 +1950,9 @@ def show_dashboard():
 
         # Apply archive filter to dataframe
         # Use filtered_df for Jess (already filtered to Jess/Megan/Justin), full df for Tea
+        # Always filter out completed tasks
         projects_df = filtered_df.copy() if is_jess else df.copy()
-        if not show_archived_projects and has_column(projects_df, "Status"):
+        if has_column(projects_df, "Status"):
             status_col = get_column(projects_df, "Status")
             projects_df = projects_df[~projects_df[status_col].str.strip().str.lower().isin(['done', 'complete', 'completed'])]
 
