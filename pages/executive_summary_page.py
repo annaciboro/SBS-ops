@@ -151,9 +151,9 @@ def render_executive_summary_page():
             border: none;
             padding: 0;
         }
-        /* Progress bar styling */
+        /* Progress bar styling - Green gradient */
         .stProgress > div > div > div {
-            background: linear-gradient(90deg, #918C86 0%, #474747 100%);
+            background: linear-gradient(90deg, #4CAF50 0%, #2E7D32 100%);
             height: 12px;
             border-radius: 6px;
         }
@@ -193,97 +193,79 @@ def render_executive_summary_page():
     # Calculate metrics
     metrics = calculate_executive_metrics(df)
 
-    # === METRICS ROW WITH EMPHASIS ON OVERDUE ===
+    # === METRICS ROW WITH SBS COLORED BOXES ===
+    st.markdown("""
+        <style>
+        .exec-metric-card {
+            border-radius: 16px;
+            padding: 32px 24px;
+            text-align: center;
+            transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+            cursor: pointer;
+        }
+
+        .exec-metric-card:hover {
+            transform: translateY(-6px);
+            box-shadow: 0 12px 32px rgba(43, 43, 43, 0.15) !important;
+        }
+
+        .exec-metric-label {
+            font-family: "Questrial", sans-serif;
+            font-size: 0.85rem;
+            text-transform: uppercase;
+            letter-spacing: 0.1em;
+            margin: 0 0 12px 0;
+            font-weight: 600;
+        }
+
+        .exec-metric-value {
+            font-family: "Marcellus", serif;
+            font-size: 3.5rem;
+            margin: 0;
+            font-weight: 400;
+            line-height: 1;
+        }
+        </style>
+    """, unsafe_allow_html=True)
+
     col1, col2, col3 = st.columns(3)
 
     with col1:
-        # Active tasks - clean card
+        # Active tasks - Soft platinum/grey (neutral SBS color)
         st.markdown(f"""
-            <div style='
-                background: linear-gradient(135deg, #FFFDFD 0%, #F4F4F4 100%);
-                border-radius: 16px;
-                padding: 32px 24px;
-                box-shadow: 0 2px 8px rgba(43, 43, 43, 0.06);
-                text-align: center;
+            <div class="exec-metric-card" style='
+                background: linear-gradient(135deg, #E5E4E2 0%, #F4F4F4 100%);
+                box-shadow: 0 2px 8px rgba(43, 43, 43, 0.08);
+                border: 1px solid #E5E4E2;
             '>
-                <p style='
-                    font-family: "Questrial", sans-serif;
-                    font-size: 0.85rem;
-                    color: #474747;
-                    text-transform: uppercase;
-                    letter-spacing: 0.1em;
-                    margin: 0 0 12px 0;
-                    font-weight: 600;
-                '>🟢 ACTIVE</p>
-                <h2 style='
-                    font-family: "Marcellus", serif;
-                    font-size: 3.5rem;
-                    color: #2B2B2B;
-                    margin: 0;
-                    font-weight: 400;
-                    line-height: 1;
-                '>{metrics['active_tasks']}</h2>
+                <p class="exec-metric-label" style='color: #474747;'>ACTIVE</p>
+                <h2 class="exec-metric-value" style='color: #2B2B2B;'>{metrics['active_tasks']}</h2>
             </div>
         """, unsafe_allow_html=True)
 
     with col2:
-        # In Progress tasks - clean card
+        # In Progress tasks - Soft tan/beige (SBS warm neutral)
         st.markdown(f"""
-            <div style='
-                background: linear-gradient(135deg, #FFFDFD 0%, #F4F4F4 100%);
-                border-radius: 16px;
-                padding: 32px 24px;
-                box-shadow: 0 2px 8px rgba(43, 43, 43, 0.06);
-                text-align: center;
+            <div class="exec-metric-card" style='
+                background: linear-gradient(135deg, #F5F3F0 0%, #E8E6E3 100%);
+                box-shadow: 0 2px 8px rgba(145, 140, 134, 0.12);
+                border: 1px solid #918C86;
             '>
-                <p style='
-                    font-family: "Questrial", sans-serif;
-                    font-size: 0.85rem;
-                    color: #474747;
-                    text-transform: uppercase;
-                    letter-spacing: 0.1em;
-                    margin: 0 0 12px 0;
-                    font-weight: 600;
-                '>🟡 IN PROGRESS</p>
-                <h2 style='
-                    font-family: "Marcellus", serif;
-                    font-size: 3.5rem;
-                    color: #2B2B2B;
-                    margin: 0;
-                    font-weight: 400;
-                    line-height: 1;
-                '>{metrics['in_progress_tasks']}</h2>
+                <p class="exec-metric-label" style='color: #474747;'>IN PROGRESS</p>
+                <h2 class="exec-metric-value" style='color: #2B2B2B;'>{metrics['in_progress_tasks']}</h2>
             </div>
         """, unsafe_allow_html=True)
 
     with col3:
-        # Overdue tasks - BOLD RED EMPHASIS
+        # Overdue tasks - Soft dark grey/charcoal (SBS dark accent)
         st.markdown(f"""
-            <div style='
-                background: linear-gradient(135deg, #FFF5F5 0%, #FFE8E8 100%);
-                border-radius: 16px;
-                padding: 32px 24px;
-                box-shadow: 0 4px 16px rgba(220, 53, 69, 0.15);
-                border: 2px solid #dc3545;
-                text-align: center;
+            <div class="exec-metric-card" style='
+                background: linear-gradient(135deg, #474747 0%, #2B2B2B 100%);
+                box-shadow: 0 4px 16px rgba(43, 43, 43, 0.25);
+                border: 1px solid #2B2B2B;
             '>
-                <p style='
-                    font-family: "Questrial", sans-serif;
-                    font-size: 0.85rem;
-                    color: #dc3545;
-                    text-transform: uppercase;
-                    letter-spacing: 0.1em;
-                    margin: 0 0 12px 0;
-                    font-weight: 700;
-                '>🔴 OVERDUE</p>
-                <h2 style='
-                    font-family: "Marcellus", serif;
-                    font-size: 3.5rem;
-                    color: #dc3545;
-                    margin: 0;
-                    font-weight: 400;
-                    line-height: 1;
-                '>{metrics['overdue_tasks']}</h2>
+                <p class="exec-metric-label" style='color: #E5E4E2;'>OVERDUE</p>
+                <h2 class="exec-metric-value" style='color: #FFFDFD;'>{metrics['overdue_tasks']}</h2>
             </div>
         """, unsafe_allow_html=True)
 
@@ -353,15 +335,19 @@ def render_executive_summary_page():
         # Update chart height to make it bigger
         donut_fig.update_layout(height=600)
 
-        st.plotly_chart(donut_fig, width='stretch', config={
-            'displayModeBar': True,
-            'displaylogo': False,
-            'modeBarButtonsToAdd': ['zoom2d', 'pan2d', 'zoomIn2d', 'zoomOut2d', 'autoScale2d', 'resetScale2d'],
-            'toImageButtonOptions': {
-                'format': 'png',
-                'filename': 'executive_task_status',
-                'height': 800,
-                'width': 1200,
-                'scale': 2
+        st.plotly_chart(
+            donut_fig,
+            use_container_width=True,
+            config={
+                'displayModeBar': True,
+                'displaylogo': False,
+                'modeBarButtonsToAdd': ['zoom2d', 'pan2d', 'zoomIn2d', 'zoomOut2d', 'autoScale2d', 'resetScale2d'],
+                'toImageButtonOptions': {
+                    'format': 'png',
+                    'filename': 'executive_task_status',
+                    'height': 800,
+                    'width': 1200,
+                    'scale': 2
+                }
             }
-        })
+        )
