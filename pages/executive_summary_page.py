@@ -193,33 +193,101 @@ def render_executive_summary_page():
     # Calculate metrics
     metrics = calculate_executive_metrics(df)
 
-    # === CONNECTED METRICS ROW ===
-    # Single container with 3 columns - no borders, connected design
-    st.markdown("""
-        <style>
-        .metrics-container {
-            background: linear-gradient(135deg, #FFFDFD 0%, #F4F4F4 100%);
-            border-radius: 16px;
-            padding: 32px 24px;
-            margin: 24px 0 40px 0;
-            box-shadow: 0 2px 8px rgba(43, 43, 43, 0.06);
-        }
-        </style>
-        <div class="metrics-container">
-    """, unsafe_allow_html=True)
-
+    # === METRICS ROW WITH EMPHASIS ON OVERDUE ===
     col1, col2, col3 = st.columns(3)
 
     with col1:
-        st.metric(label="🟢 ACTIVE", value=metrics['active_tasks'])
+        # Active tasks - clean card
+        st.markdown(f"""
+            <div style='
+                background: linear-gradient(135deg, #FFFDFD 0%, #F4F4F4 100%);
+                border-radius: 16px;
+                padding: 32px 24px;
+                box-shadow: 0 2px 8px rgba(43, 43, 43, 0.06);
+                text-align: center;
+            '>
+                <p style='
+                    font-family: "Questrial", sans-serif;
+                    font-size: 0.85rem;
+                    color: #474747;
+                    text-transform: uppercase;
+                    letter-spacing: 0.1em;
+                    margin: 0 0 12px 0;
+                    font-weight: 600;
+                '>🟢 ACTIVE</p>
+                <h2 style='
+                    font-family: "Marcellus", serif;
+                    font-size: 3.5rem;
+                    color: #2B2B2B;
+                    margin: 0;
+                    font-weight: 400;
+                    line-height: 1;
+                '>{metrics['active_tasks']}</h2>
+            </div>
+        """, unsafe_allow_html=True)
 
     with col2:
-        st.metric(label="🟡 IN PROGRESS", value=metrics['in_progress_tasks'])
+        # In Progress tasks - clean card
+        st.markdown(f"""
+            <div style='
+                background: linear-gradient(135deg, #FFFDFD 0%, #F4F4F4 100%);
+                border-radius: 16px;
+                padding: 32px 24px;
+                box-shadow: 0 2px 8px rgba(43, 43, 43, 0.06);
+                text-align: center;
+            '>
+                <p style='
+                    font-family: "Questrial", sans-serif;
+                    font-size: 0.85rem;
+                    color: #474747;
+                    text-transform: uppercase;
+                    letter-spacing: 0.1em;
+                    margin: 0 0 12px 0;
+                    font-weight: 600;
+                '>🟡 IN PROGRESS</p>
+                <h2 style='
+                    font-family: "Marcellus", serif;
+                    font-size: 3.5rem;
+                    color: #2B2B2B;
+                    margin: 0;
+                    font-weight: 400;
+                    line-height: 1;
+                '>{metrics['in_progress_tasks']}</h2>
+            </div>
+        """, unsafe_allow_html=True)
 
     with col3:
-        st.metric(label="🔴 OVERDUE", value=metrics['overdue_tasks'])
+        # Overdue tasks - BOLD RED EMPHASIS
+        st.markdown(f"""
+            <div style='
+                background: linear-gradient(135deg, #FFF5F5 0%, #FFE8E8 100%);
+                border-radius: 16px;
+                padding: 32px 24px;
+                box-shadow: 0 4px 16px rgba(220, 53, 69, 0.15);
+                border: 2px solid #dc3545;
+                text-align: center;
+            '>
+                <p style='
+                    font-family: "Questrial", sans-serif;
+                    font-size: 0.85rem;
+                    color: #dc3545;
+                    text-transform: uppercase;
+                    letter-spacing: 0.1em;
+                    margin: 0 0 12px 0;
+                    font-weight: 700;
+                '>🔴 OVERDUE</p>
+                <h2 style='
+                    font-family: "Marcellus", serif;
+                    font-size: 3.5rem;
+                    color: #dc3545;
+                    margin: 0;
+                    font-weight: 400;
+                    line-height: 1;
+                '>{metrics['overdue_tasks']}</h2>
+            </div>
+        """, unsafe_allow_html=True)
 
-    st.markdown("</div>", unsafe_allow_html=True)
+    st.markdown("<br>", unsafe_allow_html=True)
 
     # === PROGRESS SECTION ===
     st.markdown("")  # Spacing
