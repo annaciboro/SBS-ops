@@ -2226,6 +2226,35 @@ def show_dashboard():
                     if idx < len(unique_projects) - 1:  # Don't add extra space after last project
                         st.markdown("<div style='margin-bottom: 40px;'></div>", unsafe_allow_html=True)
 
+    # CSV EXPORT FUNCTIONALITY
+    # Convert filtered dataframe to CSV
+    if not projects_df.empty:
+        csv_data = projects_df.to_csv(index=False).encode('utf-8')
+
+        # Add download button in an expander for CSV export
+        with st.expander("📥 Export Data", expanded=False):
+            st.download_button(
+                label="Download Filtered Tasks as CSV",
+                data=csv_data,
+                file_name=f"sbs_tasks_{pd.Timestamp.now().strftime('%Y%m%d_%H%M%S')}.csv",
+                mime="text/csv",
+                help=f"Export {total_after_filters} filtered tasks to CSV"
+            )
+
+            st.markdown(f"""
+                <div style='
+                    margin-top: 12px;
+                    padding: 8px 12px;
+                    background: #F4F4F4;
+                    border-radius: 6px;
+                    font-family: "Questrial", sans-serif;
+                    font-size: 0.85rem;
+                    color: #474747;
+                '>
+                    <strong>{total_after_filters}</strong> tasks will be exported
+                </div>
+            """, unsafe_allow_html=True)
+
     # ADD FLOATING ACTION BUTTON (FAB) WITH QUICK ACTIONS
     st.markdown(create_fab_button(), unsafe_allow_html=True)
 
