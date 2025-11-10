@@ -1279,18 +1279,16 @@ html body [data-testid="stVerticalBlockBorderWrapper"] {
     background-color: transparent !important;
 }
 
-/* Metric containers - Super pale forest green gradient */
+/* Metric containers - Soft minimalist platinum gradient */
 html body [data-testid="stMetric"],
 html body [data-testid="metric-container"],
 .kpi-card {
-    background: linear-gradient(135deg, #f5faf2 0%, #f8fbf8 100%) !important;
-    /* Very pale forest green → almost white */
-    border: 1px solid #e8eced !important;
-    border-left: 4px solid #0a4b4b !important;
-    border-top: 2px solid rgba(212, 255, 0, 0.3) !important;
+    background: linear-gradient(135deg, #FFFDFD 0%, #F4F4F4 100%) !important;
+    border: 2px solid #E5E4E2 !important;
+    border-left: 4px solid #918C86 !important;
     padding: 32px 48px !important;
     border-radius: 16px !important;
-    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.08), 0 1px 3px rgba(0, 0, 0, 0.04) !important;
+    box-shadow: 0 6px 20px rgba(43, 43, 43, 0.05), 0 2px 6px rgba(43, 43, 43, 0.03) !important;
     transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1) !important;
 }
 
@@ -1298,12 +1296,11 @@ html body [data-testid="stMetric"]:hover,
 html body [data-testid="metric-container"]:hover,
 .kpi-card:hover {
     transform: translateY(-4px) !important;
-    border-left-color: #0a4b4b !important;
+    border-left-color: #474747 !important;
     border-left-width: 4px !important;
-    border-top: 2px solid rgba(212, 255, 0, 0.3) !important;
     box-shadow:
-        0 6px 16px rgba(0, 0, 0, 0.1),
-        0 2px 6px rgba(0, 0, 0, 0.06) !important;
+        0 12px 32px rgba(43, 43, 43, 0.08),
+        0 4px 8px rgba(43, 43, 43, 0.05) !important;
 }
 
 /* Charts and plot containers - Remove default boxes */
