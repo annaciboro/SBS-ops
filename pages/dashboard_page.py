@@ -7,6 +7,7 @@ from google.oauth2.service_account import Credentials
 from st_aggrid import AgGrid, GridOptionsBuilder, GridUpdateMode
 from charts import create_team_completion_donut, create_project_breakdown_chart
 from demo_data_transformer import transform_to_demo_data
+from ui_helpers import get_status_badge, format_relative_date, create_fab_button
 
 def get_column(df, col_name):
     """
@@ -2065,6 +2066,9 @@ def show_dashboard():
                     # Elegant spacing between project sections
                     if idx < len(unique_projects) - 1:  # Don't add extra space after last project
                         st.markdown("<div style='margin-bottom: 40px;'></div>", unsafe_allow_html=True)
+
+    # ADD FLOATING ACTION BUTTON (FAB) WITH QUICK ACTIONS
+    st.markdown(create_fab_button(), unsafe_allow_html=True)
 
     # LOAD SBS JAVASCRIPT AT END OF PAGE
     import os
