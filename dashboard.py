@@ -611,13 +611,13 @@ is_jess = user_email.lower() == "jess@sbsglove.com"
 # Different navigation based on user type
 if is_anna:
     # Anna (admin) sees all pages
-    pages_list = ["Overview", "My Tasks", "All Tasks", "Archive", "Sales Portal", "Investor Portal", "Logout"]
+    pages_list = ["Overview", "Executive Summary", "My Tasks", "All Tasks", "Archive", "Sales Portal", "Investor Portal", "Logout"]
 elif is_jess:
     # Jess sees team-related pages but not Sales/Investor portals
-    pages_list = ["Overview", "My Tasks", "All Tasks", "Archive", "Logout"]
+    pages_list = ["Overview", "Executive Summary", "My Tasks", "All Tasks", "Archive", "Logout"]
 else:
     # Regular users only see Overview, My Tasks, Archive, and Logout
-    pages_list = ["Overview", "My Tasks", "Archive", "Logout"]
+    pages_list = ["Overview", "Executive Summary", "My Tasks", "Archive", "Logout"]
 
 nav_container = st.container()
 
