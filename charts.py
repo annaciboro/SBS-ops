@@ -349,23 +349,23 @@ def create_project_health_dashboard(exec_metrics):
     return fig
 
 
-def create_team_completion_donut(open_tasks, working_tasks, done_tasks):
+def create_team_completion_donut(open_tasks, working_tasks, done_tasks, archived_tasks=0):
     """
     Premium donut chart with sophisticated styling and percentages on each slice
     """
-    total_tasks = open_tasks + working_tasks + done_tasks
+    total_tasks = open_tasks + working_tasks + done_tasks + archived_tasks
 
     if total_tasks == 0:
         st.info("No tasks to display in chart.")
         return None
 
-    # Soft minimalist colors - black, dark grey, platinum gradient
-    colors = [SBS_COLORS['accent_platinum'], SBS_COLORS['accent_medium'], SBS_COLORS['accent_primary']]
+    # Soft minimalist colors - black, dark grey, tan grey, platinum gradient
+    colors = [SBS_COLORS['accent_platinum'], SBS_COLORS['accent_medium'], SBS_COLORS['accent_primary'], SBS_COLORS['accent_dark']]
 
     # Create donut chart with percentages on slices
     fig = go.Figure(data=[go.Pie(
-        labels=['Not Started', 'In Progress', 'Completed'],
-        values=[open_tasks, working_tasks, done_tasks],
+        labels=['Not Started', 'In Progress', 'Completed', 'Archived'],
+        values=[open_tasks, working_tasks, done_tasks, archived_tasks],
         hole=0.68,
         marker=dict(
             colors=colors,
@@ -380,8 +380,8 @@ def create_team_completion_donut(open_tasks, working_tasks, done_tasks):
         sort=False
     )])
 
-    # Calculate overall progress
-    overall_progress = int((working_tasks + done_tasks) / total_tasks * 100) if total_tasks > 0 else 0
+    # Calculate overall progress (done + archived)
+    overall_progress = int((done_tasks + archived_tasks) / total_tasks * 100) if total_tasks > 0 else 0
 
     # Add center text showing overall progress - soft minimalist
     fig.add_annotation(

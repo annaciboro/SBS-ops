@@ -126,7 +126,8 @@ def show_tasks():
             donut_fig = create_team_completion_donut(
                 personal_kpis.get("my_open_tasks", 0),
                 personal_kpis.get("working_tasks", 0),
-                personal_kpis.get("done_tasks", 0)
+                personal_kpis.get("done_tasks", 0),
+                personal_kpis.get("archived_tasks", 0)
             )
 
             if donut_fig:
