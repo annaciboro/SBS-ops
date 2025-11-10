@@ -1954,13 +1954,68 @@ def show_dashboard():
             '>BREAKDOWN OF TASKS BY PROJECT</h2>
         """, unsafe_allow_html=True)
 
-        # Add global search bar
+        # Add global search bar with keyboard shortcuts
+        st.markdown("""
+            <script>
+            // Keyboard shortcuts
+            document.addEventListener('keydown', function(e) {
+                const searchInput = document.querySelector('input[aria-label="Search tasks"]');
+                if (e.key === '/' && document.activeElement.tagName !== 'INPUT') {
+                    e.preventDefault();
+                    if (searchInput) searchInput.focus();
+                } else if (e.key === 'Escape' && document.activeElement === searchInput) {
+                    searchInput.value = '';
+                    searchInput.blur();
+                }
+            });
+            </script>
+        """, unsafe_allow_html=True)
+
         search_query = st.text_input(
             "Search tasks",
-            placeholder="Search tasks, projects, or assignees...",
+            placeholder="Search tasks, projects, or assignees... (Press / to focus)",
             key="global_search",
             label_visibility="collapsed"
         )
+
+        # Quick filter chips
+        filter_col1, filter_col2, filter_col3, filter_col4 = st.columns([1, 1, 1, 2])
+
+        with filter_col1:
+            status_filter = st.selectbox(
+                "Status",
+                ["All Statuses", "Open", "Working", "Done"],
+                key="status_filter",
+                label_visibility="collapsed"
+            )
+
+        with filter_col2:
+            # Get unique projects for filter
+            project_col = get_column(df, "Project") if has_column(df, "Project") else None
+            if project_col:
+                unique_projects = ["All Projects"] + sorted(df[project_col].dropna().unique().tolist())
+                project_filter = st.selectbox(
+                    "Project",
+                    unique_projects,
+                    key="project_filter",
+                    label_visibility="collapsed"
+                )
+            else:
+                project_filter = "All Projects"
+
+        with filter_col3:
+            # Get unique people for filter
+            person_col = get_column(df, "Person") if has_column(df, "Person") else None
+            if person_col:
+                unique_people = ["All People"] + sorted(df[person_col].dropna().unique().tolist())
+                person_filter = st.selectbox(
+                    "Person",
+                    unique_people,
+                    key="person_filter",
+                    label_visibility="collapsed"
+                )
+            else:
+                person_filter = "All People"
 
         # Add "Show Transcript #" checkbox
         show_transcript_global = st.checkbox("Show Transcript #", value=False, key="show_transcript_global")
@@ -2012,9 +2067,24 @@ def show_dashboard():
         # Use filtered_df for Jess (already filtered to Jess/Megan/Justin), full df for Tea
         # Always filter out completed tasks
         projects_df = filtered_df.copy() if is_jess else df.copy()
+        total_before_filters = len(projects_df)
+
         if has_column(projects_df, "Status"):
             status_col = get_column(projects_df, "Status")
             projects_df = projects_df[~projects_df[status_col].str.strip().str.lower().isin(['done', 'complete', 'completed'])]
+
+        # Apply quick filters
+        if status_filter != "All Statuses" and has_column(projects_df, "Status"):
+            status_col = get_column(projects_df, "Status")
+            projects_df = projects_df[projects_df[status_col].str.lower().str.contains(status_filter.lower(), na=False)]
+
+        if project_filter != "All Projects" and has_column(projects_df, "Project"):
+            project_col = get_column(projects_df, "Project")
+            projects_df = projects_df[projects_df[project_col] == project_filter]
+
+        if person_filter != "All People" and has_column(projects_df, "Person"):
+            person_col = get_column(projects_df, "Person")
+            projects_df = projects_df[projects_df[person_col] == person_filter]
 
         # Apply search filter if search query exists
         if search_query:
@@ -2027,6 +2097,24 @@ def show_dashboard():
                     mask |= projects_df[col].astype(str).str.lower().str.contains(search_lower, na=False, regex=False)
 
             projects_df = projects_df[mask]
+
+        # Show results count
+        total_after_filters = len(projects_df)
+        if search_query or status_filter != "All Statuses" or project_filter != "All Projects" or person_filter != "All People":
+            st.markdown(f"""
+                <div style='
+                    margin: 16px 0;
+                    padding: 12px 16px;
+                    background: linear-gradient(135deg, #F4F4F4 0%, #FFFDFD 100%);
+                    border-left: 3px solid #918C86;
+                    border-radius: 8px;
+                    font-family: "Questrial", sans-serif;
+                    color: #474747;
+                    font-size: 0.9rem;
+                '>
+                    Showing <strong style='color: #2B2B2B;'>{total_after_filters}</strong> of <strong style='color: #2B2B2B;'>{total_before_filters}</strong> tasks
+                </div>
+            """, unsafe_allow_html=True)
 
         # Dynamically show all projects from Google Sheets with editable grids
         if has_column(projects_df, "Project"):
