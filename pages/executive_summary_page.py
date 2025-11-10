@@ -130,6 +130,38 @@ def render_executive_summary_page():
     # Import Google Fonts
     st.markdown("""
         <link href="https://fonts.googleapis.com/css2?family=Marcellus&family=Questrial&display=swap" rel="stylesheet">
+        <style>
+        /* Custom metric styling */
+        [data-testid="stMetricValue"] {
+            font-family: 'Marcellus', serif;
+            font-size: 2.5rem;
+            color: #2B2B2B;
+        }
+        [data-testid="stMetricLabel"] {
+            font-family: 'Questrial', sans-serif;
+            font-size: 0.9rem;
+            color: #474747;
+            text-transform: uppercase;
+            letter-spacing: 0.08em;
+            font-weight: 600;
+        }
+        /* Remove metric container borders */
+        [data-testid="metric-container"] {
+            background: transparent;
+            border: none;
+            padding: 0;
+        }
+        /* Progress bar styling */
+        .stProgress > div > div > div {
+            background: linear-gradient(90deg, #918C86 0%, #474747 100%);
+            height: 12px;
+            border-radius: 6px;
+        }
+        .stProgress > div > div {
+            background: #F4F4F4;
+            border-radius: 6px;
+        }
+        </style>
     """, unsafe_allow_html=True)
 
     # Page header
@@ -161,131 +193,79 @@ def render_executive_summary_page():
     # Calculate metrics
     metrics = calculate_executive_metrics(df)
 
-    # === 3 KPI CARDS ===
+    # === CONNECTED METRICS ROW ===
+    # Single container with 3 columns - no borders, connected design
     st.markdown("""
         <style>
-        .exec-kpi-container {
-            display: grid;
-            grid-template-columns: repeat(3, 1fr);
-            gap: 20px;
-            margin: 24px 0 32px 0;
-        }
-
-        .exec-kpi-card {
+        .metrics-container {
             background: linear-gradient(135deg, #FFFDFD 0%, #F4F4F4 100%);
-            border: 2px solid #E5E4E2;
             border-radius: 16px;
             padding: 32px 24px;
-            box-shadow: 0 4px 12px rgba(43, 43, 43, 0.06);
-            transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
-        }
-
-        .exec-kpi-card:hover {
-            transform: translateY(-4px);
-            box-shadow: 0 8px 24px rgba(43, 43, 43, 0.12);
-        }
-
-        .exec-kpi-emoji {
-            font-size: 2.5rem;
-            margin-bottom: 12px;
-            display: block;
-        }
-
-        .exec-kpi-value {
-            font-family: 'Marcellus', serif;
-            font-size: 3rem;
-            font-weight: 400;
-            color: #2B2B2B;
-            margin: 8px 0;
-            line-height: 1;
-        }
-
-        .exec-kpi-label {
-            font-family: 'Questrial', sans-serif;
-            font-size: 0.85rem;
-            color: #918C86;
-            text-transform: uppercase;
-            letter-spacing: 0.1em;
-            font-weight: 500;
+            margin: 24px 0 40px 0;
+            box-shadow: 0 2px 8px rgba(43, 43, 43, 0.06);
         }
         </style>
+        <div class="metrics-container">
     """, unsafe_allow_html=True)
 
-    st.markdown(f"""
-        <div class="exec-kpi-container">
-            <div class="exec-kpi-card">
-                <span class="exec-kpi-emoji">🟢</span>
-                <div class="exec-kpi-value">{metrics['active_tasks']}</div>
-                <div class="exec-kpi-label">Active</div>
-            </div>
-            <div class="exec-kpi-card">
-                <span class="exec-kpi-emoji">🟡</span>
-                <div class="exec-kpi-value">{metrics['in_progress_tasks']}</div>
-                <div class="exec-kpi-label">In Progress</div>
-            </div>
-            <div class="exec-kpi-card">
-                <span class="exec-kpi-emoji">🔴</span>
-                <div class="exec-kpi-value">{metrics['overdue_tasks']}</div>
-                <div class="exec-kpi-label">Overdue</div>
-            </div>
-        </div>
-    """, unsafe_allow_html=True)
+    col1, col2, col3 = st.columns(3)
 
-    # === COMPLETION RATE BANNER ===
+    with col1:
+        st.metric(label="🟢 ACTIVE", value=metrics['active_tasks'])
+
+    with col2:
+        st.metric(label="🟡 IN PROGRESS", value=metrics['in_progress_tasks'])
+
+    with col3:
+        st.metric(label="🔴 OVERDUE", value=metrics['overdue_tasks'])
+
+    st.markdown("</div>", unsafe_allow_html=True)
+
+    # === PROGRESS SECTION ===
+    st.markdown("")  # Spacing
+
     completion_percentage = metrics['completion_rate']
     completed_count = metrics['done_tasks'] + metrics['archived_tasks']
     total_count = metrics['total_tasks']
 
-    st.markdown(f"""
-        <style>
-        .completion-banner {{
-            background: linear-gradient(135deg, #2B2B2B 0%, #474747 100%);
+    # Progress container with clean styling
+    st.markdown("""
+        <div style='
+            background: #FFFDFD;
+            border: 1px solid #E5E4E2;
             border-radius: 16px;
-            padding: 40px 48px;
-            margin: 32px 0;
-            box-shadow: 0 8px 24px rgba(43, 43, 43, 0.15);
-            border: 3px solid #E5E4E2;
-        }}
+            padding: 32px 40px;
+            margin: 24px 0 48px 0;
+            box-shadow: 0 2px 8px rgba(43, 43, 43, 0.04);
+        '>
+            <h3 style='
+                font-family: "Marcellus", serif;
+                font-size: 1.4rem;
+                font-weight: 400;
+                color: #2B2B2B;
+                margin: 0 0 16px 0;
+            '>Overall Progress</h3>
+    """, unsafe_allow_html=True)
 
-        .completion-percentage {{
-            font-family: 'Marcellus', serif;
-            font-size: 4rem;
-            font-weight: 400;
-            color: #FFFDFD;
-            margin: 0;
-            line-height: 1;
-        }}
+    # Native Streamlit progress bar
+    st.progress(completion_percentage / 100)
 
-        .completion-label {{
-            font-family: 'Questrial', sans-serif;
-            font-size: 1.1rem;
-            color: #E5E4E2;
-            text-transform: uppercase;
-            letter-spacing: 0.15em;
-            margin: 16px 0 8px 0;
-            font-weight: 500;
-        }}
-
-        .completion-context {{
-            font-family: 'Questrial', sans-serif;
-            font-size: 0.95rem;
-            color: #918C86;
-            margin: 8px 0 0 0;
-        }}
-        </style>
-
-        <div class="completion-banner">
-            <div class="completion-percentage">{completion_percentage}%</div>
-            <div class="completion-label">Completion Rate</div>
-            <div class="completion-context">{completed_count} of {total_count} tasks completed or archived</div>
+    st.markdown(f"""
+            <p style='
+                font-family: "Questrial", sans-serif;
+                font-size: 1rem;
+                color: #474747;
+                margin: 12px 0 0 0;
+                font-weight: 500;
+            '>{completion_percentage}% Complete — {completed_count} of {total_count} tasks completed or archived</p>
         </div>
     """, unsafe_allow_html=True)
 
-    # === TASK STATUS DONUT CHART ===
+    # === TASK STATUS DISTRIBUTION ===
     st.markdown("""
         <h2 style='
             font-family: "Marcellus", serif;
-            font-size: 1.5rem;
+            font-size: 1.8rem;
             font-weight: 400;
             color: #2B2B2B;
             margin: 48px 0 24px 0;
@@ -293,7 +273,7 @@ def render_executive_summary_page():
         '>Task Status Distribution</h2>
     """, unsafe_allow_html=True)
 
-    # Create donut chart with archived tasks
+    # Create donut chart with archived tasks - make it bigger
     donut_fig = create_team_completion_donut(
         metrics['open_tasks'],
         metrics['working_tasks'],
@@ -302,7 +282,10 @@ def render_executive_summary_page():
     )
 
     if donut_fig:
-        st.plotly_chart(donut_fig, use_container_width=True, config={
+        # Update chart height to make it bigger
+        donut_fig.update_layout(height=600)
+
+        st.plotly_chart(donut_fig, width='stretch', config={
             'displayModeBar': True,
             'displaylogo': False,
             'modeBarButtonsToAdd': ['zoom2d', 'pan2d', 'zoomIn2d', 'zoomOut2d', 'autoScale2d', 'resetScale2d'],
