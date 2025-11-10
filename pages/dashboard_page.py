@@ -7,7 +7,7 @@ from google.oauth2.service_account import Credentials
 from st_aggrid import AgGrid, GridOptionsBuilder, GridUpdateMode
 from charts import create_team_completion_donut, create_project_breakdown_chart
 from demo_data_transformer import transform_to_demo_data
-from ui_helpers import get_status_badge, format_relative_date, create_fab_button, create_global_search, create_skeleton_loader
+from ui_helpers import get_status_badge, format_relative_date, create_fab_button, create_global_search, create_skeleton_loader, get_priority_badge
 
 def get_column(df, col_name):
     """
@@ -846,11 +846,11 @@ def render_tasks_table(filtered_df, limit=10, hide_project_column=False, show_tr
                     transcript_col_found = True
                     break
 
-        # Add other columns (including Date Assigned, Notes, excluding Project if hide_project_column is True)
+        # Add other columns (including Priority, Date Assigned, Notes, excluding Project if hide_project_column is True)
         # Note: We'll combine Status and Progress % into a single column, so we'll handle them separately
-        columns_to_add = ["Task", "Person", "Status", "Progress %", "Date Assigned", "Due Date", "Notes"]
+        columns_to_add = ["Task", "Person", "Priority", "Status", "Progress %", "Date Assigned", "Due Date", "Notes"]
         if not hide_project_column:
-            columns_to_add.insert(3, "Project")  # Add Project after Status
+            columns_to_add.insert(4, "Project")  # Add Project after Status
 
         for col in columns_to_add:
             if has_column(filtered_df, col):
@@ -1989,7 +1989,7 @@ def show_dashboard():
         )
 
         # Quick filter chips
-        filter_col1, filter_col2, filter_col3, filter_col4 = st.columns([1, 1, 1, 2])
+        filter_col1, filter_col2, filter_col3, filter_col4 = st.columns([1, 1, 1, 1])
 
         with filter_col1:
             status_filter = st.selectbox(
@@ -2026,6 +2026,15 @@ def show_dashboard():
                 )
             else:
                 person_filter = "All People"
+
+        with filter_col4:
+            # Priority filter
+            priority_filter = st.selectbox(
+                "Priority",
+                ["All Priorities", "High", "Medium", "Low"],
+                key="priority_filter",
+                label_visibility="collapsed"
+            )
 
         # Add "Show Transcript #" checkbox
         show_transcript_global = st.checkbox("Show Transcript #", value=False, key="show_transcript_global")
@@ -2096,6 +2105,10 @@ def show_dashboard():
             person_col = get_column(projects_df, "Person")
             projects_df = projects_df[projects_df[person_col] == person_filter]
 
+        if priority_filter != "All Priorities" and has_column(projects_df, "Priority"):
+            priority_col = get_column(projects_df, "Priority")
+            projects_df = projects_df[projects_df[priority_col].str.lower().str.contains(priority_filter.lower(), na=False)]
+
         # Apply search filter if search query exists
         if search_query:
             search_lower = search_query.lower()
@@ -2110,7 +2123,7 @@ def show_dashboard():
 
         # Show results count
         total_after_filters = len(projects_df)
-        if search_query or status_filter != "All Statuses" or project_filter != "All Projects" or person_filter != "All People":
+        if search_query or status_filter != "All Statuses" or project_filter != "All Projects" or person_filter != "All People" or priority_filter != "All Priorities":
             st.markdown(f"""
                 <div style='
                     margin: 16px 0;

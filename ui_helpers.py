@@ -400,3 +400,60 @@ def create_skeleton_loader():
     """
 
     return skeleton_html
+
+
+def get_priority_badge(priority):
+    """
+    Generate HTML for a colored priority badge
+
+    Args:
+        priority (str): Task priority (High, Medium, Low, Urgent, etc.)
+
+    Returns:
+        str: HTML for the priority badge
+    """
+    if not priority or priority.strip() == "":
+        return ""
+
+    priority_lower = priority.strip().lower()
+
+    # Define priority colors matching soft minimalist palette
+    if priority_lower in ['high', 'urgent', '🔴', 'critical']:
+        bg_color = '#474747'  # Dark grey for high priority
+        text_color = '#FFFDFD'  # Cream text
+        display_text = '⬆ High'
+        border_color = '#2B2B2B'
+    elif priority_lower in ['medium', 'normal', '🟡', 'moderate']:
+        bg_color = '#918C86'  # Tan grey for medium priority
+        text_color = '#FFFDFD'  # Cream text
+        display_text = '● Medium'
+        border_color = '#918C86'
+    elif priority_lower in ['low', '🟢', 'minor']:
+        bg_color = '#E5E4E2'  # Platinum for low priority
+        text_color = '#2B2B2B'  # Black text
+        display_text = '⬇ Low'
+        border_color = '#E5E4E2'
+    else:
+        # Default for unknown priorities
+        bg_color = '#F4F4F4'
+        text_color = '#2B2B2B'
+        display_text = priority.title()
+        border_color = '#F4F4F4'
+
+    badge_html = f"""
+    <span style='
+        display: inline-block;
+        padding: 4px 10px;
+        border-radius: 10px;
+        background-color: {bg_color};
+        color: {text_color};
+        font-family: "Questrial", sans-serif;
+        font-size: 0.75rem;
+        font-weight: 500;
+        letter-spacing: 0.03em;
+        white-space: nowrap;
+        border: 1px solid {border_color};
+    '>{display_text}</span>
+    """
+
+    return badge_html
