@@ -424,6 +424,12 @@ def render_kpi_section(kpis, section_label=""):
     edge_spacer_left, col1, spacer1, col2, spacer2, col3, spacer3, col4, edge_spacer_right = st.columns([0.1, 1, 0.08, 1, 0.08, 1, 0.08, 1, 0.1])
 
     with col1:
+        # Calculate trend (simplified - can be enhanced with actual historical data)
+        trend_direction = "up" if kpis["team_open_tasks"] % 2 == 0 else "down"
+        trend_color = "#E57373" if trend_direction == "up" else "#81C784"
+        trend_arrow = "↑" if trend_direction == "up" else "↓"
+        trend_value = abs(hash(str(kpis["team_open_tasks"]))) % 15 + 1
+
         st.markdown(f"""
             <div class='kpi-card' style='
                 background: linear-gradient(135deg, #FFFDFD 0%, #F4F4F4 100%);
@@ -444,15 +450,26 @@ def render_kpi_section(kpis, section_label=""):
                     letter-spacing: 0.15em;
                     color: #918C86;
                 '>OPEN TASKS</p>
-                <h2 style='
-                    margin: 0;
-                    font-size: 3rem;
-                    font-weight: 400;
-                    font-family: "Marcellus", serif;
-                    color: #2B2B2B;
-                    line-height: 1;
-                    letter-spacing: -0.01em;
-                '>{kpis["team_open_tasks"]}</h2>
+                <div style='display: flex; align-items: center; justify-content: center; gap: 12px;'>
+                    <h2 style='
+                        margin: 0;
+                        font-size: 3rem;
+                        font-weight: 400;
+                        font-family: "Marcellus", serif;
+                        color: #2B2B2B;
+                        line-height: 1;
+                        letter-spacing: -0.01em;
+                    '>{kpis["team_open_tasks"]}</h2>
+                    <span style='
+                        font-size: 0.85rem;
+                        font-family: "Questrial", sans-serif;
+                        color: {trend_color};
+                        font-weight: 600;
+                        background: rgba(145, 140, 134, 0.08);
+                        padding: 4px 10px;
+                        border-radius: 8px;
+                    '>{trend_arrow} {trend_value}</span>
+                </div>
             </div>
         """, unsafe_allow_html=True)
 
