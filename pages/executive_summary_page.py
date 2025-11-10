@@ -151,14 +151,14 @@ def render_executive_summary_page():
             border: none;
             padding: 0;
         }
-        /* Progress bar styling - Green gradient */
+        /* Progress bar styling - Solid Green */
         .stProgress > div > div > div {
-            background: linear-gradient(90deg, #4CAF50 0%, #2E7D32 100%);
+            background: #6BCF7F !important;
             height: 12px;
             border-radius: 6px;
         }
         .stProgress > div > div {
-            background: #F4F4F4;
+            background: #6BCF7F !important;
             border-radius: 6px;
         }
         </style>
@@ -231,40 +231,40 @@ def render_executive_summary_page():
     col1, col2, col3 = st.columns(3)
 
     with col1:
-        # Active tasks - Soft platinum/grey (neutral SBS color)
+        # Active tasks - RED
         st.markdown(f"""
             <div class="exec-metric-card" style='
-                background: linear-gradient(135deg, #E5E4E2 0%, #F4F4F4 100%);
-                box-shadow: 0 2px 8px rgba(43, 43, 43, 0.08);
-                border: 1px solid #E5E4E2;
+                background: linear-gradient(135deg, #FF6B6B 0%, #EE5A6F 100%);
+                box-shadow: 0 2px 8px rgba(255, 107, 107, 0.25);
+                border: 1px solid #FF6B6B;
             '>
-                <p class="exec-metric-label" style='color: #474747;'>ACTIVE</p>
-                <h2 class="exec-metric-value" style='color: #2B2B2B;'>{metrics['active_tasks']}</h2>
+                <p class="exec-metric-label" style='color: #FFFDFD;'>ACTIVE</p>
+                <h2 class="exec-metric-value" style='color: #FFFDFD;'>{metrics['active_tasks']}</h2>
             </div>
         """, unsafe_allow_html=True)
 
     with col2:
-        # In Progress tasks - Soft tan/beige (SBS warm neutral)
+        # In Progress tasks - YELLOW
         st.markdown(f"""
             <div class="exec-metric-card" style='
-                background: linear-gradient(135deg, #F5F3F0 0%, #E8E6E3 100%);
-                box-shadow: 0 2px 8px rgba(145, 140, 134, 0.12);
-                border: 1px solid #918C86;
+                background: linear-gradient(135deg, #FFD93D 0%, #FFC107 100%);
+                box-shadow: 0 2px 8px rgba(255, 217, 61, 0.25);
+                border: 1px solid #FFD93D;
             '>
-                <p class="exec-metric-label" style='color: #474747;'>IN PROGRESS</p>
+                <p class="exec-metric-label" style='color: #2B2B2B;'>IN PROGRESS</p>
                 <h2 class="exec-metric-value" style='color: #2B2B2B;'>{metrics['in_progress_tasks']}</h2>
             </div>
         """, unsafe_allow_html=True)
 
     with col3:
-        # Overdue tasks - Soft dark grey/charcoal (SBS dark accent)
+        # Overdue tasks - GREEN
         st.markdown(f"""
             <div class="exec-metric-card" style='
-                background: linear-gradient(135deg, #474747 0%, #2B2B2B 100%);
-                box-shadow: 0 4px 16px rgba(43, 43, 43, 0.25);
-                border: 1px solid #2B2B2B;
+                background: linear-gradient(135deg, #6BCF7F 0%, #51B96A 100%);
+                box-shadow: 0 2px 8px rgba(107, 207, 127, 0.25);
+                border: 1px solid #6BCF7F;
             '>
-                <p class="exec-metric-label" style='color: #E5E4E2;'>OVERDUE</p>
+                <p class="exec-metric-label" style='color: #FFFDFD;'>OVERDUE</p>
                 <h2 class="exec-metric-value" style='color: #FFFDFD;'>{metrics['overdue_tasks']}</h2>
             </div>
         """, unsafe_allow_html=True)
