@@ -7,7 +7,7 @@ from google.oauth2.service_account import Credentials
 from st_aggrid import AgGrid, GridOptionsBuilder, GridUpdateMode
 from charts import create_team_completion_donut, create_project_breakdown_chart
 from demo_data_transformer import transform_to_demo_data
-from ui_helpers import get_status_badge, format_relative_date, create_fab_button, create_global_search
+from ui_helpers import get_status_badge, format_relative_date, create_fab_button, create_global_search, create_skeleton_loader
 
 def get_column(df, col_name):
     """
@@ -1859,9 +1859,19 @@ def show_dashboard():
         st.warning("Please log in to view the dashboard.")
         st.stop()
 
-    # Load data from Google Sheet
-    with st.spinner("Loading dashboard data..."):
-        df = load_google_sheet()
+    # Load data from Google Sheet with skeleton loader
+    # Create placeholder for skeleton screen
+    skeleton_placeholder = st.empty()
+
+    # Show skeleton loader while loading
+    with skeleton_placeholder.container():
+        st.markdown(create_skeleton_loader(), unsafe_allow_html=True)
+
+    # Load data
+    df = load_google_sheet()
+
+    # Clear skeleton once data is loaded
+    skeleton_placeholder.empty()
 
     if df.empty:
         st.warning("No data available. Please check your Google Sheet connection.")

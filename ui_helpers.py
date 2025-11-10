@@ -294,3 +294,109 @@ def create_fab_button():
     """
 
     return fab_html
+
+
+def create_skeleton_loader():
+    """
+    Create an animated skeleton loading screen for dashboard
+    Shows placeholder content while data loads
+
+    Returns:
+        str: HTML/CSS for skeleton loader
+    """
+    skeleton_html = """
+    <style>
+    @keyframes skeleton-loading {
+        0% {
+            background-position: -200px 0;
+        }
+        100% {
+            background-position: calc(200px + 100%) 0;
+        }
+    }
+
+    .skeleton {
+        background: linear-gradient(90deg, #F4F4F4 0px, #FFFDFD 40px, #F4F4F4 80px);
+        background-size: 200px 100%;
+        animation: skeleton-loading 1.5s infinite ease-in-out;
+        border-radius: 8px;
+    }
+
+    .skeleton-kpi-container {
+        display: grid;
+        grid-template-columns: repeat(4, 1fr);
+        gap: 16px;
+        margin: 24px 0 32px 0;
+    }
+
+    .skeleton-kpi {
+        height: 100px;
+        background: #ffffff;
+        border: 1px solid #e8eaed;
+        border-radius: 10px;
+        padding: 20px 16px;
+        box-shadow: 0 1px 3px rgba(0, 0, 0, 0.04);
+    }
+
+    .skeleton-kpi-inner {
+        height: 60px;
+    }
+
+    .skeleton-table {
+        background: #ffffff;
+        border-radius: 10px;
+        padding: 24px;
+        margin-top: 24px;
+        box-shadow: 0 1px 3px rgba(0, 0, 0, 0.04);
+    }
+
+    .skeleton-row {
+        height: 40px;
+        margin-bottom: 12px;
+    }
+
+    .skeleton-header {
+        height: 32px;
+        width: 300px;
+        margin-bottom: 24px;
+    }
+    </style>
+
+    <div style="padding: 20px 0;">
+        <!-- Skeleton KPI Cards -->
+        <div class="skeleton-kpi-container">
+            <div class="skeleton-kpi">
+                <div class="skeleton skeleton-kpi-inner"></div>
+            </div>
+            <div class="skeleton-kpi">
+                <div class="skeleton skeleton-kpi-inner"></div>
+            </div>
+            <div class="skeleton-kpi">
+                <div class="skeleton skeleton-kpi-inner"></div>
+            </div>
+            <div class="skeleton-kpi">
+                <div class="skeleton skeleton-kpi-inner"></div>
+            </div>
+        </div>
+
+        <!-- Skeleton Table -->
+        <div class="skeleton-table">
+            <div class="skeleton skeleton-header"></div>
+            <div class="skeleton skeleton-row"></div>
+            <div class="skeleton skeleton-row"></div>
+            <div class="skeleton skeleton-row"></div>
+            <div class="skeleton skeleton-row"></div>
+            <div class="skeleton skeleton-row"></div>
+        </div>
+
+        <!-- Skeleton Table 2 -->
+        <div class="skeleton-table">
+            <div class="skeleton skeleton-header"></div>
+            <div class="skeleton skeleton-row"></div>
+            <div class="skeleton skeleton-row"></div>
+            <div class="skeleton skeleton-row"></div>
+        </div>
+    </div>
+    """
+
+    return skeleton_html
