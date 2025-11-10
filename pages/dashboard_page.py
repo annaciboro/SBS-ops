@@ -7,7 +7,7 @@ from google.oauth2.service_account import Credentials
 from st_aggrid import AgGrid, GridOptionsBuilder, GridUpdateMode
 from charts import create_team_completion_donut, create_project_breakdown_chart
 from demo_data_transformer import transform_to_demo_data
-from ui_helpers import get_status_badge, format_relative_date, create_fab_button
+from ui_helpers import get_status_badge, format_relative_date, create_fab_button, create_global_search
 
 def get_column(df, col_name):
     """
@@ -1894,7 +1894,7 @@ def show_dashboard():
 
         st.markdown("""
             <h2 style='
-                margin: 0 0 32px 0;
+                margin: 0 0 16px 0;
                 font-size: 2rem;
                 font-weight: 700;
                 color: #2d3748;
@@ -1902,6 +1902,14 @@ def show_dashboard():
                 text-transform: uppercase;
             '>BREAKDOWN OF TASKS BY PROJECT</h2>
         """, unsafe_allow_html=True)
+
+        # Add global search bar
+        search_query = st.text_input(
+            "Search tasks",
+            placeholder="Search tasks, projects, or assignees...",
+            key="global_search",
+            label_visibility="collapsed"
+        )
 
         # Add "Show Transcript #" checkbox
         show_transcript_global = st.checkbox("Show Transcript #", value=False, key="show_transcript_global")
@@ -1956,6 +1964,18 @@ def show_dashboard():
         if has_column(projects_df, "Status"):
             status_col = get_column(projects_df, "Status")
             projects_df = projects_df[~projects_df[status_col].str.strip().str.lower().isin(['done', 'complete', 'completed'])]
+
+        # Apply search filter if search query exists
+        if search_query:
+            search_lower = search_query.lower()
+            mask = pd.Series([False] * len(projects_df), index=projects_df.index)
+
+            # Search across all text columns
+            for col in projects_df.columns:
+                if projects_df[col].dtype == 'object':  # Only search text columns
+                    mask |= projects_df[col].astype(str).str.lower().str.contains(search_lower, na=False, regex=False)
+
+            projects_df = projects_df[mask]
 
         # Dynamically show all projects from Google Sheets with editable grids
         if has_column(projects_df, "Project"):

@@ -114,6 +114,77 @@ def format_relative_date(date_str):
         return date_str
 
 
+def create_global_search():
+    """
+    Create a global search bar component
+
+    Returns:
+        str: HTML/CSS for the search bar
+    """
+    search_html = """
+    <style>
+    .global-search-container {
+        margin: 24px 0 32px 0;
+    }
+
+    .search-input-wrapper {
+        position: relative;
+        max-width: 600px;
+    }
+
+    .search-icon {
+        position: absolute;
+        left: 16px;
+        top: 50%;
+        transform: translateY(-50%);
+        width: 20px;
+        height: 20px;
+        fill: #918C86;
+        pointer-events: none;
+    }
+
+    .global-search-input {
+        width: 100%;
+        padding: 14px 16px 14px 48px;
+        font-family: 'Questrial', sans-serif;
+        font-size: 0.95rem;
+        color: #2B2B2B;
+        background: #FFFDFD;
+        border: 2px solid #E5E4E2;
+        border-radius: 12px;
+        outline: none;
+        transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+        box-shadow: 0 2px 8px rgba(43, 43, 43, 0.03);
+    }
+
+    .global-search-input:focus {
+        border-color: #918C86;
+        box-shadow: 0 4px 16px rgba(145, 140, 134, 0.15);
+    }
+
+    .global-search-input::placeholder {
+        color: #918C86;
+    }
+    </style>
+
+    <div class="global-search-container">
+        <div class="search-input-wrapper">
+            <svg class="search-icon" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24">
+                <path d="M15.5 14h-.79l-.28-.27C15.41 12.59 16 11.11 16 9.5 16 5.91 13.09 3 9.5 3S3 5.91 3 9.5 5.91 16 9.5 16c1.61 0 3.09-.59 4.23-1.57l.27.28v.79l5 4.99L20.49 19l-4.99-5zm-6 0C7.01 14 5 11.99 5 9.5S7.01 5 9.5 5 14 7.01 14 9.5 11.99 14 9.5 14z"/>
+            </svg>
+            <input
+                type="text"
+                class="global-search-input"
+                placeholder="Search tasks, projects, or assignees..."
+                id="global-task-search"
+            />
+        </div>
+    </div>
+    """
+
+    return search_html
+
+
 def create_fab_button():
     """
     Create a floating action button (FAB) with quick actions menu
