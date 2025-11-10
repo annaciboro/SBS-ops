@@ -1166,6 +1166,7 @@ content_container = st.container()
 with content_container:
     functions = {
         "Overview": pg.show_dashboard,
+        "Executive Summary": pg.render_executive_summary_page,
         "My Tasks": pg.show_tasks,
         "All Tasks": pg.show_analytics,
         "Archive": pg.show_archive,
