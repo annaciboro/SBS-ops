@@ -257,15 +257,15 @@ def render_executive_summary_page():
         """, unsafe_allow_html=True)
 
     with col3:
-        # Overdue tasks - GREEN
+        # Overdue tasks - GREEN (lightened for better readability)
         st.markdown(f"""
             <div class="exec-metric-card" style='
-                background: linear-gradient(135deg, #6BCF7F 0%, #51B96A 100%);
-                box-shadow: 0 2px 8px rgba(107, 207, 127, 0.25);
-                border: 1px solid #6BCF7F;
+                background: linear-gradient(135deg, #A8E6A3 0%, #8BD987 100%);
+                box-shadow: 0 2px 8px rgba(168, 230, 163, 0.3);
+                border: 1px solid #A8E6A3;
             '>
-                <p class="exec-metric-label" style='color: #FFFDFD;'>OVERDUE</p>
-                <h2 class="exec-metric-value" style='color: #FFFDFD;'>{metrics['overdue_tasks']}</h2>
+                <p class="exec-metric-label" style='color: #2B2B2B;'>OVERDUE</p>
+                <h2 class="exec-metric-value" style='color: #2B2B2B;'>{metrics['overdue_tasks']}</h2>
             </div>
         """, unsafe_allow_html=True)
 

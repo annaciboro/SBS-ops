@@ -596,7 +596,7 @@ st.markdown("""
 # INITIALIZE SESSION STATE
 # ============================================
 if 'current_page' not in st.session_state:
-    st.session_state.current_page = "Overview"
+    st.session_state.current_page = "Executive Summary"
 
 # ============================================
 # NAVIGATION BAR
