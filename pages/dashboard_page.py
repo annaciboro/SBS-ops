@@ -1470,12 +1470,12 @@ def render_editable_task_grid(df, current_user, is_admin=False, key_prefix="", s
         if transcript_col_name in display_df.columns:
             gb.configure_column(transcript_col_name, hide=not show_transcript_id, editable=False)
 
-    # Person column - hidden on My Tasks page for everyone (including Tea)
-    # Only shown on All Tasks page where Tea manages all users
+    # Person column - hidden on My Tasks page for everyone (including admin)
+    # Only shown on All Tasks page where admin manages all users
     if "Person" in display_df.columns:
         # Hide on My Tasks page (when key_prefix is "my_tasks_")
         hide_person = (key_prefix == "my_tasks_")
-        gb.configure_column("Person", editable=is_tea, hide=hide_person)
+        gb.configure_column("Person", editable=is_admin, hide=hide_person)
 
     # Priority column - editable dropdown for everyone with green color coding
     if "Priority" in display_df.columns:
@@ -1497,8 +1497,8 @@ def render_editable_task_grid(df, current_user, is_admin=False, key_prefix="", s
             ]
         }
 
-        # Everyone can edit Priority on My Tasks, but only Tea on All Tasks
-        is_editable = (key_prefix == "my_tasks_") or is_tea
+        # Everyone can edit Priority on My Tasks, but only admin on All Tasks
+        is_editable = (key_prefix == "my_tasks_") or is_admin
 
         gb.configure_column(
             "Priority",
