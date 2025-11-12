@@ -27,14 +27,10 @@ def show_analytics():
     is_admin = ("anna" in user_lower and "ciboro" in user_lower) or "tea" in user_lower or "téa" in user_lower or "tēa" in user_lower
     is_jess = "jess" in user_name.lower()
 
-    # DEBUG: Show current user and permission level
-    st.info(f"DEBUG: Logged in as '{user_name}', is_admin={is_admin}, is_jess={is_jess}, Total tasks in sheet: {len(df)}")
-
-    # Filter data based on user - ONLY Tea sees all tasks
+    # Filter data based on user - ONLY admin sees all tasks
     if is_admin:
-        # Tea sees everyone's tasks - no filtering needed
+        # Admin sees everyone's tasks - no filtering needed
         filtered_df = df.copy()
-        st.success(f"DEBUG: Tea mode - showing all {len(filtered_df)} tasks")
     elif is_jess:
         # Jess sees her team's tasks (Jess, Megan, Justin)
         assignee_col = None

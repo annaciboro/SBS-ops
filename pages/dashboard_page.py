@@ -1538,10 +1538,11 @@ def render_editable_task_grid(df, current_user, is_admin=False, key_prefix="", s
         display_df,
         gridOptions=grid_options,
         theme="streamlit",
-        update_mode=GridUpdateMode.MODEL_CHANGED,
+        update_mode=GridUpdateMode.NO_UPDATE,  # Changed to NO_UPDATE to prevent false change detection
         allow_unsafe_jscode=False,  # Security: Disable unsafe JavaScript code execution
         fit_columns_on_grid_load=True,
         height=800,  # Increased height to show more rows
+        reload_data=False,  # Prevent grid from reloading unnecessarily
     )
 
     edited_df = pd.DataFrame(response["data"])

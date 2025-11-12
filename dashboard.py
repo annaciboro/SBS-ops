@@ -1083,8 +1083,6 @@ def inject_css(path):
             # Add timestamp for cache busting
             cache_buster = int(time.time() * 1000)  # Millisecond precision
             st.markdown(f'<style id="sbs-css-{cache_buster}">{css}</style>', unsafe_allow_html=True)
-            # VISIBLE indicator that CSS loaded
-            st.markdown(f'<div style="position: fixed; bottom: 10px; right: 10px; background: #d4ff00; color: #000; padding: 5px 10px; border-radius: 5px; font-size: 10px; z-index: 999999;">CSS v{cache_buster}</div>', unsafe_allow_html=True)
             print(f"✅ Strategic Business Solutions CSS loaded with cache buster v{cache_buster}")
     else:
         st.error(f"⚠️ CSS file not found: {path}")
