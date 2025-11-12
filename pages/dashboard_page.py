@@ -1210,14 +1210,14 @@ def render_editable_task_grid(df, current_user, is_admin=False, key_prefix="", s
     Args:
         df: Full dataframe
         current_user: Current logged-in user's name
-        is_tea: Whether the current user is Téa Phillips
+        is_admin: Whether the current user is an admin (Anna)
         key_prefix: Unique prefix for widget keys to avoid duplicates
         show_title: Whether to display the section title and caption
         show_transcript_id: Whether to show the Transcript ID column (default False)
     """
     # Filter based on user permissions
-    if is_tea:
-        visible_df = df.copy()  # Téa sees all tasks
+    if is_admin:
+        visible_df = df.copy()  # Admin sees all tasks
         section_title = "## All Task Management"
         section_caption = "Edit any field directly. Then commit to Google Sheets by pressing the button 'Send to Google Sheets'."
     else:
