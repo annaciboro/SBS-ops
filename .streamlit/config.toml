@@ -1,0 +1,19 @@
+# ============================================================
+# Streamlit Configuration for Deployment
+# ============================================================
+
+[theme]
+primaryColor = "#2B2B2B"
+backgroundColor = "#FFFDFD"
+secondaryBackgroundColor = "#F4F4F4"
+textColor = "#2B2B2B"
+font = "sans serif"
+
+[server]
+headless = true
+enableCORS = false
+enableXsrfProtection = true
+maxUploadSize = 200
+
+[browser]
+gatherUsageStats = false

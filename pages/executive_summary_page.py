@@ -127,42 +127,23 @@ def calculate_executive_metrics(df):
 def render_executive_summary_page():
     """Render the Executive Summary page"""
 
-    # Import Google Fonts
-    st.markdown("""
+    # Import Google Fonts and inject CSS using components.html for better rendering
+    import streamlit.components.v1 as components
+
+    components.html("""
         <link href="https://fonts.googleapis.com/css2?family=Marcellus&family=Questrial&display=swap" rel="stylesheet">
         <style>
-        /* Custom metric styling */
-        [data-testid="stMetricValue"] {
-            font-family: 'Marcellus', serif;
-            font-size: 2.5rem;
-            color: #2B2B2B;
-        }
-        [data-testid="stMetricLabel"] {
-            font-family: 'Questrial', sans-serif;
-            font-size: 0.9rem;
-            color: #474747;
-            text-transform: uppercase;
-            letter-spacing: 0.08em;
-            font-weight: 600;
-        }
-        /* Remove metric container borders */
-        [data-testid="metric-container"] {
-            background: transparent;
-            border: none;
-            padding: 0;
-        }
-        /* Progress bar styling - Solid Green */
-        .stProgress > div > div > div {
-            background: #6BCF7F !important;
-            height: 12px;
-            border-radius: 6px;
-        }
-        .stProgress > div > div {
-            background: #6BCF7F !important;
-            border-radius: 6px;
-        }
+        [data-testid="stMetricValue"]{font-family:'Marcellus',serif;font-size:2.5rem;color:#2B2B2B;}
+        [data-testid="stMetricLabel"]{font-family:'Questrial',sans-serif;font-size:0.9rem;color:#474747;text-transform:uppercase;letter-spacing:0.08em;font-weight:600;}
+        [data-testid="metric-container"]{background:transparent;border:none;padding:0;}
+        .stProgress>div>div>div{background:#6BCF7F!important;height:12px;border-radius:6px;}
+        .stProgress>div>div{background:#6BCF7F!important;border-radius:6px;}
+        .exec-metric-card{border-radius:16px;padding:32px 24px;text-align:center;transition:all 0.3s cubic-bezier(0.4,0,0.2,1);cursor:pointer;}
+        .exec-metric-card:hover{transform:translateY(-6px);box-shadow:0 12px 32px rgba(43,43,43,0.15)!important;}
+        .exec-metric-label{font-family:"Questrial",sans-serif;font-size:0.85rem;text-transform:uppercase;letter-spacing:0.1em;margin:0 0 12px 0;font-weight:600;}
+        .exec-metric-value{font-family:"Marcellus",serif;font-size:3.5rem;margin:0;font-weight:400;line-height:1;}
         </style>
-    """, unsafe_allow_html=True)
+    """, height=0)
 
     # Page header
     st.markdown("""
@@ -193,123 +174,89 @@ def render_executive_summary_page():
     # Calculate metrics
     metrics = calculate_executive_metrics(df)
 
-    # === METRICS ROW WITH SBS COLORED BOXES ===
+    # === COMPLETION METRICS - Luxury minimal KPI cards ===
     st.markdown("""
+        <link href="https://fonts.googleapis.com/css2?family=Marcellus&family=Questrial&display=swap" rel="stylesheet">
         <style>
-        .exec-metric-card {
+        .kpi-card {
+            background: linear-gradient(135deg, #FFFDFD 0%, #F4F4F4 100%);
+            padding: 56px 40px;
             border-radius: 16px;
-            padding: 32px 24px;
+            border: 2px solid #E5E4E2;
+            box-shadow: 0 8px 24px rgba(43, 43, 43, 0.06), 0 2px 6px rgba(43, 43, 43, 0.04);
             text-align: center;
-            transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
-            cursor: pointer;
+            transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+            cursor: default;
+            position: relative;
+            overflow: hidden;
         }
-
-        .exec-metric-card:hover {
+        .kpi-card::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            height: 4px;
+            background: linear-gradient(90deg, #2B2B2B 0%, #918C86 50%, #E5E4E2 100%);
+            opacity: 0;
+            transition: opacity 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+        }
+        .kpi-card:hover {
             transform: translateY(-6px);
-            box-shadow: 0 12px 32px rgba(43, 43, 43, 0.15) !important;
+            box-shadow: 0 16px 48px rgba(43, 43, 43, 0.12), 0 4px 12px rgba(43, 43, 43, 0.08);
+            border-color: #918C86;
         }
-
-        .exec-metric-label {
-            font-family: "Questrial", sans-serif;
-            font-size: 0.85rem;
-            text-transform: uppercase;
-            letter-spacing: 0.1em;
-            margin: 0 0 12px 0;
-            font-weight: 600;
-        }
-
-        .exec-metric-value {
-            font-family: "Marcellus", serif;
-            font-size: 3.5rem;
-            margin: 0;
-            font-weight: 400;
-            line-height: 1;
+        .kpi-card:hover::before {
+            opacity: 1;
         }
         </style>
+        <h2 style='
+            margin: 0 0 56px 0;
+            font-size: 2rem;
+            font-weight: 400;
+            font-family: "Marcellus", serif;
+            color: #2B2B2B;
+            letter-spacing: -0.01em;
+            text-align: center;
+        '>Executive Overview</h2>
     """, unsafe_allow_html=True)
 
-    col1, col2, col3 = st.columns(3)
+    # Top row: 4 key metrics - Luxury minimal style with ample spacing
+    col1, sp1, col2, sp2, col3, sp3, col4 = st.columns([1, 0.15, 1, 0.15, 1, 0.15, 1])
 
     with col1:
-        # Active tasks - RED
         st.markdown(f"""
-            <div class="exec-metric-card" style='
-                background: linear-gradient(135deg, #FF6B6B 0%, #EE5A6F 100%);
-                box-shadow: 0 2px 8px rgba(255, 107, 107, 0.25);
-                border: 1px solid #FF6B6B;
-            '>
-                <p class="exec-metric-label" style='color: #FFFDFD;'>ACTIVE</p>
-                <h2 class="exec-metric-value" style='color: #FFFDFD;'>{metrics['active_tasks']}</h2>
+            <div class='kpi-card'>
+                <p style='margin: 0 0 24px 0; font-size: 0.75rem; font-weight: 400; font-family: "Questrial", sans-serif; text-transform: uppercase; letter-spacing: 0.15em; color: #918C86;'>Open Tasks</p>
+                <h2 style='margin: 0; font-size: 3.5rem; font-weight: 400; font-family: "Marcellus", serif; color: #2B2B2B; line-height: 1; letter-spacing: -0.01em;'>{metrics["open_tasks"]}</h2>
             </div>
         """, unsafe_allow_html=True)
 
     with col2:
-        # In Progress tasks - YELLOW
         st.markdown(f"""
-            <div class="exec-metric-card" style='
-                background: linear-gradient(135deg, #FFD93D 0%, #FFC107 100%);
-                box-shadow: 0 2px 8px rgba(255, 217, 61, 0.25);
-                border: 1px solid #FFD93D;
-            '>
-                <p class="exec-metric-label" style='color: #2B2B2B;'>IN PROGRESS</p>
-                <h2 class="exec-metric-value" style='color: #2B2B2B;'>{metrics['in_progress_tasks']}</h2>
+            <div class='kpi-card'>
+                <p style='margin: 0 0 24px 0; font-size: 0.75rem; font-weight: 400; font-family: "Questrial", sans-serif; text-transform: uppercase; letter-spacing: 0.15em; color: #918C86;'>In Progress</p>
+                <h2 style='margin: 0; font-size: 3.5rem; font-weight: 400; font-family: "Marcellus", serif; color: #2B2B2B; line-height: 1; letter-spacing: -0.01em;'>{metrics["working_tasks"]}</h2>
             </div>
         """, unsafe_allow_html=True)
 
     with col3:
-        # Overdue tasks - GREEN (lightened for better readability)
         st.markdown(f"""
-            <div class="exec-metric-card" style='
-                background: linear-gradient(135deg, #A8E6A3 0%, #8BD987 100%);
-                box-shadow: 0 2px 8px rgba(168, 230, 163, 0.3);
-                border: 1px solid #A8E6A3;
-            '>
-                <p class="exec-metric-label" style='color: #2B2B2B;'>OVERDUE</p>
-                <h2 class="exec-metric-value" style='color: #2B2B2B;'>{metrics['overdue_tasks']}</h2>
+            <div class='kpi-card'>
+                <p style='margin: 0 0 24px 0; font-size: 0.75rem; font-weight: 400; font-family: "Questrial", sans-serif; text-transform: uppercase; letter-spacing: 0.15em; color: #918C86;'>Complete</p>
+                <h2 style='margin: 0; font-size: 3.5rem; font-weight: 400; font-family: "Marcellus", serif; color: #2B2B2B; line-height: 1; letter-spacing: -0.01em;'>{metrics["done_tasks"] + metrics["archived_tasks"]}</h2>
             </div>
         """, unsafe_allow_html=True)
 
-    st.markdown("<br>", unsafe_allow_html=True)
+    with col4:
+        st.markdown(f"""
+            <div class='kpi-card'>
+                <p style='margin: 0 0 24px 0; font-size: 0.75rem; font-weight: 400; font-family: "Questrial", sans-serif; text-transform: uppercase; letter-spacing: 0.15em; color: #918C86;'>Completion Rate</p>
+                <h2 style='margin: 0; font-size: 3.5rem; font-weight: 400; font-family: "Marcellus", serif; color: #2B2B2B; line-height: 1; letter-spacing: -0.01em;'>{metrics["completion_rate"]}%</h2>
+            </div>
+        """, unsafe_allow_html=True)
 
-    # === PROGRESS SECTION ===
-    st.markdown("")  # Spacing
-
-    completion_percentage = metrics['completion_rate']
-    completed_count = metrics['done_tasks'] + metrics['archived_tasks']
-    total_count = metrics['total_tasks']
-
-    # Progress container with clean styling
-    st.markdown("""
-        <div style='
-            background: #FFFDFD;
-            border: 1px solid #E5E4E2;
-            border-radius: 16px;
-            padding: 32px 40px;
-            margin: 24px 0 48px 0;
-            box-shadow: 0 2px 8px rgba(43, 43, 43, 0.04);
-        '>
-            <h3 style='
-                font-family: "Marcellus", serif;
-                font-size: 1.4rem;
-                font-weight: 400;
-                color: #2B2B2B;
-                margin: 0 0 16px 0;
-            '>Overall Progress</h3>
-    """, unsafe_allow_html=True)
-
-    # Native Streamlit progress bar
-    st.progress(completion_percentage / 100)
-
-    st.markdown(f"""
-            <p style='
-                font-family: "Questrial", sans-serif;
-                font-size: 1rem;
-                color: #474747;
-                margin: 12px 0 0 0;
-                font-weight: 500;
-            '>{completion_percentage}% Complete — {completed_count} of {total_count} tasks completed or archived</p>
-        </div>
-    """, unsafe_allow_html=True)
+    st.markdown("<div style='margin: 80px 0;'></div>", unsafe_allow_html=True)
 
     # === TASK STATUS DISTRIBUTION ===
     st.markdown("""

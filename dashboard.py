@@ -596,7 +596,7 @@ st.markdown("""
 # INITIALIZE SESSION STATE
 # ============================================
 if 'current_page' not in st.session_state:
-    st.session_state.current_page = "Executive Summary"
+    st.session_state.current_page = "Tasks by Project"
 
 # ============================================
 # NAVIGATION BAR
@@ -611,13 +611,13 @@ is_jess = user_email.lower() == "jess@sbsglove.com"
 # Different navigation based on user type
 if is_anna:
     # Anna (admin) sees all pages
-    pages_list = ["Overview", "Executive Summary", "My Tasks", "All Tasks", "Archive", "Sales Portal", "Investor Portal", "Logout"]
+    pages_list = ["Tasks by Project", "Executive Summary", "My Tasks", "All Tasks", "Archive", "Sales Portal", "Investor Portal", "Logout"]
 elif is_jess:
     # Jess sees team-related pages but not Sales/Investor portals
-    pages_list = ["Overview", "Executive Summary", "My Tasks", "All Tasks", "Archive", "Logout"]
+    pages_list = ["Tasks by Project", "Executive Summary", "My Tasks", "All Tasks", "Archive", "Logout"]
 else:
-    # Regular users only see Overview, My Tasks, Archive, and Logout
-    pages_list = ["Overview", "Executive Summary", "My Tasks", "Archive", "Logout"]
+    # Regular users only see Tasks by Project, My Tasks, Archive, and Logout
+    pages_list = ["Tasks by Project", "Executive Summary", "My Tasks", "Archive", "Logout"]
 
 nav_container = st.container()
 
@@ -1163,7 +1163,7 @@ content_container = st.container()
 
 with content_container:
     functions = {
-        "Overview": pg.show_dashboard,
+        "Tasks by Project": pg.show_dashboard,
         "Executive Summary": pg.render_executive_summary_page,
         "My Tasks": pg.show_tasks,
         "All Tasks": pg.show_analytics,

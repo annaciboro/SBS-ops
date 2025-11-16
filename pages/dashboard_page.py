@@ -698,130 +698,25 @@ def render_charts_section(kpis, filtered_df, show_project_chart=True):
         filtered_df: Filtered dataframe for charts
         show_project_chart: If False, only show Task Completion Status (for regular users)
     """
-    # Single row - one or two columns depending on user type
-    if show_project_chart:
-        chart_col1, chart_col2 = st.columns([1, 1])
-    else:
-        # For regular users, just show one centered chart
-        chart_col1 = st.container()
-
-    with chart_col1:
-        # Use Streamlit container to keep everything together
-        container1 = st.container()
-        with container1:
-            st.markdown("""
-                <link href="https://fonts.googleapis.com/css2?family=Marcellus&family=Questrial&display=swap" rel="stylesheet">
-                <style>
-                /* Target this specific column */
-                div[data-testid="column"]:nth-child(1) div[data-testid="stVerticalBlock"] {
-                    background: linear-gradient(135deg, #FFFDFD 0%, #F4F4F4 100%) !important;
-                    border-radius: 16px !important;
-                    padding: 32px !important;
-                    border: 2px solid #E5E4E2 !important;
-                    box-shadow: 0 6px 20px rgba(43, 43, 43, 0.05), 0 2px 6px rgba(43, 43, 43, 0.03) !important;
-                    transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1) !important;
-                }
-                div[data-testid="column"]:nth-child(1) div[data-testid="stVerticalBlock"]:hover {
-                    transform: translateY(-6px) !important;
-                    box-shadow: 0 12px 32px rgba(43, 43, 43, 0.08), 0 4px 12px rgba(43, 43, 43, 0.06) !important;
-                    border-color: #918C86 !important;
-                }
-                </style>
-                <h3 style="text-align: left; margin: 0 0 24px 0; color: #2B2B2B; font-weight: 400; font-size: 1.15rem; font-family: 'Questrial', sans-serif; letter-spacing: 0.05em; text-transform: uppercase;">Task Completion Status</h3>
-            """, unsafe_allow_html=True)
-
-            # Create vertical bar chart for task completion
-            import plotly.graph_objects as go
-
-            statuses = ['Open', 'In Progress', 'Complete', 'Archived']
-            counts = [kpis["open_tasks"], kpis["working_tasks"], kpis["done_tasks"], kpis.get("archived_tasks", 0)]
-            colors = ['#E5E4E2', '#D3D3D3', '#918C86', '#474747']
-
-            # Calculate percentages
-            total = sum(counts)
-            percentages = [(count / total * 100) if total > 0 else 0 for count in counts]
-
-            # Create text labels with both count and percentage
-            text_labels = [f'{count}<br>({pct:.0f}%)' for count, pct in zip(counts, percentages)]
-
-            fig = go.Figure(data=[
-                go.Bar(
-                    x=statuses,
-                    y=counts,
-                    marker=dict(
-                        color=colors,
-                        line=dict(color='#ffffff', width=2)
-                    ),
-                    text=text_labels,
-                    textposition='outside',
-                    textfont=dict(size=14, color='#2B2B2B', family='-apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif', weight='bold'),
-                    hovertemplate='<b>%{x}</b><br>Count: %{y} (%{customdata:.0f}%)<extra></extra>',
-                    customdata=percentages
-                )
-            ])
-
-            fig.update_layout(
-                showlegend=False,
-                height=380,
-                margin=dict(l=20, r=20, t=50, b=60),
-                plot_bgcolor='rgba(0,0,0,0)',
-                paper_bgcolor='rgba(0,0,0,0)',
-                xaxis=dict(
-                    showgrid=False,
-                    title=None,
-                    tickfont=dict(size=13, color='#2B2B2B', family='-apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif')
-                ),
-                yaxis=dict(
-                    showgrid=True,
-                    gridcolor='#f3f4f6',
-                    title=None,
-                    tickfont=dict(size=12, color='#2B2B2B', family='-apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif'),
-                    range=[0, max(counts) * 1.2]  # Add 20% padding to prevent cutoff
-                )
-            )
-
-            st.plotly_chart(fig, use_container_width=True)
-
     # Only show "Tasks by Project" chart for Tea and Jess
     if show_project_chart:
-        with chart_col2:
-            # Use Streamlit container to keep everything together
-            container2 = st.container()
-            with container2:
-                st.markdown("""
-                    <link href="https://fonts.googleapis.com/css2?family=Marcellus&family=Questrial&display=swap" rel="stylesheet">
-                    <style>
-                    /* Target this specific column */
-                    div[data-testid="column"]:nth-child(2) div[data-testid="stVerticalBlock"] {
-                        background: linear-gradient(135deg, #FFFDFD 0%, #F4F4F4 100%) !important;
-                        border-radius: 16px !important;
-                        padding: 32px !important;
-                        border: 2px solid #E5E4E2 !important;
-                        box-shadow: 0 6px 20px rgba(43, 43, 43, 0.05), 0 2px 6px rgba(43, 43, 43, 0.03) !important;
-                        transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1) !important;
-                    }
-                    div[data-testid="column"]:nth-child(2) div[data-testid="stVerticalBlock"]:hover {
-                        transform: translateY(-6px) !important;
-                        box-shadow: 0 12px 32px rgba(43, 43, 43, 0.08), 0 4px 12px rgba(43, 43, 43, 0.06) !important;
-                        border-color: #918C86 !important;
-                    }
-                    </style>
-                    <h3 style="text-align: left; margin: 0 0 24px 0; color: #2B2B2B; font-weight: 400; font-size: 1.15rem; font-family: 'Questrial', sans-serif; letter-spacing: 0.05em; text-transform: uppercase;">Tasks by Project</h3>
-                """, unsafe_allow_html=True)
+        st.markdown("""
+            <h3 style="text-align: left; margin: 32px 0 24px 0; color: #2B2B2B; font-weight: 400; font-size: 1.15rem; font-family: 'Questrial', sans-serif; letter-spacing: 0.05em; text-transform: uppercase;">Tasks by Project</h3>
+        """, unsafe_allow_html=True)
 
-                project_fig = create_project_breakdown_chart(filtered_df)
-                if project_fig:
-                    st.plotly_chart(project_fig, use_container_width=True, config={
-                        'displayModeBar': True,
-                        'modeBarButtonsToAdd': ['toImage'],
-                        'toImageButtonOptions': {
-                            'format': 'png',
-                            'filename': 'project_breakdown_chart',
-                            'height': 500,
-                            'width': 700,
-                            'scale': 2
-                        }
-                    })
+        project_fig = create_project_breakdown_chart(filtered_df)
+        if project_fig:
+            st.plotly_chart(project_fig, use_container_width=True, config={
+                'displayModeBar': True,
+                'modeBarButtonsToAdd': ['toImage'],
+                'toImageButtonOptions': {
+                    'format': 'png',
+                    'filename': 'project_breakdown_chart',
+                    'height': 500,
+                    'width': 700,
+                    'scale': 2
+                }
+            })
 
 def render_tasks_table(filtered_df, limit=10, hide_project_column=False, show_transcript_checked=False):
     """
