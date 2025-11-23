@@ -35,10 +35,19 @@ if st.session_state.get('_logout_requested', False):
 # ============================================
 # AUTHENTICATION
 # ============================================
-# Load credentials from config.yaml
+# Load credentials from config.yaml (local) or secrets (Streamlit Cloud)
 config_path = os.path.join(os.path.dirname(os.path.abspath(__file__)), "config.yaml")
-with open(config_path) as file:
-    config = yaml.load(file, Loader=SafeLoader)
+if os.path.exists(config_path):
+    # Local development
+    with open(config_path) as file:
+        config = yaml.load(file, Loader=SafeLoader)
+else:
+    # Streamlit Cloud deployment - load from secrets
+    if hasattr(st, 'secrets') and 'auth' in st.secrets:
+        config = yaml.safe_load(st.secrets["auth"]["credentials"])
+    else:
+        st.error("Authentication configuration not found. Please configure secrets in Streamlit Cloud.")
+        st.stop()
 
 # Initialize authenticator
 authenticator = stauth.Authenticate(
