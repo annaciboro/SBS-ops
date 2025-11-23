@@ -1,5 +1,5 @@
 # === CORE FRAMEWORK ===
-streamlit==1.32.0               # Stable with streamlit-authenticator 0.4.x
+streamlit==1.40.2               # Latest stable version compatible with authenticator 0.4.2
 streamlit-authenticator==0.4.2  # Correct version for login('Login', 'main')
 
 # === DATA & AUTOMATION ===
