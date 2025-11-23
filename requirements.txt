@@ -3,8 +3,8 @@ streamlit==1.32.0               # Stable with streamlit-authenticator 0.4.x
 streamlit-authenticator==0.4.2  # Correct version for login('Login', 'main')
 
 # === DATA & AUTOMATION ===
-pandas==2.2.2
-numpy==1.26.4
+pandas==2.0.3
+numpy==1.24.3
 plotly==5.23.0
 gspread==6.1.2
 
