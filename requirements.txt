@@ -1,6 +1,7 @@
 # === CORE FRAMEWORK ===
 streamlit==1.40.2               # Latest stable version compatible with authenticator 0.4.2
 streamlit-authenticator==0.4.2  # Correct version for login('Login', 'main')
+streamlit-aggrid==1.0.5         # Interactive data grids
 
 # === DATA & AUTOMATION ===
 pandas>=2.0.0,<2.3.0
